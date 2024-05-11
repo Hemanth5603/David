@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "182864842471",
+    "project_id": "sus-hacks",
+    "storage_bucket": "sus-hacks.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:182864842471:android:839fdb9d746e36e6e99c42",
+        "android_client_info": {
+          "package_name": "com.example.prototype"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBE_fsC5lG3in2QQTyseuVRvGNOGPrrtf4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
