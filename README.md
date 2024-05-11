@@ -1,16 +1,9 @@
-# prototype
+David is a classroom assistant, which will help you take attendance by just taking a 3 sec wavy video over the class. David also has abilities to transcript lectures and extract summary of the lecture.
 
-A new Flutter project.
 
-## Getting Started
+Here is how David looks in his initial release..
+![david](https://github.com/Hemanth5603/David/assets/108444612/33139d34-778d-411b-9486-c538b5f73081)
 
-This project is a starting point for a Flutter application.
 
-A few resources to get you started if this is your first Flutter project:
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
