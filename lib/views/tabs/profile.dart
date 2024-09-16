@@ -29,27 +29,31 @@ class _ProfileState extends State<Profile> {
     double w = MediaQuery.of(context).size.width;
 
     return Scaffold(
-      bottomNavigationBar:  GestureDetector(
-                      onTap: () async{
-                        SharedPreferences prefs = await SharedPreferences.getInstance();
-                        prefs.setString("url",userController.url.text.toString());
-                      },
-                      child: Container(
-                        width: w,
-                        height: h * 0.06,
-                        
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10),
-                          color: Colors.black
-                        ),
-                        child: Center(
-                          child: Text("Save",style: TextStyle(fontFamily: 'man-r',fontSize: 18,color: Colors.white
-                          ),),
+      backgroundColor: Color.fromARGB(255,35,37,49),
+      bottomNavigationBar:  Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: GestureDetector(
+                        onTap: () async{
+                          SharedPreferences prefs = await SharedPreferences.getInstance();
+                          prefs.setString("url",userController.url.text.toString());
+                        },
+                        child: Container(
+                          width: w,
+                          height: h * 0.06,
+                          
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10),
+                            color: Colors.black
+                          ),
+                          child: Center(
+                            child: Text("Save",style: TextStyle(fontFamily: 'man-r',fontSize: 18,color: Colors.white
+                            ),),
+                          ),
                         ),
                       ),
-                    ),
+      ),
 
-      appBar: AppBar(title: Text("Profile")),
+      appBar: AppBar(backgroundColor: Color.fromARGB(255,35,37,49),title: Text("Profile", style: TextStyle(fontFamily: 'man-r', color: Colors.white),)),
       body: SafeArea(
         child: SingleChildScrollView(
           child: Padding(
@@ -74,9 +78,9 @@ class _ProfileState extends State<Profile> {
                           ),
                         ),
                         SizedBox(height: 20,),
-                        Text("Hemanth Srinivas",style: TextStyle(fontFamily: 'man-r',fontSize: 18,fontWeight: FontWeight.bold),),
+                        Text("Hemanth Srinivas",style: TextStyle(fontFamily: 'man-r',fontSize: 18,fontWeight: FontWeight.bold, color: Colors.white),),
                         SizedBox(height: 10,),
-                        Text("shemanth2003.vskp@gmail.com",style: TextStyle(fontFamily: 'man-r',fontSize: 16,),),
+                        Text("shemanth2003.vskp@gmail.com",style: TextStyle(fontFamily: 'man-r',fontSize: 16,color: Colors.white),),
                         SizedBox(height: h * 0.2,),
                         
           
@@ -100,7 +104,7 @@ class _ProfileState extends State<Profile> {
                                   controller : userController.url,
                                   keyboardType: TextInputType.emailAddress,
                                   textAlignVertical: TextAlignVertical.bottom,
-                                  style: const TextStyle(fontFamily: 'man-r'),
+                                  style: const TextStyle(fontFamily: 'man-r',color: Colors.white),
                                   decoration: InputDecoration(
                                     hintText: "URL",
                                     hintStyle: TextStyle(color: Color.fromARGB(255, 106, 106, 106)),

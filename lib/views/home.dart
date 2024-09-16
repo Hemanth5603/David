@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:prototype/views/tabs/home_page.dart';
+import 'package:prototype/views/tabs/homepage1.dart';
 import 'package:prototype/views/tabs/profile.dart';
 
 
@@ -30,7 +31,7 @@ static List<BottomNavigationBarItem> tabs = const [
       int selectedIndex = 0;
 
 List<Widget> pages = [
-  HomeScreen(),
+  HomePage1(),
   Profile(),
   
 ];
@@ -44,8 +45,8 @@ List<Widget> pages = [
     return Scaffold(
       bottomNavigationBar: BottomNavigationBar(
           type: BottomNavigationBarType.fixed,
-          backgroundColor: Colors.white,
-          selectedItemColor: Color.fromARGB(255, 74, 159, 255),
+          backgroundColor: Color.fromARGB(255,35,37,49),
+          selectedItemColor: Color.fromARGB(255, 174, 186, 255),
           unselectedItemColor: Color.fromARGB(255, 220, 220, 220),
           elevation: 10,
           currentIndex: selectedIndex,

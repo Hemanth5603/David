@@ -50,6 +50,9 @@ dependencies:
   speech_to_text: ^6.6.1
   open_file: ^3.3.2
   pdf: ^3.10.8
+  permission_handler: ^11.3.1
+  url_launcher: ^6.3.0
+  text_gradiate: ^1.0.1
 
 dev_dependencies:
   flutter_test:

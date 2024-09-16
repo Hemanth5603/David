@@ -2,10 +2,10 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:get/get.dart';
+import 'package:get/get.dart';  
 import 'package:get/get_core/src/get_main.dart';
 import 'package:prototype/controllers/attendance_controller.dart';
-import 'package:prototype/views/response_page.dart';
+import 'package:prototype/views/attendance/response_page.dart';
 import 'package:video_player/video_player.dart';
 
 class VideoPage extends StatefulWidget {
@@ -43,9 +43,9 @@ Widget build(BuildContext context) {
   double h = MediaQuery.of(context).size.height;
   return Scaffold(
     bottomNavigationBar: GestureDetector(
-      onTap: (){
-        attendanceController.takeAttendance();
-        Get.to(ResponsePage(),transition: Transition.rightToLeft, duration: 200.milliseconds);
+      onTap: () async{
+        await attendanceController.takeAttendance();
+        Get.to(const ResponsePage(),transition: Transition.rightToLeft, duration: 200.milliseconds);
       },
       child: Container(
         width: w,
@@ -73,7 +73,7 @@ Widget build(BuildContext context) {
       ],
     ),
     extendBodyBehindAppBar: true,
-    body: FutureBuilder(
+    body:Obx(() => attendanceController.isLoading.value ? const Center(child: CircularProgressIndicator(),) : FutureBuilder(
       future: _initVideoPlayer(),
       builder: (context, state) {
         if (state.connectionState == ConnectionState.waiting) {
@@ -83,7 +83,7 @@ Widget build(BuildContext context) {
         }
       },
     ),
-  );
+  ));
 
 }
 }

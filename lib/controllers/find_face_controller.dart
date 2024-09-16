@@ -1,33 +1,27 @@
-import 'dart:io';
+import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
-import 'package:http/http.dart' as http;
-import 'package:prototype/constants.dart';
+import 'package:get/get_state_manager/src/simple/get_controllers.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:http/http.dart' as http;
 
-class RegisterFaceController extends GetxController{
 
-  TextEditingController name = TextEditingController();
-  TextEditingController roll = TextEditingController();
+class FindFaceController extends GetxController{
+
   String filePath = "";
-  var isLoading = false.obs;
+   var isLoading = false.obs;
 
-
-  Future<void> registerFace() async{
+  Future<void> findFace() async{
     SharedPreferences prefs = await SharedPreferences.getInstance();
     isLoading(true);
     print("Register face called --------------------------------");
     try{
-      String url = "${prefs.getString("url")}/register-face/";
+      String url = "${prefs.getString("url")}/david/findface";
+      print(url);
       var request = http.MultipartRequest('POST', Uri.parse(url));
-      //request.fields['Name'] = name.text.toString();
-      print(name.text);
-      print(roll.text);
-      print(filePath);
-      request.files.add(await http.MultipartFile.fromPath('face',filePath));
-      request.fields['roll'] = roll.text.toString().toUpperCase();
+      request.files.add(await http.MultipartFile.fromPath('image',filePath));
       //request.files.add(await http.MultipartFile.fromBytes('Image', File(filePath).readAsBytesSync(),filename: filePath));
       var res = await request.send();
 
@@ -36,7 +30,7 @@ class RegisterFaceController extends GetxController{
         Fluttertoast.showToast(
           msg: "Upload Succesfully",
           gravity: ToastGravity.BOTTOM,
-          backgroundColor: Color.fromARGB(255, 62, 255, 56)
+          backgroundColor: const Color.fromARGB(255, 62, 255, 56)
         );  
       }else{
         print("Could not upload Succesfully");
@@ -53,5 +47,5 @@ class RegisterFaceController extends GetxController{
     }   
     isLoading(false); 
   }
-
+  
 }

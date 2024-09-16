@@ -7,6 +7,7 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:http/http.dart';
 import 'package:prototype/controllers/attendance_controller.dart';
+import 'package:prototype/views/attendance/revise_attendance_page.dart';
 import 'package:simple_circular_progress_bar/simple_circular_progress_bar.dart';
 
 class ResponsePage extends StatefulWidget {
@@ -23,8 +24,25 @@ class _ResponsePageState extends State<ResponsePage> {
     double w = MediaQuery.of(context).size.width;
     double h = MediaQuery.of(context).size.height;
     return Scaffold(
+      bottomNavigationBar: GestureDetector(
+        onTap: () => Get.to(ReviseAttendancePage()),
+        child: Container(
+          margin: EdgeInsets.all(10),
+          width: MediaQuery.of(context).size.width,
+          height: 60,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(10),
+            color: Color.fromARGB(53, 255, 255, 255),
+          ),
+          child: Center(
+            child: Text("Revise Attendance", style: TextStyle(fontFamily: 'man-r',fontSize: 16, color: Colors.white),),
+          ),
+        ),
+      ),
+      backgroundColor: Color.fromARGB(255,35,37,49),
       appBar: AppBar(
-        title: Text("Attendance"),
+        backgroundColor: Color.fromARGB(255,35,37,49),
+        title: Text("Attendance", style: TextStyle(fontFamily: 'man-r', color: Colors.white),),
       ),
       body: SafeArea(
         child: Obx(() => attendanceController.isLoading.value ? Center(
@@ -33,7 +51,7 @@ class _ResponsePageState extends State<ResponsePage> {
             children: [
               CircularProgressIndicator(),
               SizedBox(height: 5,),
-              Text("Alalysing Faces ...", style: TextStyle(fontFamily: 'man-r', fontSize: 12,color: Colors.black),)
+              Text("Alalyzing Faces ...", style: TextStyle(fontFamily: 'man-r', fontSize: 12,color: Colors.black),)
             ],
           ),
         ) : Padding(
@@ -44,10 +62,10 @@ class _ResponsePageState extends State<ResponsePage> {
                 width: w,
                 height: h * 0.15,
                 padding: EdgeInsets.symmetric(horizontal:15,vertical: 10),
-                margin: EdgeInsets.all(10),
+                margin: EdgeInsets.all(5),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(15),
-                  color: Colors.blue
+                  color: Color.fromARGB(255, 201, 159,255)
                 ),
                 child: Row(
                   children: [
@@ -57,28 +75,28 @@ class _ResponsePageState extends State<ResponsePage> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text("Presentes",style: TextStyle(fontFamily: 'man-sb',fontSize: 25,color: Colors.white),),
-                          Text("28th April, 2024",style: TextStyle(fontFamily: 'man-l',fontSize: 14,color: Colors.white),),
+                          Text("Presentes",style: TextStyle(fontFamily: 'man-sb',fontSize: 25,color: Colors.black),),
+                          Text("9th August, 2024",style: TextStyle(fontFamily: 'man-l',fontSize: 14,color: Colors.black),),
                           SizedBox(height: 30,),
-                          Text("Presents/Absents : ${attendanceController.rollModel?.presents.length}'/'${attendanceController.rollModel?.absents.length}",style: TextStyle(fontSize:11 ,fontFamily: 'man-r',color: Colors.white,fontWeight: FontWeight.bold),)
+                          Text("Presents/Absents : ${attendanceController.attendanceResponseModel?.presents.length ?? "0"}'/'${attendanceController.attendanceResponseModel?.absents.length?? "0"}",style: TextStyle(fontSize:11 ,fontFamily: 'man-r',color: Colors.black,fontWeight: FontWeight.bold),)
                         ],
                       ),
                     ),
                     
-                    Container(
-                      width: w * 0.4,
-                      height: h,
+                    // Container(
+                    //   width: w * 0.4,
+                    //   height: h,
 
-                      alignment: Alignment.centerRight,
-                      child: SimpleCircularProgressBar(
-                        size: 60,
-                        progressStrokeWidth: 12,
-                        backColor: Colors.white,
-                        backStrokeWidth: 12,
-                        maxValue: 40,
-                        progressColors: [Color.fromARGB(255, 72, 100, 255)],
-                      ),
-                    )
+                    //   alignment: Alignment.centerRight,
+                    //   child: SimpleCircularProgressBar(
+                    //     size: 60,
+                    //     progressStrokeWidth: 12,
+                    //     backColor: Colors.white,
+                    //     backStrokeWidth: 12,
+                    //     maxValue: 40,
+                    //     progressColors: [Color.fromARGB(255, 72, 100, 255)],
+                    //   ),
+                    // )
                   ],
                 ),
               ),
@@ -101,7 +119,7 @@ class _ResponsePageState extends State<ResponsePage> {
                         
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(10),
-                          color:check == true ? Color.fromARGB(255, 123, 193, 255) :const Color.fromARGB(255, 225, 241, 255)
+                          color:check == true ? Color.fromARGB(255, 148, 218, 251) :const Color.fromARGB(255, 225, 241, 255)
                         ),
                         child: Center(
                           child: Text("Presents",style: TextStyle(fontFamily: 'man-r',fontSize: 18),),
@@ -130,33 +148,43 @@ class _ResponsePageState extends State<ResponsePage> {
                     )
                   ],
                 ),
-              ),
-              SizedBox(height: 10,),
-              check == true ? Container(
-                width: w,
-                height: h * 0.5,
-                child:attendanceController.rollModel!.presents.isEmpty ? Container(): ListView.builder(
-                  itemCount: attendanceController.rollModel?.presents.length,
-                  itemBuilder: (context,index){
-                    return RollNumberCard(w, h, 
-                      attendanceController.rollModel!.presents[index].roll.toString(),
-                      attendanceController.rollModel!.presents[index].name.toString(), true,
-                    );
-                  }
                 ),
-              ) : Container(
-                width: w,
-                height: h * 0.5,
-                child: ListView.builder(
-                  itemCount: attendanceController.rollModel?.presents.length,
-                  itemBuilder: (context,index){
-                    return RollNumberCard(w, h, 
-                      attendanceController.rollModel!.absents[index].roll.toString(),
-                      attendanceController.rollModel!.absents[index].name.toString(), false,
-                    );
-                  }
-                ),
-              )
+                SizedBox(height: 10,),
+              check == true 
+? Container(
+    width: w,
+    height: h * 0.5,
+    child: (attendanceController.attendanceResponseModel?.presents.isEmpty ?? true)
+        ? Container(child: Center(child: Text("No Students Detected",style: TextStyle(fontFamily: 'man-r',fontSize: 14, color: Colors.white),)))
+        : ListView.builder(
+            itemCount: attendanceController.attendanceResponseModel?.presents.length ?? 0,
+            itemBuilder: (context, index) {
+              return RollNumberCard(
+                w,
+                h,
+                attendanceController.attendanceResponseModel!.presents[index].toString(),
+                attendanceController.attendanceResponseModel!.presents[index].toString(),
+                true,
+              );
+            },
+          ),
+  )
+: Container(
+    width: w,
+    height: h * 0.5,
+    child: ListView.builder(
+      itemCount: attendanceController.attendanceResponseModel?.absents.length ?? 0,
+      itemBuilder: (context, index) {
+        return RollNumberCard(
+          w,
+          h,
+          attendanceController.attendanceResponseModel!.absents[index].toString(),
+          attendanceController.attendanceResponseModel!.absents[index].toString(),
+          false,
+        );
+      },
+    ),
+  )
               
             ],
           ),

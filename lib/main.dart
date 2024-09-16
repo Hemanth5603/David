@@ -4,9 +4,11 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:prototype/firebase_options.dart';
 import 'package:prototype/views/auth/signup.dart';
+import 'package:prototype/views/find_face_student_details.dart';
 import 'package:prototype/views/home.dart';
-import 'package:prototype/views/response_page.dart';
+import 'package:prototype/views/attendance/response_page.dart';
 import 'package:prototype/views/tabs/home_page.dart';
+import 'package:prototype/views/tabs/homepage1.dart';
 
 
 void main() async{
@@ -14,7 +16,7 @@ void main() async{
   WidgetsFlutterBinding.ensureInitialized();
   SystemChrome.setSystemUIOverlayStyle(
     SystemUiOverlayStyle(
-      statusBarColor: Colors.transparent
+      statusBarColor:Color.fromARGB(0, 35, 37, 49),
     )
   );
   await Firebase.initializeApp(
@@ -30,7 +32,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return const GetMaterialApp(
       debugShowCheckedModeBanner: false,
-      home: SignUp(),
+      home: HomePage1(),
     );
   }
 }
