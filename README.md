@@ -5,7 +5,7 @@ Here is how David looks in his initial release..
 
 ![Group 10228](https://github.com/user-attachments/assets/b7a3d233-0b03-44d1-84dc-8d8c72f43a9c)
 
-Below is the Demo of the application, here the working of the video face attendance has feature has been showcased
+Below is the Demo of the application, here the working of the video face attendance feature is showcased, also it shows how we can fetch a student's record just by capturing his/her face.
 
 
 https://github.com/user-attachments/assets/bcd09276-fb2e-4b6d-a5e2-41db5c4b57a9
