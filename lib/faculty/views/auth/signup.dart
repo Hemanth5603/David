@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
-import 'package:prototype/controllers/user_controller.dart';
-import 'package:prototype/views/auth/login.dart';
+import 'package:prototype/faculty/controllers/user_controller.dart';
+import 'package:prototype/faculty/views/auth/login.dart';
 
 
 class SignUp extends StatefulWidget {

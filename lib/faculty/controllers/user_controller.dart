@@ -7,9 +7,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
-import 'package:prototype/views/auth/signup.dart';
-import 'package:prototype/views/home.dart';
-import 'package:prototype/views/tabs/home_page.dart';
+import 'package:prototype/faculty/views/auth/signup.dart';
+import 'package:prototype/faculty/views/home.dart';
+import 'package:prototype/faculty/views/tabs/home_page.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 

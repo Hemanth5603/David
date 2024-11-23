@@ -3,13 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:prototype/firebase_options.dart';
-import 'package:prototype/views/attendance/revise_attendance_page.dart';
-import 'package:prototype/views/auth/signup.dart';
-import 'package:prototype/views/find_face_student_details.dart';
-import 'package:prototype/views/home.dart';
-import 'package:prototype/views/attendance/response_page.dart';
-import 'package:prototype/views/tabs/home_page.dart';
-import 'package:prototype/views/tabs/homepage1.dart';
+import 'package:prototype/faculty/views/attendance/revise_attendance_page.dart';
+import 'package:prototype/faculty/views/auth/signup.dart';
+import 'package:prototype/faculty/views/find_face_student_details.dart';
+import 'package:prototype/faculty/views/home.dart';
+import 'package:prototype/faculty/views/attendance/response_page.dart';
+import 'package:prototype/faculty/views/tabs/home_page.dart';
+import 'package:prototype/faculty/views/tabs/homepage1.dart';
 
 
 void main() async{

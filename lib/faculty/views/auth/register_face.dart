@@ -3,8 +3,8 @@ import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
-import 'package:prototype/controllers/register_face_controller.dart';
-import 'package:prototype/views/utils/image_viewer.dart';
+import 'package:prototype/faculty/controllers/register_face_controller.dart';
+import 'package:prototype/faculty/views/utils/image_viewer.dart';
 
 class RegisterFace extends StatefulWidget {
   @override

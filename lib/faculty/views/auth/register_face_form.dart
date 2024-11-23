@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
-import 'package:prototype/controllers/register_face_controller.dart';
-import 'package:prototype/views/register_face.dart';
+import 'package:prototype/faculty/controllers/register_face_controller.dart';
+import 'package:prototype/faculty/views/auth/register_face.dart';
 
 class RegisterFaceForm extends StatefulWidget {
   const RegisterFaceForm({super.key});

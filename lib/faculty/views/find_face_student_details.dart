@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
-import 'package:prototype/controllers/attendance_controller.dart';
+import 'package:prototype/faculty/controllers/attendance_controller.dart';
 
 class FindFaceStudentDetails extends StatefulWidget {
   const FindFaceStudentDetails({super.key});
@@ -95,6 +95,7 @@ class _FindFaceStudentDetailsState extends State<FindFaceStudentDetails> {
                 ),
               ),
 
+              
 
 
               Container(

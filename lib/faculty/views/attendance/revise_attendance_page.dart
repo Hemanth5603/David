@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_connect/http/src/request/request.dart';
 import 'package:get/get_core/src/get_main.dart';
-import 'package:prototype/controllers/attendance_controller.dart';
-import 'package:prototype/views/attendance/submit_bottomsheet.dart';
-import 'package:prototype/views/tabs/homepage1.dart';
+import 'package:prototype/faculty/controllers/attendance_controller.dart';
+import 'package:prototype/faculty/views/attendance/submit_bottomsheet.dart';
+import 'package:prototype/faculty/views/tabs/homepage1.dart';
 
 class ReviseAttendancePage extends StatefulWidget {
   const ReviseAttendancePage({super.key});

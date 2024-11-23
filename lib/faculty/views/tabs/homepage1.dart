@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
-import 'package:prototype/controllers/camera_controller.dart';
-import 'package:prototype/views/image_capture.dart';
-import 'package:prototype/views/register_face.dart';
-import 'package:prototype/views/register_face_form.dart';
-import 'package:prototype/views/speech.dart';
-import 'package:prototype/views/tabs/profile.dart';
-import 'package:prototype/views/attendance/video_record_page.dart';
+import 'package:prototype/faculty/controllers/camera_controller.dart';
+import 'package:prototype/faculty/views/image_capture.dart';
+import 'package:prototype/faculty/views/auth/register_face.dart';
+import 'package:prototype/faculty/views/auth/register_face_form.dart';
+import 'package:prototype/faculty/views/speech.dart';
+import 'package:prototype/faculty/views/tabs/profile.dart';
+import 'package:prototype/faculty/views/attendance/video_record_page.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class HomePage1 extends StatefulWidget {

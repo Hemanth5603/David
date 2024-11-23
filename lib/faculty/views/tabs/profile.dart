@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
-import 'package:prototype/controllers/user_controller.dart';
+import 'package:prototype/faculty/controllers/user_controller.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class Profile extends StatefulWidget {

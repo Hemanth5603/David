@@ -7,8 +7,8 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:prototype/constants.dart';
-import 'package:prototype/models/roll_no.dart';
-import 'package:prototype/models/student_model.dart';
+import 'package:prototype/faculty/models/roll_no.dart';
+import 'package:prototype/faculty/models/student_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class AttendanceController extends GetxController{

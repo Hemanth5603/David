@@ -7,12 +7,12 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
-import 'package:prototype/views/register_face.dart';
-import 'package:prototype/views/register_face_form.dart';
-import 'package:prototype/views/attendance/response_page.dart'; 
-import 'package:prototype/views/speech.dart';
-import 'package:prototype/views/tabs/profile.dart';
-import 'package:prototype/views/attendance/video_record_page.dart';
+import 'package:prototype/faculty/views/auth/register_face.dart';
+import 'package:prototype/faculty/views/auth/register_face_form.dart';
+import 'package:prototype/faculty/views/attendance/response_page.dart'; 
+import 'package:prototype/faculty/views/speech.dart';
+import 'package:prototype/faculty/views/tabs/profile.dart';
+import 'package:prototype/faculty/views/attendance/video_record_page.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});

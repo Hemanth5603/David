@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:get/get.dart';  
 import 'package:get/get_core/src/get_main.dart';
-import 'package:prototype/controllers/attendance_controller.dart';
-import 'package:prototype/views/attendance/response_page.dart';
+import 'package:prototype/faculty/controllers/attendance_controller.dart';
+import 'package:prototype/faculty/views/attendance/response_page.dart';
 import 'package:video_player/video_player.dart';
 
 class VideoPage extends StatefulWidget {

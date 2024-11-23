@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:prototype/views/tabs/homepage1.dart';
+import 'package:prototype/faculty/views/tabs/homepage1.dart';
 
 class bottomSheetContent extends StatelessWidget {
   @override

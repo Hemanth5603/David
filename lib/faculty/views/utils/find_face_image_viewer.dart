@@ -3,9 +3,9 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
-import 'package:prototype/views/find_face_student_details.dart';
-import 'package:prototype/views/register_face_form.dart';
-import 'package:prototype/views/attendance/response_page.dart';
+import 'package:prototype/faculty/views/find_face_student_details.dart';
+import 'package:prototype/faculty/views/auth/register_face_form.dart';
+import 'package:prototype/faculty/views/attendance/response_page.dart';
 
 class FindFaceImageViewer extends StatefulWidget {
   String path;

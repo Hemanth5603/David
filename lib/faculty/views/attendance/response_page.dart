@@ -6,8 +6,8 @@ import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:http/http.dart';
-import 'package:prototype/controllers/attendance_controller.dart';
-import 'package:prototype/views/attendance/revise_attendance_page.dart';
+import 'package:prototype/faculty/controllers/attendance_controller.dart';
+import 'package:prototype/faculty/views/attendance/revise_attendance_page.dart';
 import 'package:simple_circular_progress_bar/simple_circular_progress_bar.dart';
 
 class ResponsePage extends StatefulWidget {

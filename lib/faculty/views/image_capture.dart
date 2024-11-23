@@ -4,10 +4,10 @@ import 'package:get/get.dart';
 
 import 'package:camera/camera.dart';
 import 'package:path/path.dart';
-import 'package:prototype/controllers/attendance_controller.dart';
-import 'package:prototype/controllers/camera_controller.dart';
-import 'package:prototype/views/attendance/response_page.dart';
-import 'package:prototype/views/utils/find_face_image_viewer.dart';
+import 'package:prototype/faculty/controllers/attendance_controller.dart';
+import 'package:prototype/faculty/controllers/camera_controller.dart';
+import 'package:prototype/faculty/views/attendance/response_page.dart';
+import 'package:prototype/faculty/views/utils/find_face_image_viewer.dart';
 
 class ImageCapture extends StatefulWidget {
   @override

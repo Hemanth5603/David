@@ -2,7 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'package:prototype/controllers/user_controller.dart';
+import 'package:prototype/faculty/controllers/user_controller.dart';
 
 
 class Login extends StatefulWidget {

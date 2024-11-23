@@ -1,8 +1,8 @@
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:prototype/controllers/attendance_controller.dart';
-import 'package:prototype/views/attendance/video_page.dart';
+import 'package:prototype/faculty/controllers/attendance_controller.dart';
+import 'package:prototype/faculty/views/attendance/video_page.dart';
 
 class VideoRecordPage extends StatefulWidget {
   @override

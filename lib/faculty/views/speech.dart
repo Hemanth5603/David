@@ -1,7 +1,7 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:prototype/controllers/user_controller.dart';
+import 'package:prototype/faculty/controllers/user_controller.dart';
 import 'package:speech_to_text/speech_to_text.dart';
 import 'package:speech_to_text/speech_to_text.dart';
 import 'package:speech_to_text/speech_recognition_result.dart';
