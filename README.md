@@ -2,8 +2,11 @@ David is a classroom assistant, which will help you take attendance by just taki
 
 
 Here is how David looks in his initial release..
-![david](https://github.com/Hemanth5603/David/assets/108444612/33139d34-778d-411b-9486-c538b5f73081)
+
+![Group 10228](https://github.com/user-attachments/assets/b7a3d233-0b03-44d1-84dc-8d8c72f43a9c)
+
+Below is the Demo of the application, here the working of the video face attendance feature is showcased, also it shows how we can fetch a student's record just by capturing his/her face.
 
 
-
+https://github.com/user-attachments/assets/bcd09276-fb2e-4b6d-a5e2-41db5c4b57a9
 
