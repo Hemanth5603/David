@@ -19,42 +19,45 @@ class AttendanceController extends GetxController{
   AttendanceResponseModel? attendanceResponseModel;
   StudentModel? studentModel;
 
-  Future<void> takeAttendance() async{
+    Future<void> takeAttendance() async{
     isLoading(true);
-    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await Future.delayed(Duration(seconds: 5));
+    // SharedPreferences prefs = await SharedPreferences.getInstance();
    
-    String url = "${prefs.getString("url")}/upload-video/";
-    print("url -------------------------------------------------------- -- $url");
-    var request = http.MultipartRequest('POST', Uri.parse(url));
-    print(videoPath);
-    request.files.add(await http.MultipartFile.fromPath('video',videoPath));
+    // String url = "${prefs.getString("url")}/upload-video/";
+    // print("url -------------------------------------------------------- -- $url");
+    // var request = http.MultipartRequest('POST', Uri.parse(url));
+    // print(videoPath);
+    // request.files.add(await http.MultipartFile.fromPath('video',videoPath));
 
-    //request.files.add(http.MultipartFile.fromBytes('video', File(file.path).readAsBytesSync(),filename: file.path));
-    //http.StreamedResponse response = await request.send();
-    var streamedResponse = await request.send();
-    var response = await http.Response.fromStream(streamedResponse);
+    // //request.files.add(http.MultipartFile.fromBytes('video', File(file.path).readAsBytesSync(),filename: file.path));
+    // //http.StreamedResponse response = await request.send();
+    // var streamedResponse = await request.send();
+    // var response = await http.Response.fromStream(streamedResponse);
+    // print(response.body);
 
-    if(response.statusCode == 200){
-      print("Upload Succesfully");
-      var data = jsonDecode(response.body.toString());
-      attendanceResponseModel = AttendanceResponseModel.fromJson(data);
-      print("${data.toString()} ------------------------------------------------------------------------------------------------");
-      Fluttertoast.showToast(
-          msg: "Upload Succesfully",
-          gravity: ToastGravity.BOTTOM,
-          backgroundColor: const Color.fromARGB(255, 82, 244, 54)
-        );  
-    }else{
-      print("Could not upload Succesfully ${response.statusCode}");
-      Fluttertoast.showToast(
-          msg: "Could not upload Succesfully",
-          gravity: ToastGravity.BOTTOM,
-          backgroundColor: Colors.red
-        );
-    }
+    // if(response.statusCode == 200){
+    //   print("Upload Succesfully");
+    //   var data = jsonDecode(response.body.toString());
+    //   attendanceResponseModel = AttendanceResponseModel.fromJson(data);
+    //   print("${data.toString()} ------------------------------------------------------------------------------------------------");
+    //   Fluttertoast.showToast(
+    //       msg: "Upload Succesfully",
+    //       gravity: ToastGravity.BOTTOM,
+    //       backgroundColor: const Color.fromARGB(255, 82, 244, 54)
+    //     );  
+    // }else{
+    //   print("Could not upload Succesfully ${response.statusCode}");
+    //   Fluttertoast.showToast(
+    //       msg: "Could not upload Succesfully",
+    //       gravity: ToastGravity.BOTTOM,
+    //       backgroundColor: Colors.red
+    //     );
+    // }
     isLoading(false);
    
   }
+
 
 
   Future<StudentModel?> findFace(String path) async {

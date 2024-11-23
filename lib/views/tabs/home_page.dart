@@ -1,5 +1,4 @@
 import 'dart:ui';
-
 import 'package:camera/camera.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
@@ -10,7 +9,7 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:prototype/views/register_face.dart';
 import 'package:prototype/views/register_face_form.dart';
-import 'package:prototype/views/attendance/response_page.dart';
+import 'package:prototype/views/attendance/response_page.dart'; 
 import 'package:prototype/views/speech.dart';
 import 'package:prototype/views/tabs/profile.dart';
 import 'package:prototype/views/attendance/video_record_page.dart';

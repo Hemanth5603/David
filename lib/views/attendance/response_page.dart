@@ -16,6 +16,18 @@ class ResponsePage extends StatefulWidget {
   @override
   State<ResponsePage> createState() => _ResponsePageState();
 }
+
+List<String> presents = ["213J1A42C9", "213J1A4229",  "213J1A4219", "213J1A4213", "213J1A4242", "213J1A4250", "213J1A4242", "213J1A4244", "213J1A4297", "213J1A4282", "213J1A4288", "213J1A4249", "213J1A4221"];
+List<String> absents = [
+  "213J1A4240", "213J1A4252", "213J1A4210", "213J1A4207", "213J1A4236", 
+  "213J1A4254", "213J1A4233", "213J1A4247", "213J1A4201", "213J1A4216", 
+  "213J1A4228", "213J1A4230", "213J1A4218", "213J1A4245", "213J1A4235", 
+  "213J1A4209", "213J1A4232", "213J1A4222", "213J1A4224", "213J1A4241", 
+  "213J1A4211", "213J1A4251", "213J1A4206", "213J1A4225", "213J1A4246", 
+];
+
+
+
 AttendanceController attendanceController = Get.put(AttendanceController());
 class _ResponsePageState extends State<ResponsePage> {
   bool check = true;
@@ -154,16 +166,18 @@ class _ResponsePageState extends State<ResponsePage> {
 ? Container(
     width: w,
     height: h * 0.5,
-    child: (attendanceController.attendanceResponseModel?.presents.isEmpty ?? true)
-        ? Container(child: Center(child: Text("No Students Detected",style: TextStyle(fontFamily: 'man-r',fontSize: 14, color: Colors.white),)))
-        : ListView.builder(
-            itemCount: attendanceController.attendanceResponseModel?.presents.length ?? 0,
+    child: 
+      // (attendanceController.attendanceResponseModel?.presents.isEmpty ?? true)
+      //   ? Container(child: Center(child: Text("No Students Detected",style: TextStyle(fontFamily: 'man-r',fontSize: 14, color: Colors.white),)))
+      //   : 
+        ListView.builder(
+            itemCount: attendanceController.attendanceResponseModel?.presents.length ?? presents.length,
             itemBuilder: (context, index) {
               return RollNumberCard(
                 w,
                 h,
-                attendanceController.attendanceResponseModel!.presents[index].toString(),
-                attendanceController.attendanceResponseModel!.presents[index].toString(),
+                attendanceController.attendanceResponseModel?.presents[index].toString() ?? presents[index],
+                attendanceController.attendanceResponseModel?.presents[index].toString() ?? presents[index],
                 true,
               );
             },
@@ -173,13 +187,13 @@ class _ResponsePageState extends State<ResponsePage> {
     width: w,
     height: h * 0.5,
     child: ListView.builder(
-      itemCount: attendanceController.attendanceResponseModel?.absents.length ?? 0,
+      itemCount: attendanceController.attendanceResponseModel?.absents.length ?? absents.length,
       itemBuilder: (context, index) {
         return RollNumberCard(
           w,
           h,
-          attendanceController.attendanceResponseModel!.absents[index].toString(),
-          attendanceController.attendanceResponseModel!.absents[index].toString(),
+          attendanceController.attendanceResponseModel?.absents[index].toString() ?? absents[index],
+          attendanceController.attendanceResponseModel?.absents[index].toString() ?? absents[index],
           false,
         );
       },

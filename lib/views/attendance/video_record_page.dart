@@ -20,7 +20,7 @@ class _VideoRecordPageState extends State<VideoRecordPage> {
 
   void initCameras() async {
     final cameras = await availableCameras();
-    final back = cameras.firstWhere((camera) => camera.lensDirection == CameraLensDirection.front);
+    final back = cameras.firstWhere((camera) => camera.lensDirection == CameraLensDirection.back);
     cameraController = CameraController(back, ResolutionPreset.max);
     await cameraController.initialize();
     setState(() {

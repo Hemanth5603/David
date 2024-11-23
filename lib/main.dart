@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:prototype/firebase_options.dart';
+import 'package:prototype/views/attendance/revise_attendance_page.dart';
 import 'package:prototype/views/auth/signup.dart';
 import 'package:prototype/views/find_face_student_details.dart';
 import 'package:prototype/views/home.dart';
@@ -15,7 +16,7 @@ void main() async{
   
   WidgetsFlutterBinding.ensureInitialized();
   SystemChrome.setSystemUIOverlayStyle(
-    SystemUiOverlayStyle(
+    const SystemUiOverlayStyle(
       statusBarColor:Color.fromARGB(0, 35, 37, 49),
     )
   );

@@ -36,7 +36,7 @@ class Camera extends GetxController {
       if (status.isGranted) {
         final cameras = await availableCameras();
         cameraDescription = cameras.firstWhere(
-          (element) => element.lensDirection == CameraLensDirection.back,
+          (element) => element.lensDirection == CameraLensDirection.front,
         );
         cameraController =
             CameraController(cameraDescription, ResolutionPreset.high);
