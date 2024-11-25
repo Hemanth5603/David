@@ -10,6 +10,7 @@ import 'package:prototype/faculty/views/home.dart';
 import 'package:prototype/faculty/views/attendance/response_page.dart';
 import 'package:prototype/faculty/views/tabs/home_page.dart';
 import 'package:prototype/faculty/views/tabs/homepage1.dart';
+import 'package:prototype/student/views/tabs/home_page.dart';
 
 
 void main() async{
@@ -33,7 +34,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return const GetMaterialApp(
       debugShowCheckedModeBanner: false,
-      home: HomePage1(),
+      home: StudentHomePage(),
     );
   }
 }
