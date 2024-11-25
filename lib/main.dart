@@ -10,8 +10,7 @@ import 'package:prototype/faculty/views/home.dart';
 import 'package:prototype/faculty/views/attendance/response_page.dart';
 import 'package:prototype/faculty/views/tabs/home_page.dart';
 import 'package:prototype/faculty/views/tabs/homepage1.dart';
-import 'package:prototype/student/views/tabs/calendar.dart';
-import 'package:prototype/student/views/tabs/student_profile.dart';
+import 'package:prototype/student/views/tabs/home_page.dart';
 
 
 void main() async{
@@ -35,7 +34,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
-      home: CalendarTab(),
+      home: HomePage1(),
     );
   }
 }
