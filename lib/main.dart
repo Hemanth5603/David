@@ -2,6 +2,9 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'package:prototype/auth/on_boarding.dart';
+import 'package:prototype/faculty/views/auth/login.dart';
+import 'package:prototype/faculty/views/tabs/profile.dart';
 import 'package:prototype/firebase_options.dart';
 import 'package:prototype/faculty/views/attendance/revise_attendance_page.dart';
 import 'package:prototype/faculty/views/auth/signup.dart';
@@ -10,6 +13,7 @@ import 'package:prototype/faculty/views/home.dart';
 import 'package:prototype/faculty/views/attendance/response_page.dart';
 import 'package:prototype/faculty/views/tabs/home_page.dart';
 import 'package:prototype/faculty/views/tabs/homepage1.dart';
+import 'package:prototype/student/views/tabs/auth/student_signup.dart';
 import 'package:prototype/student/views/tabs/home_page.dart';
 
 
@@ -34,7 +38,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
-      home: HomePage1(),
+      home: Profile(),
     );
   }
 }
