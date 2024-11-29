@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_card_swiper/flutter_card_swiper.dart';
+import 'package:prototype/constants.dart';
 import 'package:prototype/faculty/controllers/find_face_controller.dart';
+import 'package:prototype/student/views/components/notification_card.dart';
+import 'package:prototype/student/views/components/time_table_card.dart';
 
 class StudentHomePage extends StatefulWidget {
   const StudentHomePage({super.key});
@@ -15,13 +18,14 @@ class _StudentHomePageState extends State<StudentHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xFFE4E2D4),
+      backgroundColor: const Color.fromARGB(255, 244, 243, 236),
       body: SingleChildScrollView(
+        physics: const BouncingScrollPhysics(),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const SizedBox(height: 30,),
-              Container(
+              SizedBox(
                 width: MediaQuery.of(context).size.width,
                 height: 130,
                 child: Row(
@@ -64,7 +68,7 @@ class _StudentHomePageState extends State<StudentHomePage> {
                     width: MediaQuery.of(context).size.width,
                     height: 590,
                     decoration:  BoxDecoration(
-                      color: Color.fromARGB(255, 252, 255, 249),
+                      color:const Color.fromARGB(255, 252, 255, 249),
                       borderRadius: BorderRadius.circular(30)
                     ),
                     child: Column(
@@ -81,10 +85,10 @@ class _StudentHomePageState extends State<StudentHomePage> {
                                   Container(
                                     width: 35,
                                     height: 35,
-                                    padding: EdgeInsets.all(10),
+                                    padding:const EdgeInsets.all(10),
                                     decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(50),
-                                      color: Color.fromARGB(255, 255, 232, 169)
+                                      color:const Color.fromARGB(255, 255, 232, 169)
                                     ),
                                     child: ClipOval(
                                       child: Image.asset(
@@ -93,8 +97,8 @@ class _StudentHomePageState extends State<StudentHomePage> {
                                       ),
                                     ),
                                   ),
-                                  SizedBox(width: 10,),
-                                  Text("AQI", style: TextStyle(fontFamily: 'man-r',fontSize: 25, color: Colors.black),)
+                                  const SizedBox(width: 10,),
+                                  const Text("AQI", style: TextStyle(fontFamily: 'man-r',fontSize: 25, color: Colors.black),)
                                   
                                 ],
                               ),
@@ -127,7 +131,7 @@ class _StudentHomePageState extends State<StudentHomePage> {
                     child: Container(
                       width: MediaQuery.of(context).size.width,
                       height: 250,
-                      padding: EdgeInsets.all(20),
+                      padding: EdgeInsets.fromLTRB(20,20,20,10),
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(30),
                         color: Color.fromARGB(216, 248, 211, 136)
@@ -135,14 +139,49 @@ class _StudentHomePageState extends State<StudentHomePage> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text("YOUR ASSIGNMENT", style: TextStyle(fontSize: 30, color:Color.fromARGB(197, 255, 148, 17),fontFamily: 'man-b' ),),
+                            Row(
+                              children: [
+                                Image.asset("assets/icons/star.png",width: 25,color: Constants.customOrange,),
+                                SizedBox(width: 10,),
+                                Text("YOUR ASSIGNMENT", style: TextStyle(fontSize: 30, color:Constants.customOrange,fontFamily: 'man-b' ),),
+                              ],
+                            ),
                             SizedBox(height: 8,),
-                            Text("Database Schema", style: TextStyle(fontFamily: 'man-b', fontSize: 18, color: const Color.fromARGB(255, 33, 33, 33)),),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text("Prof. Saurav Sinha", style: TextStyle(fontFamily: 'man-b',fontSize: 12, color: Constants.customOrange),),
+                                    Text("Database Schema", style: TextStyle(fontFamily: 'man-b', fontSize: 18, color: const Color.fromARGB(255, 33, 33, 33)),),
+                                  ],
+                                ),
+                                Container(
+                                  width: 60,
+                                  height: 30,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(20), 
+                                    //color: Color.fromARGB(112, 255, 255, 255),
+                                    border: Border.all(color: Colors.black, width: 0.5)
+                                  ),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    crossAxisAlignment: CrossAxisAlignment.center,
+                                      children: [
+                                        Text("DBMS", style: TextStyle(fontFamily: 'man-r',fontSize: 10, color: const Color.fromARGB(197, 255, 143, 6)),),
+                                      ],
+                                  
+                                  ),
+                                ),
+                              ],
+                            ),
+                            
                             SizedBox(height: 7,),
                             Text("Design and implement a normalized database for the library management system. Include ER diagrams and SQL scripts for creating tables and relationships.",
                               style: TextStyle(fontFamily: 'man-L', fontSize: 12, color: Color.fromARGB(213, 39, 39, 39)),
                             ),
-                            SizedBox(height: 32,),
+                            SizedBox(height: 25,),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
@@ -158,8 +197,6 @@ class _StudentHomePageState extends State<StudentHomePage> {
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     crossAxisAlignment: CrossAxisAlignment.center,
                                       children: [
-                                        
-                                        
                                         Image.asset("assets/icons/time.png", width: 15,color: Color.fromARGB(255, 255, 106, 57),),
                                         SizedBox(width: 10,),
                                         Text("27th-Nov", style: TextStyle(fontFamily: 'man-r',fontSize: 12, color: Color.fromARGB(255, 255, 106, 57)),),
@@ -193,7 +230,27 @@ class _StudentHomePageState extends State<StudentHomePage> {
                   )
                 ],
               ),
-              
+              Padding(
+                padding: EdgeInsets.only(left: 15, top: 20),
+                child: Row(
+                  children: [
+                    Image.asset("assets/icons/star.png",width: 25,color: Constants.customOrange,),
+                    SizedBox(width: 10,),
+                    Text("NOTIFICATIONS", style: TextStyle(fontFamily: 'man-b',fontSize: 30, color: Constants.customOrange),),
+                  ],
+                ),
+              ),
+              Container(
+                width: MediaQuery.of(context).size.width,
+                height: 500,
+                child: ListView(
+                  children: [
+                    notificationCard(MediaQuery.of(context).size.width),
+                    notificationCard(MediaQuery.of(context).size.width),
+
+                  ],
+                ),
+              )
               
           ],
         ),
@@ -202,58 +259,6 @@ class _StudentHomePageState extends State<StudentHomePage> {
   }
 }
 
-
-Widget timeTableCard(){
-  return Container(
-    
-    padding: EdgeInsets.all(15),
-    width: 400,
-    height: 50,
-    decoration: BoxDecoration(
-      color:Color.fromARGB(255, 255, 221, 154),
-      borderRadius: BorderRadius.circular(20),
-      border: Border.all(color: Color.fromARGB(255, 255, 146, 22))
-      
-    ),
-    child: Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      mainAxisAlignment: MainAxisAlignment.start,
-      children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text("Dr. Sahu", style: TextStyle(fontFamily: 'man-b',fontSize: 16, color: Color.fromARGB(223, 50, 50, 50)),),
-            Container(
-              width: 30,
-              height: 30,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(50)
-              ),
-              child: ClipOval(
-                child: Image.asset(
-                  "images/office_me.jpg",
-                  fit: BoxFit.cover, // Ensures the image fills the circle
-                ),
-              ),
-            ),
-           
-            
-          ],
-        ),
-        SizedBox(height: 0,),
-        Text("Data Structures", style: TextStyle(fontFamily: 'man-sb', fontSize: 14, color: Color.fromARGB(196, 37, 37, 37),),), 
-        const SizedBox(height:30,),
-        const Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text("LH 21", style: TextStyle(fontFamily: 'man-r', fontSize: 14, color: Color.fromARGB(255, 51, 51, 51)),),
-            Text("9:00 AM - 10:00 AM", style: TextStyle(fontSize: 12, fontFamily: 'man-sb', color: Color.fromARGB(255, 51, 51, 51)),)
-          ],
-        )
-      ],
-    ),
-  );
-}
 
 
 Widget assignmentCard(){

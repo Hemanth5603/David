@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class ProfilePage extends StatelessWidget {
+class StudentProfile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final double screenHeight = MediaQuery.of(context).size.height;
@@ -24,7 +24,7 @@ class ProfilePage extends StatelessWidget {
                 const SizedBox(height: 50), // Space for balance
 
                 // Profile circular image
-                CircleAvatar(
+                const CircleAvatar(
                   radius: 60,
                   backgroundColor: Colors.white,
                   child: CircleAvatar(
@@ -95,7 +95,7 @@ class ProfilePage extends StatelessWidget {
                                   color: const Color(0xFF4CAF50),
                                   backgroundColor: Colors.grey[300],
                                 ),
-                                Center(
+                                const Center(
                                   child: Text(
                                     "85%",
                                     style: const TextStyle(
@@ -178,7 +178,7 @@ class ProfilePage extends StatelessWidget {
 
                       // Detail cards
                       _detailCard(context, "Section", "B", Icons.group),
-                       _detailCard(context, "Branch", "Computer Science Engineering", Icons.school),
+                      _detailCard(context, "Branch", "Computer Science Engineering", Icons.school),
                       _detailCard(context, "Email", "Ishithacaroline@gmail.com", Icons.email),
                       _detailCard(context, "Phone", "+91 9876543210", Icons.phone),
                       _detailCard(context, "Date of Birth", "01 Jan 2003", Icons.calendar_today),

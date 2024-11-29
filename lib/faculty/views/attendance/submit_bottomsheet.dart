@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:prototype/faculty/views/tabs/homepage1.dart';
+import 'package:prototype/faculty/views/tabs/faculty_home_page.dart';
 
 class bottomSheetContent extends StatelessWidget {
   @override
@@ -38,7 +38,7 @@ class bottomSheetContent extends StatelessWidget {
               // Get.offAll(ImageCapture(),
               //     transition: Transition.leftToRight,
               //     duration: 300.milliseconds);
-              Get.offAll(const HomePage1(),
+              Get.offAll(const FacultyHomePage(),
                   transition: Transition.leftToRight,
                   duration: 300.milliseconds);
             },
