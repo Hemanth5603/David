@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:prototype/faculty/views/tabs/home_page.dart';
 import 'package:prototype/faculty/views/tabs/homepage1.dart';
-import 'package:prototype/faculty/views/tabs/profile.dart';
+import 'package:prototype/faculty/views/tabs/faculty_profile.dart';
 
 
 
@@ -32,7 +32,7 @@ static List<BottomNavigationBarItem> tabs = const [
 
 List<Widget> pages = [
   HomePage1(),
-  Profile(),
+  FacultyProfilePage(),
   
 ];
 

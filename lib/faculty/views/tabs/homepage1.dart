@@ -6,7 +6,7 @@ import 'package:prototype/faculty/views/image_capture.dart';
 import 'package:prototype/faculty/views/auth/register_face.dart';
 import 'package:prototype/faculty/views/auth/register_face_form.dart';
 import 'package:prototype/faculty/views/speech.dart';
-import 'package:prototype/faculty/views/tabs/profile.dart';
+import 'package:prototype/faculty/views/tabs/faculty_profile.dart';
 import 'package:prototype/faculty/views/attendance/video_record_page.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -80,7 +80,7 @@ class _HomePage1State extends State<HomePage1> {
                                   child: Center(
                                     child: GestureDetector(
                                       onTap: (){
-                                        Get.to(Profile(),transition: Transition.rightToLeft, duration: 200.milliseconds);
+                                        Get.to(FacultyProfilePage(),transition: Transition.rightToLeft, duration: 200.milliseconds);
                                       },
                                       child: Icon(Icons.person_outline_rounded, size: 30,color: Colors.white,))
                                   ),

@@ -11,7 +11,7 @@ import 'package:prototype/faculty/views/auth/register_face.dart';
 import 'package:prototype/faculty/views/auth/register_face_form.dart';
 import 'package:prototype/faculty/views/attendance/response_page.dart'; 
 import 'package:prototype/faculty/views/speech.dart';
-import 'package:prototype/faculty/views/tabs/profile.dart';
+import 'package:prototype/faculty/views/tabs/faculty_profile.dart';
 import 'package:prototype/faculty/views/attendance/video_record_page.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -100,7 +100,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                   child: Center(
                                     child: GestureDetector(
                                       onTap: (){
-                                        Get.to(Profile(),transition: Transition.rightToLeft, duration: 200.milliseconds);
+                                        Get.to(FacultyProfilePage(),transition: Transition.rightToLeft, duration: 200.milliseconds);
                                       },
                                       child: Icon(Icons.person_outline_rounded, size: 30,color: Colors.white,))
                                   ),
