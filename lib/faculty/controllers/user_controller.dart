@@ -27,6 +27,8 @@ class UserController extends GetxController{
   var username;
   var useremail;
   TextEditingController url = TextEditingController();
+
+  var rollNumber;
   
 
   Future<void> signUpWithEmailPassword() async {
@@ -190,6 +192,8 @@ class UserController extends GetxController{
         ));
     return pdf.save();
   }
+
+  signInWithRollNumberPassword() {}
   
   
 
