@@ -10,17 +10,17 @@ import 'package:prototype/faculty/views/tabs/faculty_profile.dart';
 import 'package:prototype/faculty/views/attendance/video_record_page.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-class HomePage1 extends StatefulWidget {
-  const HomePage1({super.key});
+class FacultyHomePage extends StatefulWidget {
+  const FacultyHomePage({super.key});
 
   @override
-  State<HomePage1> createState() => _HomePage1State();
+  State<FacultyHomePage> createState() => _FacultyHomePageState();
 }
 
 List<String> transcribesDesc = ["Lecture - 1, Data Structures and Algorithms", "Lecture - 2, Operating Systems", "Lecture - 3, Theory of Computation", "Lecture - 4, DBMS"];
 List<String> links = ["https://docs.google.com/document/d/1Q6ai9DEUMhTGA3-m4oqMqas_E7WbLj07Jp9ZaO9dWZk/edit?usp=sharing", "https://docs.google.com/document/d/1Wq3gKNECH0DleYxP_f6DvMC9lX7mV4kBgGHV3MIAbmM/edit?usp=sharing", "https://docs.google.com/document/d/1Q6ai9DEUMhTGA3-m4oqMqas_E7WbLj07Jp9ZaO9dWZk/edit?usp=sharing", "https://docs.google.com/document/d/1Wq3gKNECH0DleYxP_f6DvMC9lX7mV4kBgGHV3MIAbmM/edit?usp=sharing",];
 
-class _HomePage1State extends State<HomePage1> {
+class _FacultyHomePageState extends State<FacultyHomePage> {
   @override
   Widget build(BuildContext context) {
      final Camera camera = Get.put(Camera());
@@ -41,7 +41,7 @@ class _HomePage1State extends State<HomePage1> {
           child: Center(
             child: Icon(Icons.add_rounded, color: Colors.white,size: 30,),
           ),
-          
+        
         ),
       ),
       backgroundColor: Color.fromARGB(255,35,37,49),
