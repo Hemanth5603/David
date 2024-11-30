@@ -5,9 +5,11 @@ import 'package:flutter/services.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:get/get.dart';
 import 'package:prototype/faculty/controllers/notification_controller.dart';
+import 'package:prototype/faculty/views/fac_leaderboard.dart';
 import 'package:prototype/faculty/views/forms/create_notification.dart';
 import 'package:prototype/firebase_options.dart';
 import 'package:prototype/student/views/home.dart';
+import 'package:prototype/student/views/tabs/leaderboard.dart';
 
 // Initialize FlutterLocalNotificationsPlugin
 final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
@@ -120,7 +122,7 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
-      home: StudentHome(),
+      home: fac_LeaderboardPage(),
     );
   }
 }
