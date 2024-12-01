@@ -9,6 +9,7 @@ import 'package:prototype/faculty/views/fac_leaderboard.dart';
 import 'package:prototype/faculty/views/forms/create_notification.dart';
 import 'package:prototype/firebase_options.dart';
 import 'package:prototype/student/views/home.dart';
+import 'package:prototype/student/views/tabs/assignment_submission.dart';
 import 'package:prototype/student/views/tabs/leaderboard.dart';
 
 // Initialize FlutterLocalNotificationsPlugin
@@ -122,7 +123,7 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
-      home: fac_LeaderboardPage(),
+      home: AssignmentPage(),
     );
   }
 }
