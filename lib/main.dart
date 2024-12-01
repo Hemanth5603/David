@@ -2,9 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:prototype/auth/on_boarding.dart';
 import 'package:prototype/faculty/views/home.dart';
+import 'package:prototype/faculty/views/fac_leaderboard.dart';
 import 'package:prototype/faculty/views/tabs/faculty_home_page.dart';
 import 'package:prototype/services/auth_service.dart';
 import 'package:prototype/student/views/home.dart';
+import 'package:prototype/student/views/tabs/assignment_submission.dart';
+import 'package:prototype/student/views/tabs/leaderboard.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
