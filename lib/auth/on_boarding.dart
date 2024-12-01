@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
+import 'package:prototype/faculty/views/auth/login.dart';
+import 'package:prototype/student/views/auth/student_login.dart';
 
 class OnBoardingPage extends StatelessWidget {
   @override
@@ -12,7 +16,7 @@ class OnBoardingPage extends StatelessWidget {
               // Background Layer: Painted or Textured effect
               Positioned.fill(
                 child: Container(
-                  decoration: BoxDecoration(
+                  decoration: const BoxDecoration(
                     gradient: LinearGradient(
                       colors: [
                         Color(0xFFFFD4A3), // Warm Autumn
@@ -22,9 +26,11 @@ class OnBoardingPage extends StatelessWidget {
                       end: Alignment.bottomRight,
                     ),
                     image: DecorationImage(
-                      image: AssetImage('assets/images/paint_texture.png'), // Abstract paint texture
+                      image: AssetImage(
+                          'assets/images/paint_texture.png'), // Abstract paint texture
                       fit: BoxFit.cover,
-                      opacity: 0.15, // Subtle texture to not distract from the content
+                      opacity:
+                          0.15, // Subtle texture to not distract from the content
                     ),
                   ),
                 ),
@@ -35,7 +41,7 @@ class OnBoardingPage extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     // Header Section
-                    Padding(
+                    const Padding(
                       padding: const EdgeInsets.only(bottom: 32.0),
                       child: Text(
                         "Welcome, Please Login",
@@ -48,23 +54,27 @@ class OnBoardingPage extends StatelessWidget {
                       ),
                     ),
                     // Student Login Card
-                    _buildLoginCard(
-                      title: "Student Login",
-                      description: "Access your student dashboard",
-                      icon: Icons.school,
-                      onTap: () {
-                        print("Student Login tapped");
-                      },
+                    GestureDetector(
+                      child: _buildLoginCard(
+                        title: "Student Login",
+                        description: "Access your student dashboard",
+                        icon: Icons.school,
+                        onTap: () {
+                          Get.to(StudentLogin());
+                        },
+                      ),
                     ),
-                    SizedBox(height: 20),
+                    const SizedBox(height: 20),
                     // Faculty Login Card
-                    _buildLoginCard(
-                      title: "Faculty Login",
-                      description: "Manage your classes and lectures",
-                      icon: Icons.person,
-                      onTap: () {
-                        print("Faculty Login tapped");
-                      },
+                    GestureDetector(
+                      child: _buildLoginCard(
+                        title: "Faculty Login",
+                        description: "Manage your classes and lectures",
+                        icon: Icons.person,
+                        onTap: () {
+                          Get.to(FacultyLogin());
+                        },
+                      ),
                     ),
                   ],
                 ),
@@ -108,7 +118,7 @@ class OnBoardingPage extends StatelessWidget {
                 children: [
                   Text(
                     title,
-                    style: TextStyle(
+                    style: const TextStyle(
                       fontFamily: 'man-b',
                       fontSize: 22,
                       color: Color(0xFF8C4F0A),

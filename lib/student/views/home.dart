@@ -10,14 +10,15 @@ class StudentHome extends StatefulWidget {
   @override
   State<StudentHome> createState() => StudentHomeState();
 }
-  
 
-
-  
 class StudentHomeState extends State<StudentHome> {
   var selectedIndex = 0;
   late PageController pageController;
-
+  List<Widget> pages = [
+    const StudentHomePage(),
+    const CalendarTab(),
+    StudentProfile()
+  ];
 
   @override
   void initState() {
@@ -36,32 +37,32 @@ class StudentHomeState extends State<StudentHome> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      bottomNavigationBar:BottomNavigationBar(
-          type: BottomNavigationBarType.fixed,
-          backgroundColor: Colors.white,
-          selectedItemColor: Color.fromARGB(255, 255, 160, 18),
-          unselectedItemColor: Color.fromARGB(255, 255, 215, 154),
-          elevation: 10,
-          currentIndex: selectedIndex,
-          onTap: (value){
-            setState(() {
-              if(value == 0){}
-              selectedIndex = value;
-            });
-            pageController.animateToPage(selectedIndex,
-                  duration: const Duration(milliseconds: 600),
-                  curve: Curves.easeOutQuad);
-          },
-          items:Constants.tabs
-         ),
-        body: PageView(
-              controller: pageController,
-              children:<Widget> [
-                const StudentHomePage(),
-                const CalendarTab(),
-                StudentProfile(),
-              ],
-            ),
-    );
+        bottomNavigationBar: BottomNavigationBar(
+            type: BottomNavigationBarType.fixed,
+            backgroundColor: Colors.white,
+            selectedItemColor: Color.fromARGB(255, 255, 160, 18),
+            unselectedItemColor: Color.fromARGB(255, 255, 215, 154),
+            elevation: 10,
+            currentIndex: selectedIndex,
+            onTap: (value) {
+              setState(() {
+                if (value == 0) {}
+                selectedIndex = value;
+              });
+              // pageController.animateToPage(selectedIndex,
+              //       duration: const Duration(milliseconds: 600),
+              //       curve: Curves.easeOutQuad);
+            },
+            items: Constants.tabs),
+        body: pages[selectedIndex]
+        // PageView(
+        //       controller: pageController,
+        //       children:<Widget> [
+        //         const StudentHomePage(),
+        //         const CalendarTab(),
+        //         StudentProfile(),
+        //       ],
+        //     ),
+        );
   }
 }

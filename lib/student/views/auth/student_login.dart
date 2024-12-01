@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:prototype/faculty/controllers/user_controller.dart';
+import 'package:prototype/student/controllers/authentication_controller.dart';
 
 class StudentLogin extends StatefulWidget {
   const StudentLogin({super.key});
@@ -11,7 +12,8 @@ class StudentLogin extends StatefulWidget {
 }
 
 class _LoginState extends State<StudentLogin> {
-  UserController userController = Get.put(UserController());
+  AuthenticationController authenticationController =
+      Get.put(AuthenticationController());
 
   @override
   void initState() {
@@ -24,8 +26,10 @@ class _LoginState extends State<StudentLogin> {
     double w = MediaQuery.of(context).size.width;
 
     SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
-      statusBarColor: Color.fromARGB(255, 255, 255, 255), // Change the color to your desired color
-      statusBarIconBrightness: Brightness.dark, // Change the brightness of icons
+      statusBarColor: Color.fromARGB(
+          255, 255, 255, 255), // Change the color to your desired color
+      statusBarIconBrightness:
+          Brightness.dark, // Change the brightness of icons
     ));
 
     return Scaffold(
@@ -85,16 +89,20 @@ class _LoginState extends State<StudentLogin> {
                               width: w * 0.8,
                               child: Center(
                                 child: TextField(
-                                  controller: userController.rollNumber, // Updated to rollNumber controller
+                                  controller: authenticationController
+                                      .rollNoController, // Updated to rollNumber controller
                                   keyboardType: TextInputType.text,
                                   textAlignVertical: TextAlignVertical.bottom,
                                   style: const TextStyle(fontFamily: 'man-r'),
                                   decoration: const InputDecoration(
                                     hintText: "Roll Number", // Updated label
-                                    hintStyle: TextStyle(color: Color.fromARGB(255, 106, 106, 106)),
+                                    hintStyle: TextStyle(
+                                        color:
+                                            Color.fromARGB(255, 106, 106, 106)),
                                     border: UnderlineInputBorder(
                                       borderSide: BorderSide(
-                                          color: Color.fromARGB(255, 0, 0, 0), width: 5),
+                                          color: Color.fromARGB(255, 0, 0, 0),
+                                          width: 5),
                                     ),
                                   ),
                                 ),
@@ -118,17 +126,21 @@ class _LoginState extends State<StudentLogin> {
                               width: w * 0.8,
                               child: Center(
                                 child: TextField(
-                                  controller: userController.password,
+                                  controller: authenticationController
+                                      .passwordController,
                                   keyboardType: TextInputType.text,
                                   textAlignVertical: TextAlignVertical.bottom,
                                   obscureText: true,
                                   style: const TextStyle(fontFamily: 'man-r'),
                                   decoration: const InputDecoration(
                                     hintText: "Password",
-                                    hintStyle: TextStyle(color: Color.fromARGB(255, 106, 106, 106)),
+                                    hintStyle: TextStyle(
+                                        color:
+                                            Color.fromARGB(255, 106, 106, 106)),
                                     border: UnderlineInputBorder(
                                       borderSide: BorderSide(
-                                          color: Color.fromARGB(255, 0, 0, 0), width: 5),
+                                          color: Color.fromARGB(255, 0, 0, 0),
+                                          width: 5),
                                     ),
                                   ),
                                 ),
@@ -146,20 +158,24 @@ class _LoginState extends State<StudentLogin> {
                           height: 50,
                           width: w * 0.89,
                           decoration: BoxDecoration(
-                            border: Border.all(color: const Color.fromARGB(255, 0, 0, 0), width: 2),
+                            border: Border.all(
+                                color: const Color.fromARGB(255, 0, 0, 0),
+                                width: 2),
                             color: Colors.black,
-                            borderRadius: const BorderRadius.all(Radius.circular(10)),
+                            borderRadius:
+                                const BorderRadius.all(Radius.circular(10)),
                           ),
                           child: const Center(
                             child: Text(
                               "Log in",
-                              style: TextStyle(fontSize: 20, color: Colors.white),
+                              style:
+                                  TextStyle(fontSize: 20, color: Colors.white),
                             ),
                           ),
                         ),
                       ),
                       onTap: () async {
-                        await userController.signInWithRollNumberPassword();
+                        authenticationController.login();
                       },
                     ),
                     const SizedBox(height: 15),
@@ -173,7 +189,8 @@ class _LoginState extends State<StudentLogin> {
                         GestureDetector(
                           child: const Text(
                             "Create Account",
-                            style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+                            style: TextStyle(
+                                fontSize: 14, fontWeight: FontWeight.bold),
                           ),
                           onTap: () {
                             Get.back();
