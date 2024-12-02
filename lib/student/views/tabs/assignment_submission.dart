@@ -38,7 +38,8 @@ class _AssignmentPageState extends State<AssignmentPage> {
         _rollNumberController.text.isEmpty ||
         _fileName == null) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text("Please fill all fields and select a file")),
+        const SnackBar(
+            content: Text("Please fill all fields and select a file")),
       );
       return;
     }
@@ -86,7 +87,10 @@ class _AssignmentPageState extends State<AssignmentPage> {
       body: Container(
         decoration: const BoxDecoration(
           gradient: LinearGradient(
-            colors: [Color.fromARGB(255, 247, 254, 252), Color.fromARGB(255, 188, 228, 224)],
+            colors: [
+              Color.fromARGB(255, 247, 254, 252),
+              Color.fromARGB(255, 251, 255, 255)
+            ],
             begin: Alignment.topRight,
             end: Alignment.bottomRight,
           ),
@@ -112,10 +116,12 @@ class _AssignmentPageState extends State<AssignmentPage> {
                 height: 50,
                 child: TextField(
                   controller: _sectionController,
-                  style: const TextStyle(color: Colors.black, fontFamily: 'man-r'),
+                  style:
+                      const TextStyle(color: Colors.black, fontFamily: 'man-r'),
                   decoration: InputDecoration(
                     labelText: 'Section',
-                    labelStyle: const TextStyle(color: Color(0xFF135D66), fontFamily: 'man-l'),
+                    labelStyle: const TextStyle(
+                        color: Color(0xFF135D66), fontFamily: 'man-l'),
                     filled: true,
                     fillColor: Colors.white,
                     border: OutlineInputBorder(
@@ -131,10 +137,12 @@ class _AssignmentPageState extends State<AssignmentPage> {
                 height: 50,
                 child: TextField(
                   controller: _rollNumberController,
-                  style: const TextStyle(color: Colors.black, fontFamily: 'man-r'),
+                  style:
+                      const TextStyle(color: Colors.black, fontFamily: 'man-r'),
                   decoration: InputDecoration(
                     labelText: 'Roll Number',
-                    labelStyle: const TextStyle(color: Color(0xFF135D66), fontFamily: 'man-l'),
+                    labelStyle: const TextStyle(
+                        color: Color(0xFF135D66), fontFamily: 'man-l'),
                     filled: true,
                     fillColor: Colors.white,
                     border: OutlineInputBorder(
@@ -159,7 +167,8 @@ class _AssignmentPageState extends State<AssignmentPage> {
                   ),
                   child: const Text(
                     "Choose PDF File",
-                    style: TextStyle(fontFamily: 'man-b', fontSize: 18, color: Colors.white),
+                    style: TextStyle(
+                        fontFamily: 'man-b', fontSize: 18, color: Colors.white),
                   ),
                 ),
               ),
@@ -167,7 +176,8 @@ class _AssignmentPageState extends State<AssignmentPage> {
                 const SizedBox(height: 10),
                 Text(
                   "Selected File: $_fileName",
-                  style: const TextStyle(color: Color(0xFF135D66), fontFamily: 'man-r'),
+                  style: const TextStyle(
+                      color: Color(0xFF135D66), fontFamily: 'man-r'),
                 ),
               ],
               const SizedBox(height: 20),
@@ -177,14 +187,17 @@ class _AssignmentPageState extends State<AssignmentPage> {
                 children: [
                   const Text(
                     "Submission Date: ",
-                    style: TextStyle(color: Color(0xFF135D66), fontFamily: 'man-r'),
+                    style: TextStyle(
+                        color: Color(0xFF135D66), fontFamily: 'man-r'),
                   ),
                   Text(
                     DateFormat('yyyy-MM-dd').format(_selectedDate),
-                    style: const TextStyle(color: Color(0xFF135D66), fontFamily: 'man-r'),
+                    style: const TextStyle(
+                        color: Color(0xFF135D66), fontFamily: 'man-r'),
                   ),
                   IconButton(
-                    icon: const Icon(Icons.calendar_today, color: Color(0xFF135D66)),
+                    icon: const Icon(Icons.calendar_today,
+                        color: Color(0xFF135D66)),
                     onPressed: () async {
                       DateTime? pickedDate = await showDatePicker(
                         context: context,
@@ -209,14 +222,16 @@ class _AssignmentPageState extends State<AssignmentPage> {
                   onPressed: _submitAssignment,
                   style: ElevatedButton.styleFrom(
                     backgroundColor: const Color.fromARGB(255, 100, 151, 158),
-                    padding: const EdgeInsets.symmetric(vertical: 14, horizontal: 50),
+                    padding: const EdgeInsets.symmetric(
+                        vertical: 14, horizontal: 50),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(20),
                     ),
                   ),
                   child: const Text(
                     "Submit Assignment",
-                    style: TextStyle(fontFamily: 'man-b', fontSize: 18, color: Colors.white),
+                    style: TextStyle(
+                        fontFamily: 'man-b', fontSize: 18, color: Colors.white),
                   ),
                 ),
               ),

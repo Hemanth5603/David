@@ -3,16 +3,17 @@ import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:prototype/constants.dart';
-import 'package:prototype/student/views/submit_assignment.dart';
 
-Widget assignmentCard(w) {
+import 'package:prototype/student/views/tabs/assignment_submission.dart';
+
+Widget assignmentCard(w, prof, title, description, subject, due) {
   return Container(
     width: w,
     height: 220,
     padding: EdgeInsets.fromLTRB(20, 20, 20, 10),
     decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(30),
-        color: Color.fromARGB(215, 255, 232, 186)),
+        color: Color.fromARGB(214, 255, 236, 198)),
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -26,17 +27,17 @@ Widget assignmentCard(w) {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  "Prof. Saurav Sinha",
+                  prof,
                   style: TextStyle(
                       fontFamily: 'man-b',
                       fontSize: 12,
                       color: Constants.customOrange),
                 ),
                 Text(
-                  "Database Schema",
+                  title,
                   style: TextStyle(
                       fontFamily: 'man-b',
-                      fontSize: 18,
+                      fontSize: 16,
                       color: const Color.fromARGB(255, 33, 33, 33)),
                 ),
               ],
@@ -53,7 +54,7 @@ Widget assignmentCard(w) {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Text(
-                    "DBMS",
+                    subject,
                     style: TextStyle(
                         fontFamily: 'man-r',
                         fontSize: 10,
@@ -67,21 +68,24 @@ Widget assignmentCard(w) {
         SizedBox(
           height: 7,
         ),
-        Text(
-          "Design and implement a normalized database for the library management system. Include ER diagrams and SQL scripts for creating tables and relationships.",
-          style: TextStyle(
-              fontFamily: 'man-L',
-              fontSize: 12,
-              color: Color.fromARGB(213, 39, 39, 39)),
+        Container(
+          height: 70,
+          child: Text(
+            description,
+            style: TextStyle(
+                fontFamily: 'man-L',
+                fontSize: 12,
+                color: Color.fromARGB(213, 39, 39, 39)),
+          ),
         ),
-        SizedBox(
-          height: 25,
+        const SizedBox(
+          height: 20,
         ),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Container(
-              width: 100,
+              width: 130,
               height: 40,
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(20),
@@ -100,7 +104,7 @@ Widget assignmentCard(w) {
                     width: 10,
                   ),
                   Text(
-                    "27th-Nov",
+                    due,
                     style: TextStyle(
                         fontFamily: 'man-r',
                         fontSize: 12,
@@ -111,7 +115,7 @@ Widget assignmentCard(w) {
             ),
             GestureDetector(
               onTap: () {
-                Get.to(AssignmentSubmissionPage());
+                Get.to(AssignmentPage());
               },
               child: Container(
                 width: 100,

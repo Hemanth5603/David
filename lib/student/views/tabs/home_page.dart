@@ -5,11 +5,11 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:prototype/constants.dart';
 import 'package:prototype/faculty/controllers/find_face_controller.dart';
 import 'package:prototype/faculty/controllers/notification_controller.dart';
+import 'package:prototype/student/controllers/assignment_controller.dart';
 import 'package:prototype/student/controllers/notification_controller.dart';
 import 'package:prototype/student/views/components/assignment_card.dart';
 import 'package:prototype/student/views/components/notification_card.dart';
 import 'package:prototype/student/views/components/time_table_card.dart';
-import 'package:prototype/student/views/submit_assignment.dart';
 
 class StudentHomePage extends StatefulWidget {
   const StudentHomePage({super.key});
@@ -21,6 +21,8 @@ class StudentHomePage extends StatefulWidget {
 List<Widget> timetable = [timeTableCard(), timeTableCard(), timeTableCard()];
 final StudentNotificationController notificationController =
     Get.put(StudentNotificationController());
+final AssignmentController assignmentController =
+    Get.put(AssignmentController());
 
 class _StudentHomePageState extends State<StudentHomePage> {
   @override
@@ -196,13 +198,61 @@ class _StudentHomePageState extends State<StudentHomePage> {
                     child: Container(
                       width: MediaQuery.of(context).size.width,
                       height: 220,
-                      child: ListView(
-                        scrollDirection: Axis.horizontal,
-                        children: [
-                          assignmentCard(MediaQuery.of(context).size.width),
-                          assignmentCard(MediaQuery.of(context).size.width)
-                        ],
-                      ),
+                      child: Obx(() {
+                        if (assignmentController.isLoading.value) {
+                          return const Center(
+                            child: CircularProgressIndicator(),
+                          );
+                        }
+
+                        if (assignmentController.error.value.isNotEmpty) {
+                          return Center(
+                            child: Text(
+                              assignmentController.error.value,
+                              style: const TextStyle(
+                                color: Colors.red,
+                                fontFamily: 'man-r',
+                              ),
+                            ),
+                          );
+                        }
+
+                        final assignments = assignmentController
+                                .assignments.value?.assignments ??
+                            [];
+
+                        if (assignments.isEmpty) {
+                          return const Center(
+                            child: Text(
+                              'No assignments available',
+                              style: TextStyle(
+                                fontFamily: 'man-r',
+                                fontSize: 16,
+                              ),
+                            ),
+                          );
+                        }
+
+                        return ListView.builder(
+                          scrollDirection: Axis.horizontal,
+                          itemCount: assignments.length,
+                          itemBuilder: (context, index) {
+                            final assignment = assignments[index];
+                            return Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 8.0),
+                              child: assignmentCard(
+                                MediaQuery.of(context).size.width,
+                                assignment.facultyName,
+                                assignment.title,
+                                assignment.description,
+                                assignment.subject,
+                                assignment.dueDate.toString().substring(0, 10),
+                              ),
+                            );
+                          },
+                        );
+                      }),
                     ))
               ],
             ),
