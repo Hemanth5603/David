@@ -7,6 +7,8 @@ import 'package:get/get.dart';
 import 'package:prototype/faculty/controllers/notification_controller.dart';
 import 'package:prototype/faculty/views/fac_leaderboard.dart';
 import 'package:prototype/faculty/views/forms/create_notification.dart';
+import 'package:prototype/faculty/views/tabs/create_assignment.dart';
+import 'package:prototype/faculty/views/tabs/faculty_home_page.dart';
 import 'package:prototype/firebase_options.dart';
 import 'package:prototype/student/views/home.dart';
 import 'package:prototype/student/views/tabs/assignment_submission.dart';
@@ -123,7 +125,7 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
-      home: AssignmentPage(),
+      home: CreateAssignmentPage(),
     );
   }
 }
