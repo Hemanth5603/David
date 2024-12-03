@@ -59,7 +59,7 @@ class LeaderboardPage extends StatelessWidget {
                 color: Colors.blue,
                 borderRadius: BorderRadius.circular(12),
               ),
-              child: Row(
+              child: const Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: const [
                   Text(
@@ -68,7 +68,8 @@ class LeaderboardPage extends StatelessWidget {
                       color: Colors.white,
                       fontWeight: FontWeight.bold,
                       fontSize: 16,
-                      fontFamily: 'man-sb', // SemiBold Manrope font for table header
+                      fontFamily:
+                          'man-sb', // SemiBold Manrope font for table header
                     ),
                   ),
                   Text(
@@ -77,7 +78,8 @@ class LeaderboardPage extends StatelessWidget {
                       color: Colors.white,
                       fontWeight: FontWeight.bold,
                       fontSize: 16,
-                      fontFamily: 'man-sb', // SemiBold Manrope font for table header
+                      fontFamily:
+                          'man-sb', // SemiBold Manrope font for table header
                     ),
                   ),
                   Text(
@@ -86,7 +88,8 @@ class LeaderboardPage extends StatelessWidget {
                       color: Colors.white,
                       fontWeight: FontWeight.bold,
                       fontSize: 16,
-                      fontFamily: 'man-sb', // SemiBold Manrope font for table header
+                      fontFamily:
+                          'man-sb', // SemiBold Manrope font for table header
                     ),
                   ),
                 ],
@@ -104,11 +107,13 @@ class LeaderboardPage extends StatelessWidget {
                   final student = students[index];
                   return Container(
                     margin: const EdgeInsets.symmetric(vertical: 0),
-                    padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
+                    padding:
+                        const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
                     decoration: BoxDecoration(
                       color: const Color.fromARGB(255, 253, 253, 253),
                       borderRadius: BorderRadius.circular(4),
-                      border: Border.all(color: const Color.fromARGB(255, 234, 228, 228)!),
+                      border: Border.all(
+                          color: const Color.fromARGB(255, 234, 228, 228)!),
                     ),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -117,17 +122,21 @@ class LeaderboardPage extends StatelessWidget {
                         CircleAvatar(
                           backgroundColor: Colors.transparent,
                           child: student["rank"] == 1
-                              ? Image.asset('images/first.png', width: 30, height: 30)
+                              ? Image.asset('images/first.png',
+                                  width: 30, height: 30)
                               : student["rank"] == 2
-                                  ? Image.asset('images/second.png', width: 30, height: 30)
+                                  ? Image.asset('images/second.png',
+                                      width: 30, height: 30)
                                   : student["rank"] == 3
-                                      ? Image.asset('images/third.png', width: 30, height: 30)
+                                      ? Image.asset('images/third.png',
+                                          width: 30, height: 30)
                                       : Text(
                                           student["rank"].toString(),
                                           style: const TextStyle(
                                             color: Colors.black,
                                             fontSize: 18,
-                                            fontFamily: 'man-r', // Regular Manrope font for rank
+                                            fontFamily:
+                                                'man-r', // Regular Manrope font for rank
                                           ),
                                         ),
                         ),
@@ -136,13 +145,15 @@ class LeaderboardPage extends StatelessWidget {
                           student["name"],
                           style: const TextStyle(
                             fontWeight: FontWeight.w500,
-                            fontFamily: 'man-r', // Regular Manrope font for name
+                            fontFamily:
+                                'man-r', // Regular Manrope font for name
                           ),
                         ),
                         // Circle Avatar with Light Blue Color for CGPA
                         CircleAvatar(
                           radius: 16, // Smaller size for CGPA
-                          backgroundColor: const Color.fromARGB(255, 209, 232, 249),
+                          backgroundColor:
+                              const Color.fromARGB(255, 209, 232, 249),
                           child: Text(
                             student["cgpa"].toStringAsFixed(1),
                             style: const TextStyle(
@@ -172,7 +183,8 @@ class LeaderboardPage extends StatelessWidget {
                     color: Colors.white,
                     fontSize: 18,
                     fontWeight: FontWeight.bold,
-                    fontFamily: 'man-sb', // SemiBold Manrope font for "Your Rank"
+                    fontFamily:
+                        'man-sb', // SemiBold Manrope font for "Your Rank"
                   ),
                 ),
                 Text(
@@ -181,7 +193,8 @@ class LeaderboardPage extends StatelessWidget {
                     color: Colors.white,
                     fontSize: 17,
                     fontWeight: FontWeight.bold,
-                    fontFamily: 'man-sb', // SemiBold Manrope font for rank number
+                    fontFamily:
+                        'man-sb', // SemiBold Manrope font for rank number
                   ),
                 ),
               ],

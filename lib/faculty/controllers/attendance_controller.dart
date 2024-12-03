@@ -11,93 +11,90 @@ import 'package:prototype/faculty/models/roll_no.dart';
 import 'package:prototype/faculty/models/student_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class AttendanceController extends GetxController{
-
+class AttendanceController extends GetxController {
   var isLoading = false.obs;
   String videoPath = "";
   String filePath = "";
   AttendanceResponseModel? attendanceResponseModel;
   StudentModel? studentModel;
 
-    Future<void> takeAttendance() async{
+  Future<void> takeAttendance() async {
     isLoading(true);
     await Future.delayed(Duration(seconds: 5));
-    // SharedPreferences prefs = await SharedPreferences.getInstance();
-   
-    // String url = "${prefs.getString("url")}/upload-video/";
-    // print("url -------------------------------------------------------- -- $url");
-    // var request = http.MultipartRequest('POST', Uri.parse(url));
-    // print(videoPath);
-    // request.files.add(await http.MultipartFile.fromPath('video',videoPath));
+    SharedPreferences prefs = await SharedPreferences.getInstance();
 
-    // //request.files.add(http.MultipartFile.fromBytes('video', File(file.path).readAsBytesSync(),filename: file.path));
-    // //http.StreamedResponse response = await request.send();
-    // var streamedResponse = await request.send();
-    // var response = await http.Response.fromStream(streamedResponse);
-    // print(response.body);
+    String url =
+        "https://d49c-2409-40c2-1046-dd86-d0fc-594b-8c47-40c4.ngrok-free.app/upload-video/";
+    print(
+        "url -------------------------------------------------------- -- $url");
+    var request = http.MultipartRequest('POST', Uri.parse(url));
+    print(videoPath);
+    request.files.add(await http.MultipartFile.fromPath('video', videoPath));
+    request.fields['branch'] = "CSM";
+    request.fields['section'] = "C";
 
-    // if(response.statusCode == 200){
-    //   print("Upload Succesfully");
-    //   var data = jsonDecode(response.body.toString());
-    //   attendanceResponseModel = AttendanceResponseModel.fromJson(data);
-    //   print("${data.toString()} ------------------------------------------------------------------------------------------------");
-    //   Fluttertoast.showToast(
-    //       msg: "Upload Succesfully",
-    //       gravity: ToastGravity.BOTTOM,
-    //       backgroundColor: const Color.fromARGB(255, 82, 244, 54)
-    //     );  
-    // }else{
-    //   print("Could not upload Succesfully ${response.statusCode}");
-    //   Fluttertoast.showToast(
-    //       msg: "Could not upload Succesfully",
-    //       gravity: ToastGravity.BOTTOM,
-    //       backgroundColor: Colors.red
-    //     );
-    // }
+    //request.files.add(http.MultipartFile.fromBytes('video', File(file.path).readAsBytesSync(),filename: file.path));
+    //http.StreamedResponse response = await request.send();
+    var streamedResponse = await request.send();
+    var response = await http.Response.fromStream(streamedResponse);
+    print(response.body);
+
+    if (response.statusCode == 200) {
+      print("Upload Succesfully");
+      var data = jsonDecode(response.body.toString());
+      attendanceResponseModel = AttendanceResponseModel.fromJson(data);
+      print(
+          "${data.toString()} ------------------------------------------------------------------------------------------------");
+      Fluttertoast.showToast(
+          msg: "Upload Succesfully",
+          gravity: ToastGravity.BOTTOM,
+          backgroundColor: const Color.fromARGB(255, 82, 244, 54));
+    } else {
+      print("Could not upload Succesfully ${response.statusCode}");
+      Fluttertoast.showToast(
+          msg: "Could not upload Succesfully",
+          gravity: ToastGravity.BOTTOM,
+          backgroundColor: Colors.red);
+    }
     isLoading(false);
-   
   }
-
-
 
   Future<StudentModel?> findFace(String path) async {
-  isLoading(true);
-  try {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    //String url = "${prefs.getString("url")}/david/findface";
-    String url = "http://13.60.93.136:8080/david/findface";
-   
-    var request = http.MultipartRequest('POST', Uri.parse(url));
-    request.files.add(await http.MultipartFile.fromPath('image', path));
-    
-    var res = await request.send();
+    isLoading(true);
+    try {
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      //String url = "${prefs.getString("url")}/david/findface";
+      String url = "http://13.60.93.136:8080/david/findface";
 
-    if (res.statusCode == 200) {
-      // Read and parse the response from the server
-      var responseBody = await res.stream.bytesToString();
-      
-      if (kDebugMode) {
-        print("Data Upload Successful...");
-        print("Response: $responseBody");
-      }
+      var request = http.MultipartRequest('POST', Uri.parse(url));
+      request.files.add(await http.MultipartFile.fromPath('image', path));
 
-      // Parse response body as JSON and create a StudentModel instance
-      Map<String, dynamic> json = jsonDecode(responseBody);
-      studentModel = StudentModel.fromJson(json);
-    } else {
-      if (kDebugMode) {
-      print("Upload Unsuccessful");
-        print("Response Code: ${res.statusCode}");
+      var res = await request.send();
+
+      if (res.statusCode == 200) {
+        // Read and parse the response from the server
+        var responseBody = await res.stream.bytesToString();
+
+        if (kDebugMode) {
+          print("Data Upload Successful...");
+          print("Response: $responseBody");
+        }
+
+        // Parse response body as JSON and create a StudentModel instance
+        Map<String, dynamic> json = jsonDecode(responseBody);
+        studentModel = StudentModel.fromJson(json);
+      } else {
+        if (kDebugMode) {
+          print("Upload Unsuccessful");
+          print("Response Code: ${res.statusCode}");
+        }
+        return null;
       }
-      return null;
+    } catch (e) {
+      if (kDebugMode) print(e);
+    } finally {
+      isLoading(false);
     }
-  } catch (e) {
-    if (kDebugMode) print(e);
-  } finally {
-    isLoading(false);
+    return null;
   }
-  return null;
-}
-
-
 }
