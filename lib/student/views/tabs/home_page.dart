@@ -21,8 +21,8 @@ class StudentHomePage extends StatefulWidget {
 List<Widget> timetable = [timeTableCard(), timeTableCard(), timeTableCard()];
 final StudentNotificationController notificationController =
     Get.put(StudentNotificationController());
-final AssignmentController assignmentController =
-    Get.put(AssignmentController());
+final StudentAssignmentController assignmentController =
+    Get.put(StudentAssignmentController());
 
 class _StudentHomePageState extends State<StudentHomePage> {
   @override
@@ -290,12 +290,13 @@ class _StudentHomePageState extends State<StudentHomePage> {
                   itemBuilder: (context, index) {
                     final notification = notifications[index];
                     return notificationCard(
-                      MediaQuery.of(context).size.width,
-                      notification.title,
-                      notification.description,
-                      notification.createdAt.split(
-                          'T')[0], // Format the date to show only YYYY-MM-DD
-                    );
+                        MediaQuery.of(context).size.width,
+                        notification.title,
+                        notification.description,
+                        notification.createdAt.split('T')[0],
+                        Color.fromARGB(255, 255, 143, 16),
+                        Color.fromARGB(255, 255, 106, 57),
+                        Color.fromARGB(239, 87, 87, 87));
                   },
                 );
               }),

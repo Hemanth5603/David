@@ -115,7 +115,7 @@ Widget assignmentCard(w, prof, title, description, subject, due) {
             ),
             GestureDetector(
               onTap: () {
-                Get.to(AssignmentPage());
+                Get.to(AssignmentSubmissionPage());
               },
               child: Container(
                 width: 100,

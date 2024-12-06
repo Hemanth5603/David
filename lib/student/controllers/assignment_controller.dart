@@ -5,7 +5,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../../api.dart';
 import '../models/assignment_model.dart';
 
-class AssignmentController extends GetxController {
+class StudentAssignmentController extends GetxController {
   final Rx<AssignmentModel?> assignments = Rx<AssignmentModel?>(null);
   final RxBool isLoading = false.obs;
   final RxString error = ''.obs;

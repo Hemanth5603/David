@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:intl/intl.dart';
+import 'package:prototype/faculty/controllers/assignment_controller.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class CreateAssignmentPage extends StatefulWidget {
   const CreateAssignmentPage({Key? key}) : super(key: key);
@@ -13,7 +17,8 @@ class _CreateAssignmentPageState extends State<CreateAssignmentPage> {
   final _descriptionController = TextEditingController();
   final _subjectController = TextEditingController();
   DateTime? _dueDate;
-
+  final AssignmentController assignmentController =
+      Get.put(AssignmentController());
   void _pickDueDate() async {
     DateTime? pickedDate = await showDatePicker(
       context: context,
@@ -72,7 +77,8 @@ class _CreateAssignmentPageState extends State<CreateAssignmentPage> {
             onPressed: () {
               Navigator.of(context).pop();
             },
-            child: const Text("OK", style: TextStyle(color: Colors.white, fontFamily: 'man-sb')),
+            child: const Text("OK",
+                style: TextStyle(color: Colors.white, fontFamily: 'man-sb')),
           ),
         ],
       ),
@@ -91,7 +97,9 @@ class _CreateAssignmentPageState extends State<CreateAssignmentPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Create Assignment", style: TextStyle(fontSize: 20, color: Colors.white, fontFamily: 'man-b')),
+        title: const Text("Create Assignment",
+            style: TextStyle(
+                fontSize: 20, color: Colors.white, fontFamily: 'man-b')),
         backgroundColor: const Color.fromARGB(255, 35, 37, 49),
       ),
       backgroundColor: const Color.fromARGB(255, 35, 37, 49),
@@ -102,7 +110,11 @@ class _CreateAssignmentPageState extends State<CreateAssignmentPage> {
           children: [
             const Text(
               "Enter Assignment Details",
-              style: TextStyle(fontSize: 22, color: Colors.white, fontWeight: FontWeight.bold, fontFamily: 'man-b'),
+              style: TextStyle(
+                  fontSize: 22,
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                  fontFamily: 'man-b'),
             ),
             const SizedBox(height: 20),
 
@@ -112,7 +124,8 @@ class _CreateAssignmentPageState extends State<CreateAssignmentPage> {
               style: const TextStyle(color: Colors.white, fontFamily: 'man-r'),
               decoration: InputDecoration(
                 labelText: 'Title',
-                labelStyle: const TextStyle(color: Colors.white70, fontFamily: 'man-l'),
+                labelStyle:
+                    const TextStyle(color: Colors.white70, fontFamily: 'man-l'),
                 filled: true,
                 fillColor: const Color.fromARGB(255, 45, 47, 61),
                 border: OutlineInputBorder(
@@ -129,7 +142,8 @@ class _CreateAssignmentPageState extends State<CreateAssignmentPage> {
               maxLines: 3,
               decoration: InputDecoration(
                 labelText: 'Description',
-                labelStyle: const TextStyle(color: Colors.white70, fontFamily: 'man-l'),
+                labelStyle:
+                    const TextStyle(color: Colors.white70, fontFamily: 'man-l'),
                 filled: true,
                 fillColor: const Color.fromARGB(255, 45, 47, 61),
                 border: OutlineInputBorder(
@@ -145,7 +159,8 @@ class _CreateAssignmentPageState extends State<CreateAssignmentPage> {
               style: const TextStyle(color: Colors.white, fontFamily: 'man-r'),
               decoration: InputDecoration(
                 labelText: 'Subject',
-                labelStyle: const TextStyle(color: Colors.white70, fontFamily: 'man-l'),
+                labelStyle:
+                    const TextStyle(color: Colors.white70, fontFamily: 'man-l'),
                 filled: true,
                 fillColor: const Color.fromARGB(255, 45, 47, 61),
                 border: OutlineInputBorder(
@@ -161,20 +176,23 @@ class _CreateAssignmentPageState extends State<CreateAssignmentPage> {
               children: [
                 const Text(
                   "Due Date:",
-                  style: TextStyle(color: Colors.white, fontSize: 16, fontFamily: 'man-r'),
+                  style: TextStyle(
+                      color: Colors.white, fontSize: 16, fontFamily: 'man-r'),
                 ),
                 Text(
                   _dueDate == null
                       ? "Not selected"
                       : DateFormat('yyyy-MM-dd').format(_dueDate!),
-                  style: const TextStyle(color: Colors.white70, fontSize: 16, fontFamily: 'man-r'),
+                  style: const TextStyle(
+                      color: Colors.white70, fontSize: 16, fontFamily: 'man-r'),
                 ),
                 TextButton(
                   onPressed: _pickDueDate,
                   style: TextButton.styleFrom(
                     foregroundColor: Colors.white,
                   ),
-                  child: const Text("Select", style: TextStyle(fontFamily: 'man-sb')),
+                  child: const Text("Select",
+                      style: TextStyle(fontFamily: 'man-sb')),
                 ),
               ],
             ),
@@ -183,17 +201,38 @@ class _CreateAssignmentPageState extends State<CreateAssignmentPage> {
             // Create Assignment Button
             Center(
               child: ElevatedButton(
-                onPressed: _createAssignment,
+                onPressed: () async {
+                  SharedPreferences prefs =
+                      await SharedPreferences.getInstance();
+
+                  String branch = prefs.getString("fbranch") ?? 'CSE';
+                  String facultyName = prefs.getString("fname") ?? 'John Doe';
+                  String facultyId = prefs.getString('fid') ?? "1";
+                  String subject = _subjectController.text;
+                  print(facultyId);
+                  print(facultyName);
+                  print(subject);
+                  assignmentController.createAssignment(
+                      title: _titleController.text,
+                      description: _descriptionController.text,
+                      facultyId: int.parse(facultyId),
+                      facultyName: facultyName,
+                      subject: subject,
+                      branch: branch,
+                      dueDate: _dueDate!);
+                },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: const Color.fromARGB(255, 97, 98, 117),
-                  padding: const EdgeInsets.symmetric(vertical: 14, horizontal: 50),
+                  padding:
+                      const EdgeInsets.symmetric(vertical: 14, horizontal: 50),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(20),
                   ),
                 ),
                 child: const Text(
                   "Create Assignment",
-                  style: TextStyle(fontSize: 18, color: Colors.white, fontFamily: 'man-sb'),
+                  style: TextStyle(
+                      fontSize: 18, color: Colors.white, fontFamily: 'man-sb'),
                 ),
               ),
             ),

@@ -133,7 +133,7 @@ class _SignUpState extends State<StudentSignUp> {
                             child: Center(
                               child: TextField(
                                 controller: userController
-                                    .rollNumber, // Replace email controller with rollNumber controller
+                                    .email, // Replace email controller with rollNumber controller
                                 keyboardType: TextInputType
                                     .text, // Use TextInputType.text for alphanumeric roll numbers
                                 textAlignVertical: TextAlignVertical.bottom,

@@ -5,7 +5,8 @@ import 'package:flutter/services.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:get/get.dart';
 import 'package:prototype/auth/on_boarding.dart';
-import 'package:prototype/faculty/views/home.dart';
+import 'package:prototype/faculty/views/auth/login.dart';
+import 'package:prototype/faculty/views/faculty_home.dart';
 import 'package:prototype/faculty/views/tabs/faculty_home_page.dart';
 import 'package:prototype/services/auth_service.dart';
 import 'package:prototype/student/views/home.dart';
@@ -145,9 +146,9 @@ class InitialRouter extends StatelessWidget {
       }
 
       if (AuthService.to.userType.value == 'student') {
-        return const FacultyHomePage();
+        return const StudentHome();
       } else if (AuthService.to.userType.value == 'faculty') {
-        return const FacultyHomePage();
+        return const FacultyHome();
       }
 
       return OnBoardingPage();

@@ -114,8 +114,10 @@ class FacultyProfilePage extends StatelessWidget {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: [
-                              _infoCard("Qualification", "Ph.D.", const Color(0xFF4CAF50)),
-                              _infoCard("Subjects", "3", const Color(0xFF2196F3)),
+                              _infoCard("Qualification", "Ph.D.",
+                                  const Color(0xFF4CAF50)),
+                              _infoCard(
+                                  "Subjects", "3", const Color(0xFF2196F3)),
                               //_infoCard("Office Hours", "10AM-4PM", const Color(0xFFF44336)),
                             ],
                           ),
@@ -145,7 +147,8 @@ class FacultyProfilePage extends StatelessWidget {
                             ),
                           ),
                           Column(
-                            mainAxisSize: MainAxisSize.min, // Keeps the column compact
+                            mainAxisSize:
+                                MainAxisSize.min, // Keeps the column compact
                             children: [
                               IconButton(
                                 onPressed: () {
@@ -158,13 +161,15 @@ class FacultyProfilePage extends StatelessWidget {
                                 ),
                               ),
                               Transform.translate(
-                                offset: const Offset(0, -6), // Move the text upward by 6 pixels
+                                offset: const Offset(
+                                    0, -6), // Move the text upward by 6 pixels
                                 child: const Text(
                                   "Edit",
                                   style: TextStyle(
                                     fontFamily: "man-l",
                                     fontSize: 12,
-                                    color: Color(0xFF2196F3), // Light blue color
+                                    color:
+                                        Color(0xFF2196F3), // Light blue color
                                   ),
                                 ),
                               ),
@@ -176,12 +181,18 @@ class FacultyProfilePage extends StatelessWidget {
                       const SizedBox(height: 10),
 
                       // Detail cards
-                      _detailCard(context, "Qualification", "Ph.D. in Computer Science", Icons.school),
-                      _detailCard(context, "Subjects Dealing", "AI, ML, and IoT", Icons.subject),                      
-                      _detailCard(context, "Email", "sarah.williams@university.com", Icons.email),
-                      _detailCard(context, "Phone", "+91 9876543210", Icons.phone),
-                      _detailCard(context, "Department", "Computer Science Engineering", Icons.business),
-                      _detailCard(context, "Office Location", "Room 204, Block A", Icons.location_on),
+                      _detailCard(context, "Qualification",
+                          "Ph.D. in Computer Science", Icons.school),
+                      _detailCard(context, "Subjects Dealing",
+                          "AI, ML, and IoT", Icons.subject),
+                      _detailCard(context, "Email",
+                          "sarah.williams@university.com", Icons.email),
+                      _detailCard(
+                          context, "Phone", "+91 9876543210", Icons.phone),
+                      _detailCard(context, "Department",
+                          "Computer Science Engineering", Icons.business),
+                      _detailCard(context, "Office Location",
+                          "Room 204, Block A", Icons.location_on),
                     ],
                   ),
                 ),
@@ -227,7 +238,8 @@ class FacultyProfilePage extends StatelessWidget {
   }
 
   // Method to build each detail card
-  Widget _detailCard(BuildContext context, String title, String value, IconData icon) {
+  Widget _detailCard(
+      BuildContext context, String title, String value, IconData icon) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 6.0),
       child: Container(

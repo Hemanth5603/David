@@ -165,7 +165,7 @@ class _FacultyLoginState extends State<FacultyLogin> {
                           )),
                     ),
                     onTap: () async {
-                      await userController.signInWithEmailPassword();
+                      userController.loginWithEmailPassword();
                     },
                   ),
                   const SizedBox(

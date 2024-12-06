@@ -31,8 +31,6 @@ class StudentNotificationController extends GetxController {
       if (response.statusCode == 200) {
         final Map<String, dynamic> data = json.decode(response.body);
         notifications.value = NotificationModel.fromJson(data);
-        await AuthService.to.loginAsStudent();
-        Get.offAllNamed('/student/home');
       } else {
         throw Exception('Failed to load notifications');
       }

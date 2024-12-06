@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:file_picker/file_picker.dart';
-import 'package:intl/intl.dart'; 
+import 'package:intl/intl.dart';
 
-class AssignmentPage extends StatefulWidget {
-  const AssignmentPage({super.key});
+class AssignmentSubmissionPage extends StatefulWidget {
+  const AssignmentSubmissionPage({super.key});
 
   @override
-  _AssignmentPageState createState() => _AssignmentPageState();
+  _AssignmentSubmissionPageState createState() =>
+      _AssignmentSubmissionPageState();
 }
 
-class _AssignmentPageState extends State<AssignmentPage> {
+class _AssignmentSubmissionPageState extends State<AssignmentSubmissionPage> {
   final _sectionController = TextEditingController();
   final _rollNumberController = TextEditingController();
   late DateTime _selectedDate;
