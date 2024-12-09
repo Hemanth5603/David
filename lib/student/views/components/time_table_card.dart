@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-Widget timeTableCard() {
+Widget timeTableCard(facultyName, time, subject, room) {
   return Container(
     padding: EdgeInsets.all(15),
     width: 400,
@@ -17,7 +17,7 @@ Widget timeTableCard() {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(
-              "Dr. Sahu",
+              facultyName,
               style: TextStyle(
                   fontFamily: 'man-b',
                   fontSize: 16,
@@ -41,7 +41,7 @@ Widget timeTableCard() {
           height: 0,
         ),
         Text(
-          "Data Structures",
+          subject,
           style: TextStyle(
             fontFamily: 'man-sb',
             fontSize: 14,
@@ -51,18 +51,18 @@ Widget timeTableCard() {
         const SizedBox(
           height: 30,
         ),
-        const Row(
+        Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(
-              "LH 21",
-              style: TextStyle(
+              room,
+              style: const TextStyle(
                   fontFamily: 'man-r',
                   fontSize: 14,
                   color: Color.fromARGB(255, 51, 51, 51)),
             ),
             Text(
-              "9:00 AM - 10:00 AM",
+              time,
               style: TextStyle(
                   fontSize: 12,
                   fontFamily: 'man-sb',

@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:prototype/faculty/views/tabs/assignment.dart';
 import 'package:prototype/faculty/views/tabs/create_assignment.dart';
+import 'package:prototype/faculty/views/tabs/faculty_leaderboard.dart';
 import 'package:prototype/faculty/views/tabs/faculty_profile.dart';
 import 'package:prototype/faculty/views/tabs/home_page.dart';
 import 'package:prototype/faculty/views/tabs/faculty_home_page.dart';
+import 'package:prototype/faculty/views/tabs/student_metrix_page.dart';
 import 'package:prototype/student/views/tabs/assignment_submission.dart';
 
 import 'package:prototype/student/views/tabs/home_page.dart';
@@ -26,12 +28,27 @@ class _FacultyHomeState extends State<FacultyHome> {
         activeIcon: Icon(Icons.home_rounded),
         label: 'Home'),
     BottomNavigationBarItem(
+      backgroundColor: Colors.black,
+      icon: Icon(
+        Icons.notes_rounded,
+      ),
+      activeIcon: Icon(Icons.notes_rounded),
+      label: 'Assignment',
+    ),
+    BottomNavigationBarItem(
         backgroundColor: Colors.black,
         icon: Icon(
-          Icons.notes_rounded,
+          Icons.leaderboard_rounded,
         ),
-        activeIcon: Icon(Icons.notes_rounded),
-        label: 'Assignment'),
+        activeIcon: Icon(Icons.leaderboard_rounded),
+        label: 'Leaderboard'),
+    BottomNavigationBarItem(
+        backgroundColor: Colors.black,
+        icon: Icon(
+          Icons.auto_graph,
+        ),
+        activeIcon: Icon(Icons.auto_graph),
+        label: 'Attendance'),
     BottomNavigationBarItem(
         backgroundColor: Colors.black,
         icon: Icon(Icons.person_rounded),
@@ -43,6 +60,8 @@ class _FacultyHomeState extends State<FacultyHome> {
   List<Widget> pages = [
     FacultyHomePage(),
     AssignmentPage(),
+    FacultyLeaderboard(),
+    AttendanceMetrics(),
     FacultyProfilePage(),
   ];
 

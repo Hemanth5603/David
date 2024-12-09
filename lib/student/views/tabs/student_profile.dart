@@ -1,11 +1,29 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
+import 'package:prototype/student/controllers/authentication_controller.dart';
+import 'package:prototype/student/models/student_model.dart';
 
-class StudentProfile extends StatelessWidget {
+class StudentProfile extends StatefulWidget {
+  const StudentProfile({super.key});
+
+  @override
+  State<StudentProfile> createState() => _StudentProfileState();
+}
+
+class _StudentProfileState extends State<StudentProfile> {
+  final AuthenticationController authenticationController =
+      Get.put(AuthenticationController());
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    authenticationController.getUserByRoll();
+  }
+
   @override
   Widget build(BuildContext context) {
-    final double screenHeight = MediaQuery.of(context).size.height;
-    final double screenWidth = MediaQuery.of(context).size.width;
-
     return Scaffold(
       backgroundColor: Colors.white,
       body: SingleChildScrollView(
@@ -13,7 +31,7 @@ class StudentProfile extends StatelessWidget {
           children: [
             // Blue background for the top portion
             Container(
-              height: screenHeight * 0.48,
+              height: MediaQuery.of(context).size.height * 0.48,
               decoration: const BoxDecoration(
                 color: Color(0xFF1F2A45), // Blue shade
               ),
@@ -28,36 +46,46 @@ class StudentProfile extends StatelessWidget {
                   radius: 60,
                   backgroundColor: Colors.white,
                   child: CircleAvatar(
-                    radius: 55,
-                    backgroundImage: AssetImage('assets/preson.png'),
+                    radius: 58,
+                    backgroundImage: AssetImage('images/office_me.jpg'),
                   ),
                 ),
                 const SizedBox(height: 10),
 
                 // Name and roll number
-                const Text(
-                  "Caroline",
-                  style: TextStyle(
-                    fontFamily: "man-b",
-                    fontSize: 20,
-                    color: Colors.white,
-                  ),
-                ),
-                const Text(
-                  "Roll No: 213J1A04C6",
-                  style: TextStyle(
-                    fontFamily: "man-l",
-                    fontSize: 16,
-                    color: Colors.white70,
-                  ),
-                ),
+                Obx(() => authenticationController.isLoading.value
+                    ? const Center(
+                        child: CircularProgressIndicator(
+                          color: Colors.white,
+                        ),
+                      )
+                    : Column(
+                        children: [
+                          Text(
+                            "${authenticationController.student.value?.student.firstName ?? 'Loading...'} ${authenticationController.student.value?.student.lastName ?? 'Loading...'} ",
+                            style: const TextStyle(
+                              fontFamily: "man-b",
+                              fontSize: 20,
+                              color: Colors.white,
+                            ),
+                          ),
+                          Text(
+                            "Roll No: ${authenticationController.student.value?.student.rollNo ?? 'N/A'}",
+                            style: const TextStyle(
+                              fontFamily: "man-r",
+                              fontSize: 14,
+                              color: Colors.white70,
+                            ),
+                          ),
+                        ],
+                      )),
                 const SizedBox(height: 30),
 
                 // White card for attendance and additional info
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 16.0),
                   child: Container(
-                    height: screenHeight * 0.42,
+                    height: MediaQuery.of(context).size.height * 0.38,
                     width: double.infinity,
                     decoration: BoxDecoration(
                       color: Colors.white,
@@ -108,15 +136,30 @@ class StudentProfile extends StatelessWidget {
                               ],
                             ),
                           ),
-                          const SizedBox(height: 60),
+                          const SizedBox(height: 20),
 
                           // CGPA, Attendance, and Backlogs cards
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: [
-                              _infoCard("CGPA", "8.5", const Color(0xFF4CAF50)),
-                              _infoCard("Backlogs", "0", const Color(0xFFF44336)),
-                              _infoCard("Attendance", "85%", const Color(0xFF2196F3)),
+                              _infoCard(
+                                  "CGPA",
+                                  authenticationController
+                                          .student.value?.student.branch
+                                          .toString() ??
+                                      'N/A',
+                                  const Color(0xFF4CAF50)),
+                              _infoCard(
+                                  "Backlogs",
+                                  authenticationController
+                                          .student.value?.student.branch
+                                          .toString() ??
+                                      'N/A',
+                                  const Color(0xFFF44336)),
+                              _infoCard(
+                                  "Attendance",
+                                  "${authenticationController.student.value?.student.lastName.toString() ?? 'N/A'}%",
+                                  const Color(0xFF2196F3)),
                             ],
                           ),
                         ],
@@ -133,7 +176,7 @@ class StudentProfile extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       // Header with Edit button
-                     Row(
+                      Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           const Text(
@@ -145,7 +188,8 @@ class StudentProfile extends StatelessWidget {
                             ),
                           ),
                           Column(
-                            mainAxisSize: MainAxisSize.min, // Keeps the column compact
+                            mainAxisSize:
+                                MainAxisSize.min, // Keeps the column compact
                             children: [
                               IconButton(
                                 onPressed: () {
@@ -158,32 +202,73 @@ class StudentProfile extends StatelessWidget {
                                 ),
                               ),
                               Transform.translate(
-                                offset: const Offset(0, -6), // Move the text upward by 6 pixels
+                                offset: const Offset(
+                                    0, -6), // Move the text upward by 6 pixels
                                 child: const Text(
                                   "Edit",
                                   style: TextStyle(
                                     fontFamily: "man-l",
                                     fontSize: 12,
-                                    color: Color(0xFF2196F3), // Light blue color
+                                    color:
+                                        Color(0xFF2196F3), // Light blue color
                                   ),
                                 ),
                               ),
                             ],
                           ),
-
                         ],
                       ),
 
                       const SizedBox(height: 10),
 
                       // Detail cards
-                      _detailCard(context, "Section", "B", Icons.group),
-                      _detailCard(context, "Branch", "Computer Science Engineering", Icons.school),
-                      _detailCard(context, "Email", "Ishithacaroline@gmail.com", Icons.email),
-                      _detailCard(context, "Phone", "+91 9876543210", Icons.phone),
-                      _detailCard(context, "Date of Birth", "01 Jan 2003", Icons.calendar_today),
-                      _detailCard(context, "Year of Study", "3rd Year", Icons.book),
-                      
+                      Obx(() => Column(
+                            children: [
+                              _detailCard(
+                                  context,
+                                  "Section",
+                                  authenticationController
+                                          .student.value?.student.section ??
+                                      'N/A',
+                                  Icons.group),
+                              _detailCard(
+                                  context,
+                                  "Branch",
+                                  authenticationController
+                                          .student.value?.student.branch ??
+                                      'N/A',
+                                  Icons.school),
+                              _detailCard(
+                                  context,
+                                  "Email",
+                                  authenticationController
+                                          .student.value?.student.email ??
+                                      'N/A',
+                                  Icons.email),
+                              _detailCard(
+                                  context,
+                                  "Phone",
+                                  authenticationController
+                                          .student.value?.student.phoneNumber ??
+                                      'N/A',
+                                  Icons.phone),
+                              _detailCard(
+                                  context,
+                                  "Date of Birth",
+                                  authenticationController
+                                          .student.value?.student.dateOfBirth ??
+                                      'N/A',
+                                  Icons.calendar_today),
+                              _detailCard(
+                                  context,
+                                  "Year of Study",
+                                  authenticationController
+                                          .student.value?.student.yearOfStudy
+                                          .toString() ??
+                                      'N/A',
+                                  Icons.book),
+                            ],
+                          )),
                     ],
                   ),
                 ),
@@ -229,7 +314,8 @@ class StudentProfile extends StatelessWidget {
   }
 
   // Method to build each detail card
-  Widget _detailCard(BuildContext context, String title, String value, IconData icon) {
+  Widget _detailCard(
+      BuildContext context, String title, String value, IconData icon) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 6.0),
       child: Container(

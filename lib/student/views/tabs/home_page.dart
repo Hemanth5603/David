@@ -7,6 +7,7 @@ import 'package:prototype/faculty/controllers/find_face_controller.dart';
 import 'package:prototype/faculty/controllers/notification_controller.dart';
 import 'package:prototype/student/controllers/assignment_controller.dart';
 import 'package:prototype/student/controllers/notification_controller.dart';
+import 'package:prototype/student/controllers/timetable_controller.dart';
 import 'package:prototype/student/views/components/assignment_card.dart';
 import 'package:prototype/student/views/components/notification_card.dart';
 import 'package:prototype/student/views/components/time_table_card.dart';
@@ -18,13 +19,14 @@ class StudentHomePage extends StatefulWidget {
   State<StudentHomePage> createState() => _StudentHomePageState();
 }
 
-List<Widget> timetable = [timeTableCard(), timeTableCard(), timeTableCard()];
 final StudentNotificationController notificationController =
     Get.put(StudentNotificationController());
 final StudentAssignmentController assignmentController =
     Get.put(StudentAssignmentController());
 
-class _StudentHomePageState extends State<StudentHomePage> {
+final TimeTableController timeTableController = Get.put(TimeTableController());
+
+final class _StudentHomePageState extends State<StudentHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -157,16 +159,33 @@ class _StudentHomePageState extends State<StudentHomePage> {
                         ),
                       ),
                       Container(
-                          width: MediaQuery.of(context).size.width,
-                          height: 190,
-                          child: CardSwiper(
-                            cardsCount: timetable.length,
+                        width: MediaQuery.of(context).size.width,
+                        height: 190,
+                        child: Obx(() {
+                          if (timeTableController.timetable.value == null) {
+                            return const Center(
+                              child: CircularProgressIndicator(),
+                            );
+                          }
+                          final timetables = timeTableController
+                              .timetable.value!.timetables[0].classes;
+                          return CardSwiper(
+                            cardsCount: timetables.length,
                             cardBuilder: (context, index, percentThresholdX,
                                     percentThresholdY) =>
-                                timetable[index],
-                            backCardOffset: const Offset(0, 20),
-                            numberOfCardsDisplayed: 3,
-                          ))
+                                timeTableCard(
+                              timetables[index].teacherName == ""
+                                  ? "Dr.Sahu"
+                                  : timetables[index].teacherName,
+                              timetables[index].time,
+                              timetables[index].subjectName,
+                              timetables[index].room,
+                            ),
+                            backCardOffset: const Offset(0, 15),
+                            numberOfCardsDisplayed: 5,
+                          );
+                        }),
+                      )
                     ],
                   ),
                 ),

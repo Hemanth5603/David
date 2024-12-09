@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:prototype/constants.dart';
 import 'package:prototype/student/views/tabs/calendar.dart';
 import 'package:prototype/student/views/tabs/home_page.dart';
+import 'package:prototype/student/views/tabs/leaderboard.dart';
 import 'package:prototype/student/views/tabs/student_profile.dart';
 
 class StudentHome extends StatefulWidget {
@@ -17,7 +18,8 @@ class StudentHomeState extends State<StudentHome> {
   List<Widget> pages = [
     const StudentHomePage(),
     const CalendarTab(),
-    StudentProfile()
+    StudentLeaderboard(),
+    const StudentProfile()
   ];
 
   @override
@@ -39,9 +41,9 @@ class StudentHomeState extends State<StudentHome> {
     return Scaffold(
         bottomNavigationBar: BottomNavigationBar(
             type: BottomNavigationBarType.fixed,
-            backgroundColor: Colors.white,
-            selectedItemColor: Color.fromARGB(255, 255, 160, 18),
-            unselectedItemColor: Color.fromARGB(255, 255, 215, 154),
+            backgroundColor: const Color.fromARGB(255, 255, 255, 255),
+            selectedItemColor: const Color.fromARGB(255, 255, 171, 44),
+            unselectedItemColor: const Color.fromARGB(255, 255, 215, 154),
             elevation: 10,
             currentIndex: selectedIndex,
             onTap: (value) {

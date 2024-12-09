@@ -13,12 +13,14 @@ import '../../api.dart';
 class AuthenticationController extends GetxController {
   final TextEditingController rollNoController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
+  final RxBool isLoading = false.obs;
 
   // Login method
   Rx<StudentModel?> student = Rx<StudentModel?>(null);
   void login() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     try {
+      isLoading(true);
       final response = await http.post(
         Uri.parse('${API.baseUrl}${API.login}'),
         headers: {
@@ -39,6 +41,31 @@ class AuthenticationController extends GetxController {
 
         await AuthService.to.loginAsStudent();
         Get.offAllNamed('/student/home');
+      } else {
+        print("Invalid Credentials");
+      }
+      isLoading(false);
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  void getUserByRoll() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String roll = prefs.getString("roll") ?? '20CSE1001';
+    try {
+      final response = await http.get(
+        Uri.parse('${API.baseUrl}${API.getUserByRoll}$roll'),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      );
+
+      final Map<String, dynamic> responseData = jsonDecode(response.body);
+
+      if (response.statusCode == 200 && responseData['status'] == true) {
+        student.value = StudentModel.fromJson(responseData);
+        print(student.value!.student.firstName);
       } else {
         print("Invalid Credentials");
       }

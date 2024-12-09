@@ -164,6 +164,8 @@ class _AssignmentPageState extends State<AssignmentPage> {
                                     .submissions[index].subjectName,
                                 assignmentController.submissions.value!
                                     .submissions[index].submissionDate,
+                                pdfUrl: assignmentController.submissions.value!
+                                    .submissions[index].pdfUrl,
                               );
                             },
                           ),

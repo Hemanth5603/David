@@ -1,16 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:prototype/faculty/controllers/user_controller.dart';
-import 'package:prototype/student/controllers/leaderboard_controller.dart';
 
-class StudentLeaderboard extends StatefulWidget {
-  StudentLeaderboard({Key? key}) : super(key: key);
+class FacultyLeaderboard extends StatefulWidget {
+  const FacultyLeaderboard({Key? key}) : super(key: key);
 
   @override
-  State<StudentLeaderboard> createState() => _StudentLeaderboardState();
+  State<FacultyLeaderboard> createState() => _FacultyLeaderboardState();
 }
 
-class _StudentLeaderboardState extends State<StudentLeaderboard> {
+class _FacultyLeaderboardState extends State<FacultyLeaderboard> {
   final List<Map<String, dynamic>> students = [
     {"rank": 1, "name": "Arun Sharma", "score": 98},
     {"rank": 2, "name": "Neha Gupta", "score": 95},
@@ -19,14 +18,13 @@ class _StudentLeaderboardState extends State<StudentLeaderboard> {
     {"rank": 5, "name": "Madhusudan", "score": 85},
     {"rank": 6, "name": "Sanya Varma", "score": 82},
   ];
-  final LeaderboardController leaderboardController =
-      Get.put(LeaderboardController());
+  final UserController userController = Get.put(UserController());
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    leaderboardController.getStudentLeaderBoard();
+    userController.getFacultyLeaderBoard();
   }
 
   @override
@@ -116,26 +114,24 @@ class _StudentLeaderboardState extends State<StudentLeaderboard> {
           // Student List with padding from both sides
           Expanded(
             child: Obx(() {
-              if (leaderboardController.isLoading.value) {
+              if (userController.isLoading.value) {
                 return const Center(child: CircularProgressIndicator());
               }
 
               final metrics =
-                  leaderboardController.studentLeaderboard.value?.data ?? [];
+                  userController.facultyLeaderBoardModel.value?.metrics ?? [];
 
-              // if (metrics.isEmpty) {
-              //   return const Center(
-              //       child: Text('No faculty metrics available'));
-              // }
+              if (metrics.isEmpty) {
+                return const Center(
+                    child: Text('No faculty metrics available'));
+              }
 
               return Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 16),
                 child: ListView.builder(
-                  itemCount: leaderboardController
-                      .studentLeaderboard.value?.data.rankings.length,
+                  itemCount: metrics.length,
                   itemBuilder: (context, index) {
-                    final faculty = leaderboardController
-                        .studentLeaderboard.value?.data.rankings[index];
+                    final faculty = metrics[index];
                     return Container(
                       margin: const EdgeInsets.symmetric(vertical: 4),
                       padding: const EdgeInsets.symmetric(
@@ -178,14 +174,14 @@ class _StudentLeaderboardState extends State<StudentLeaderboard> {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(
-                                    "${faculty!.firstName} ${faculty.lastName}",
+                                    faculty.facultyName,
                                     style: const TextStyle(
                                       fontWeight: FontWeight.w500,
                                       fontFamily: 'man-r',
                                     ),
                                   ),
                                   Text(
-                                    faculty.branch,
+                                    faculty.department,
                                     style: TextStyle(
                                       color: Colors.grey[600],
                                       fontSize: 12,
@@ -199,15 +195,12 @@ class _StudentLeaderboardState extends State<StudentLeaderboard> {
                             radius: 16,
                             backgroundColor:
                                 const Color.fromARGB(255, 209, 232, 249),
-                            child: Center(
-                              child: Text(
-                                faculty.cgpa.toString(),
-                                textAlign: TextAlign.center,
-                                style: const TextStyle(
-                                  color: Color.fromARGB(255, 255, 254, 254),
-                                  fontWeight: FontWeight.bold,
-                                  fontFamily: 'man-b',
-                                ),
+                            child: Text(
+                              faculty.overallScore.toStringAsFixed(0),
+                              style: const TextStyle(
+                                color: Color.fromARGB(255, 255, 254, 254),
+                                fontWeight: FontWeight.bold,
+                                fontFamily: 'man-b',
                               ),
                             ),
                           ),

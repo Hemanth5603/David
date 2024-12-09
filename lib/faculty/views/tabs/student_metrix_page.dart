@@ -1,12 +1,21 @@
 import 'package:flutter/material.dart';
 
-class StudentMetrixPage extends StatefulWidget {
+class AttendanceMetrics extends StatefulWidget {
   @override
-  _StudentMetrixPageState createState() => _StudentMetrixPageState();
+  _AttendanceMetricsState createState() => _AttendanceMetricsState();
 }
 
-class _StudentMetrixPageState extends State<StudentMetrixPage> {
-  final List<String> branches = ['CSE', 'CSM', 'CSO', 'IT', 'ECE', 'EEE', 'MECH', 'CIVIL'];
+class _AttendanceMetricsState extends State<AttendanceMetrics> {
+  final List<String> branches = [
+    'CSE',
+    'CSM',
+    'CSO',
+    'IT',
+    'ECE',
+    'EEE',
+    'MECH',
+    'CIVIL'
+  ];
   String selectedBranch = 'CSE';
   double attendancePercentage = 70.0;
 
@@ -53,7 +62,7 @@ class _StudentMetrixPageState extends State<StudentMetrixPage> {
       appBar: AppBar(
         backgroundColor: const Color.fromARGB(255, 45, 47, 61),
         title: const Text(
-          'Student Metrix Page',
+          'Attendance Metrics',
           style: TextStyle(
             fontFamily: 'man-sb',
             color: Colors.white,
@@ -79,7 +88,8 @@ class _StudentMetrixPageState extends State<StudentMetrixPage> {
                   DropdownButton<String>(
                     value: selectedBranch,
                     dropdownColor: const Color.fromARGB(255, 62, 63, 75),
-                    style: const TextStyle(color: Colors.white, fontFamily: 'man-sb'),
+                    style: const TextStyle(
+                        color: Colors.white, fontFamily: 'man-sb'),
                     underline: Container(height: 1, color: Colors.white),
                     items: branches
                         .map((branch) => DropdownMenuItem(
@@ -116,26 +126,41 @@ class _StudentMetrixPageState extends State<StudentMetrixPage> {
                       columnSpacing: 38.0,
                       columns: const [
                         DataColumn(
-                          label: Text('Roll', style: TextStyle(fontFamily: 'man-sb')),
+                          label: Text('Roll',
+                              style: TextStyle(
+                                  fontFamily: 'man-sb', color: Colors.white)),
                         ),
                         DataColumn(
-                          label: Text('Name', style: TextStyle(fontFamily: 'man-sb')),
+                          label: Text('Name',
+                              style: TextStyle(
+                                  fontFamily: 'man-sb', color: Colors.white)),
                         ),
                         DataColumn(
-                          label: Text('Status', style: TextStyle(fontFamily: 'man-sb')),
+                          label: Text('Status',
+                              style: TextStyle(
+                                  fontFamily: 'man-sb', color: Colors.white)),
                         ),
                       ],
                       rows: students
                           .map(
                             (student) => DataRow(
                               cells: [
-                                DataCell(Text(student['roll'], style: const TextStyle(fontFamily: 'man-r'))),
-                                DataCell(Text(student['name'], style: const TextStyle(fontFamily: 'man-r'))),
+                                DataCell(Text(student['roll'],
+                                    style: const TextStyle(
+                                        fontFamily: 'man-r',
+                                        color: Colors.white))),
+                                DataCell(Text(student['name'],
+                                    textAlign: TextAlign.start,
+                                    style: const TextStyle(
+                                        fontFamily: 'man-r',
+                                        color: Colors.white))),
                                 DataCell(Text(
                                   student['status'],
                                   style: TextStyle(
                                     fontFamily: 'man-r',
-                                    color: student['status'] == 'Present' ? Colors.green : Colors.red,
+                                    color: student['status'] == 'Present'
+                                        ? Colors.green
+                                        : Colors.red,
                                   ),
                                 )),
                               ],

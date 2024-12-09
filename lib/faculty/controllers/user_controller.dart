@@ -10,6 +10,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:prototype/api.dart';
 import 'package:prototype/constants.dart';
+import 'package:prototype/faculty/models/faculty_leaderboard_model.dart';
 import 'package:prototype/faculty/models/faculty_model.dart';
 import 'package:prototype/faculty/views/auth/signup.dart';
 import 'package:prototype/faculty/views/faculty_home.dart';
@@ -30,6 +31,8 @@ class UserController extends GetxController {
   TextEditingController url = TextEditingController();
 
   final Rx<FacultyModel?> facultyModel = Rx<FacultyModel?>(null);
+  final Rx<FacultyLeaderBoardModel?> facultyLeaderBoardModel =
+      Rx<FacultyLeaderBoardModel?>(null);
 
   void loginWithEmailPassword() async {
     try {
@@ -82,6 +85,46 @@ class UserController extends GetxController {
       return null;
     }
   }
+
+  void getFacultyLeaderBoard() async {
+    try {
+      isLoading.value = true;
+
+      // Make the API call to your backend
+      final response = await http.get(
+        Uri.parse('${API.baseUrl}${API.getFacultyLeaderboard}'),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      );
+
+      if (response.statusCode == 200) {
+        final Map<String, dynamic> responseData = json.decode(response.body);
+        facultyLeaderBoardModel.value =
+            FacultyLeaderBoardModel.fromJson(responseData);
+        isLoading.value = false;
+      } else {
+        isLoading.value = false;
+        Fluttertoast.showToast(
+          msg: "Failed to fetch leaderboard",
+          gravity: ToastGravity.BOTTOM,
+          backgroundColor: Colors.black,
+        );
+        return null;
+      }
+    } catch (e) {
+      isLoading.value = false;
+      if (kDebugMode) print('Error fetching leaderboard in: $e');
+      Fluttertoast.showToast(
+        msg: "An error occurred during login",
+        gravity: ToastGravity.BOTTOM,
+        backgroundColor: Colors.black,
+      );
+      return null;
+    }
+  }
+
+  /* --------------------------------------------------------------------------------------------------------------------*/
 
   Future<void> signUpWithEmailPassword() async {
     try {
