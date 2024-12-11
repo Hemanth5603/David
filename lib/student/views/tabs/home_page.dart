@@ -29,7 +29,7 @@ class _StudentHomePageState extends State<StudentHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color.fromARGB(255, 244, 243, 236),
+      backgroundColor: Color.fromARGB(255, 246, 245, 242),
       body: SingleChildScrollView(
         physics: const BouncingScrollPhysics(),
         child: Column(
@@ -107,7 +107,6 @@ class _StudentHomePageState extends State<StudentHomePage> {
       ),
     );
   }
-
   // Timetable Section
   Widget _buildTimetableSection() {
     return Column(
@@ -290,12 +289,15 @@ class _StudentHomePageState extends State<StudentHomePage> {
 
   // Card View for timetable
   Widget _buildCardsView() {
-    final timetables = timeTableController.timetable.value!.timetables[0].classes;
+    final timetables =
+        timeTableController.timetable.value!.timetables[0].classes;
     return CardSwiper(
       cardsCount: timetables.length,
       cardBuilder: (context, index, percentThresholdX, percentThresholdY) =>
           timeTableCard(
-        timetables[index].teacherName == "" ? "TBD" : timetables[index].teacherName,
+        timetables[index].teacherName == ""
+            ? "TBD"
+            : timetables[index].teacherName,
         timetables[index].time,
         timetables[index].subjectName,
         timetables[index].room,
@@ -307,76 +309,87 @@ class _StudentHomePageState extends State<StudentHomePage> {
 
   // Table View for timetable
   Widget _buildTableView() {
-  final timetables = timeTableController.timetable.value?.timetables ?? [];
-  if (timetables.isEmpty) {
-    return const Center(
-      child: Text(
-        "No data available",
-        style: TextStyle(fontSize: 16, fontFamily: 'man-r'),
+    final timetables = timeTableController.timetable.value?.timetables ?? [];
+    if (timetables.isEmpty) {
+      return const Center(
+        child: Text(
+          "No data available",
+          style: TextStyle(fontSize: 16, fontFamily: 'man-r'),
+        ),
+      );
+    }
+    final todayTimetables = timetables[0].classes;
+
+    return SingleChildScrollView(
+      child: Padding(
+        padding: const EdgeInsets.symmetric(
+            horizontal: 35.0, vertical: 20.0), // Apply margin here
+        child: Table(
+          border: TableBorder.all(color: Colors.grey, width: 1),
+          children: [
+            TableRow(
+              decoration: const BoxDecoration(
+                color: Constants.customOrange,
+              ),
+              children: const [
+                Padding(
+                  padding: EdgeInsets.all(8.0),
+                  child: Text("Time",
+                      style: TextStyle(fontWeight: FontWeight.bold)),
+                ),
+                Padding(
+                  padding: EdgeInsets.all(8.0),
+                  child: Text("Subject",
+                      style: TextStyle(fontWeight: FontWeight.bold)),
+                ),
+                Padding(
+                  padding: EdgeInsets.all(8.0),
+                  child: Text("Room",
+                      style: TextStyle(fontWeight: FontWeight.bold)),
+                ),
+                Padding(
+                  padding: EdgeInsets.all(8.0),
+                  child: Text("Teacher",
+                      style: TextStyle(fontWeight: FontWeight.bold)),
+                ),
+              ],
+            ),
+            ...todayTimetables.map((classItem) {
+              return TableRow(
+                decoration: BoxDecoration(
+                  color: todayTimetables.indexOf(classItem) % 2 == 0
+                      ? const Color.fromARGB(
+                          255, 244, 244, 244) // Light background for even rows
+                      : const Color.fromARGB(
+                          255, 243, 230, 211), // White background for odd rows
+                ),
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text(classItem.time),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text(classItem.subjectName),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text(classItem.room),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text(
+                      classItem.teacherName.isEmpty
+                          ? "TBD"
+                          : classItem.teacherName,
+                    ),
+                  ),
+                ],
+              );
+            }).toList(),
+          ],
+        ),
       ),
     );
   }
-  final todayTimetables = timetables[0].classes;
-
-  return SingleChildScrollView(
-    child: Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 35.0, vertical: 20.0), // Apply margin here
-      child: Table(
-        border: TableBorder.all(color: Colors.grey, width: 1),
-        children: [
-          TableRow(
-            decoration: const BoxDecoration(color:  Constants.customOrange,),
-            children: const [
-              Padding(
-                padding: EdgeInsets.all(8.0),
-                child: Text("Time", style: TextStyle(fontWeight: FontWeight.bold)),
-              ),
-              Padding(
-                padding: EdgeInsets.all(8.0),
-                child: Text("Subject", style: TextStyle(fontWeight: FontWeight.bold)),
-              ),
-              Padding(
-                padding: EdgeInsets.all(8.0),
-                child: Text("Room", style: TextStyle(fontWeight: FontWeight.bold)),
-              ),
-              Padding(
-                padding: EdgeInsets.all(8.0),
-                child: Text("Teacher", style: TextStyle(fontWeight: FontWeight.bold)),
-              ),
-            ],
-          ),
-          ...todayTimetables.map((classItem) {
-            return TableRow(
-              decoration: BoxDecoration(
-                color: todayTimetables.indexOf(classItem) % 2 == 0
-                    ? const Color.fromARGB(255, 244, 244, 244) // Light background for even rows
-                    : const Color.fromARGB(255, 243, 230, 211), // White background for odd rows
-              ),
-              children: [
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Text(classItem.time),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Text(classItem.subjectName),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Text(classItem.room),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Text(
-                    classItem.teacherName.isEmpty ? "TBD" : classItem.teacherName,
-                  ),
-                ),
-              ],
-            );
-          }).toList(),
-        ],
-      ),
-    ),
-  );
-}
 }

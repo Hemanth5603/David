@@ -166,8 +166,8 @@ class _StudentProfileState extends State<StudentProfile> {
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: [
                               _infoCard("CGPA", "8.5", const Color(0xFF4FB853)),
-                              _infoCard(
-                                  "Backlogs", "N/A", const Color(0xFFF44336)),
+                             // _infoCard(
+                              //    "Backlogs", "N/A", const Color(0xFFF44336)),
                               _infoCard(
                                   "Backlogs", "N/A", const Color(0xFFF44336)),
                               _infoCard(

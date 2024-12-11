@@ -176,7 +176,7 @@ class _StudentLeaderboardState extends State<StudentLeaderboard> {
                                     style: TextStyle(
                                       //fontWeight: FontWeight.bold,
                                       color: Colors.grey[600],
-                                      fontSize: 12,
+                                      fontSize: 10,
                                     ),
                                     textAlign: TextAlign.center, // Corrected to use textAlign directly on Text widget
                                   ),
