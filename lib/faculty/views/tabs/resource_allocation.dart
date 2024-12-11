@@ -6,10 +6,19 @@ class ResourceAllocationPage extends StatefulWidget {
 }
 
 class _ResourceAllocationPageState extends State<ResourceAllocationPage> {
+  String? selectedCategory;
   String? selectedResource;
   String? selectedTimeSlot;
   String? sectionName;
-  final List<String> resources = ['Projector', 'Lab 1', 'Lab 2', 'Conference Room'];
+
+  final Map<String, List<String>> categorizedResources = {
+    'Rooms': ['Conference Room','Seminar Hall','Auditorium','Classroom 101','Classroom 102',],
+    'Equipment': ['Projector', 'Laptop', 'Speaker','Microphone','Whiteboard','Printer','3D Printer','Cameras',],
+    'Sports Facilities': ['Basketball Court', 'Tennis Court', 'Gym', 'Football Ground','Badminton Court','Swimming Pool','Table Tennis Room',],
+    'Laboratories': ['Physics Lab','Chemistry Lab','Biology Lab','Computer Lab 1','Computer Lab 2','Electronics Lab','Mechanical Workshop',],
+    'Miscellaneous': ['Medical Room','Counseling Room','Student Activity Center','Examination Cell','Placement Office',],
+  };
+
   final List<String> timeSlots = [
     '9:30 - 10:30',
     '10:30 - 11:30',
@@ -22,17 +31,18 @@ class _ResourceAllocationPageState extends State<ResourceAllocationPage> {
   final Map<String, Map<String, String>> resourceAllocation = {}; // Tracks allocations
 
   void allocateResource() {
-    if (selectedResource != null && selectedTimeSlot != null && sectionName != null && sectionName!.isNotEmpty) {
+    if (selectedCategory != null &&
+        selectedResource != null &&
+        selectedTimeSlot != null &&
+        sectionName != null &&
+        sectionName!.isNotEmpty) {
       final allocationKey = '$selectedResource - $selectedTimeSlot';
 
       if (resourceAllocation.containsKey(allocationKey)) {
         showDialog(
           context: context,
           builder: (context) => AlertDialog(
-            title: Text(
-              'Conflict',
-              style: TextStyle(fontFamily: 'man-b'),
-            ),
+            title: Text('Conflict', style: TextStyle(fontFamily: 'man-b')),
             content: Text(
               'The resource "$selectedResource" is already allocated for the time slot "$selectedTimeSlot" to Section: ${resourceAllocation[allocationKey]!['section']}',
               style: TextStyle(fontFamily: 'man-r'),
@@ -40,10 +50,7 @@ class _ResourceAllocationPageState extends State<ResourceAllocationPage> {
             actions: [
               TextButton(
                 onPressed: () => Navigator.pop(context),
-                child: Text(
-                  'OK',
-                  style: TextStyle(fontFamily: 'man-sb'),
-                ),
+                child: Text('OK', style: TextStyle(fontFamily: 'man-sb')),
               ),
             ],
           ),
@@ -90,7 +97,7 @@ class _ResourceAllocationPageState extends State<ResourceAllocationPage> {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             Text(
-              'Select Resource',
+              'Select Resource Category',
               style: TextStyle(
                 fontFamily: 'man-sb',
                 fontSize: 16,
@@ -98,33 +105,66 @@ class _ResourceAllocationPageState extends State<ResourceAllocationPage> {
               ),
             ),
             DropdownButton<String>(
-              value: selectedResource,
+              value: selectedCategory,
               isExpanded: true,
               dropdownColor: Colors.grey[800],
               style: TextStyle(fontFamily: 'man-r', color: Colors.white),
               hint: Text(
-                'Choose a resource',
+                'Choose a category',
                 style: TextStyle(fontFamily: 'man-r', color: const Color.fromARGB(255, 165, 161, 161)),
               ),
-              items: resources
-                  .map((resource) => DropdownMenuItem(
-                        value: resource,
-                        child: Text(resource),
+              items: categorizedResources.keys
+                  .map((category) => DropdownMenuItem(
+                        value: category,
+                        child: Text(category),
                       ))
                   .toList(),
               onChanged: (value) {
                 setState(() {
-                  selectedResource = value;
+                  selectedCategory = value;
+                  selectedResource = null; // Reset selected resource when category changes
                 });
               },
             ),
+            if (selectedCategory != null) ...[
+              SizedBox(height: 16),
+              Text(
+                'Select Resource',
+                style: TextStyle(
+                  fontFamily: 'man-sb',
+                  fontSize: 16,
+                  color: const Color.fromARGB(255, 233, 228, 228),
+                ),
+              ),
+              DropdownButton<String>(
+                value: selectedResource,
+                isExpanded: true,
+                dropdownColor: Colors.grey[800],
+                style: TextStyle(fontFamily: 'man-r', color: Colors.white),
+                hint: Text(
+                  'Choose a resource',
+                  style: TextStyle(fontFamily: 'man-r', color: const Color.fromARGB(255, 165, 161, 161)),
+                ),
+                items: categorizedResources[selectedCategory]!
+                    .map((resource) => DropdownMenuItem(
+                          value: resource,
+                          child: Text(resource),
+                        ))
+                    .toList(),
+                onChanged: (value) {
+                  setState(() {
+                    selectedResource = value;
+                  });
+                },
+              ),
+            ],
             SizedBox(height: 16),
             Text(
               'Select Time Slot',
               style: TextStyle(
                 fontFamily: 'man-sb',
                 fontSize: 16,
-                color: const Color.fromARGB(255, 235, 230, 230),
+                color: const Color.fromARGB(255, 233, 228, 228),
               ),
             ),
             DropdownButton<String>(
@@ -134,7 +174,7 @@ class _ResourceAllocationPageState extends State<ResourceAllocationPage> {
               style: TextStyle(fontFamily: 'man-r', color: Colors.white),
               hint: Text(
                 'Choose a time slot',
-                style: TextStyle(fontFamily: 'man-r', color: const Color.fromARGB(255, 189, 186, 186)),
+                style: TextStyle(fontFamily: 'man-r', color: const Color.fromARGB(255, 165, 161, 161)),
               ),
               items: timeSlots
                   .map((slot) => DropdownMenuItem(
