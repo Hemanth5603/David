@@ -59,6 +59,7 @@ dependencies:
   flutter_local_notifications: ^18.0.1
   speech_to_text: ^6.6.2
   syncfusion_flutter_pdfviewer: ^24.1.41
+  firebase_storage: ^11.6.0
 
 
 dev_dependencies:
@@ -95,4 +96,3 @@ flutter:
     - assets/fonts/
     - assets/icons/
     - images/
-

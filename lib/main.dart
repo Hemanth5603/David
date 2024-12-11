@@ -10,8 +10,8 @@ import 'package:prototype/faculty/views/faculty_home.dart';
 import 'package:prototype/faculty/views/tabs/faculty_home_page.dart';
 import 'package:prototype/services/auth_service.dart';
 import 'package:prototype/student/views/home.dart';
-import 'package:prototype/firebase_options.dart';
 import 'package:prototype/student/views/tabs/home_page.dart';
+import 'package:prototype/firebase_options.dart';
 
 // Initialize FlutterLocalNotificationsPlugin
 final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
@@ -49,6 +49,8 @@ void main() async {
     sound: true,
   );
   await FirebaseMessaging.instance.subscribeToTopic('all');
+  await FirebaseMessaging.instance
+      .subscribeToTopic('alert'); // Subscribe to alert topic
 
   // Local Notifications Setup
   const AndroidInitializationSettings initializationSettingsAndroid =
@@ -62,16 +64,34 @@ void main() async {
     },
   );
 
-  // Create notification channel
+  // Create regular notification channel
   const AndroidNotificationChannel channel = AndroidNotificationChannel(
     'high_importance_channel',
     'High Importance Notifications',
     importance: Importance.max,
   );
+
+  // Create alert notification channel with custom sound
+  const AndroidNotificationChannel alertChannel = AndroidNotificationChannel(
+    'alert_channel',
+    'Alert Notifications',
+    importance: Importance.max,
+    playSound: true,
+    sound: RawResourceAndroidNotificationSound(
+        'alert_sound'), // Make sure to add this sound file
+    enableVibration: true,
+    enableLights: true,
+  );
+
   await flutterLocalNotificationsPlugin
       .resolvePlatformSpecificImplementation<
           AndroidFlutterLocalNotificationsPlugin>()
       ?.createNotificationChannel(channel);
+
+  await flutterLocalNotificationsPlugin
+      .resolvePlatformSpecificImplementation<
+          AndroidFlutterLocalNotificationsPlugin>()
+      ?.createNotificationChannel(alertChannel);
 
   // Get FCM token
   String? token = await FirebaseMessaging.instance.getToken();
@@ -100,18 +120,32 @@ class _MyAppState extends State<MyApp> {
       AndroidNotification? android = message.notification?.android;
 
       if (notification != null && android != null) {
-        flutterLocalNotificationsPlugin.show(
-          notification.hashCode,
-          notification.title,
-          notification.body,
-          NotificationDetails(
-            android: AndroidNotificationDetails(
-              'high_importance_channel',
-              'High Importance Notifications',
-              icon: android.smallIcon,
+        // Check if it's an alert notification
+        if (message.data['type'] == 'alert' ||
+            message.data['topic'] == 'alert') {
+          flutterLocalNotificationsPlugin.show(
+            notification.hashCode,
+            notification.title,
+            notification.body,
+            NotificationDetails(
+              android: AndroidNotificationDetails(
+                'alert_channel',
+                'Alert Notifications',
+                icon: android.smallIcon,
+                importance: Importance.max,
+                priority: Priority.high,
+                sound: const RawResourceAndroidNotificationSound('alert_sound'),
+                playSound: true,
+                enableVibration: true,
+                enableLights: true,
+                color: Colors.red,
+                fullScreenIntent: true,
+              ),
             ),
-          ),
-        );
+          );
+        } else {
+          // Regular notification handling...
+        }
       }
     });
   }
@@ -151,6 +185,7 @@ class InitialRouter extends StatelessWidget {
         return const FacultyHome();
       }
 
+//StudentHome()
       return OnBoardingPage();
     });
   }

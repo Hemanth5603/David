@@ -1,6 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:file_picker/file_picker.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:intl/intl.dart';
+import 'package:prototype/faculty/controllers/assignment_controller.dart';
+import 'package:prototype/student/controllers/assignment_controller.dart';
+import 'package:prototype/student/models/student_model.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class AssignmentSubmissionPage extends StatefulWidget {
   const AssignmentSubmissionPage({super.key});
@@ -15,6 +21,8 @@ class _AssignmentSubmissionPageState extends State<AssignmentSubmissionPage> {
   final _rollNumberController = TextEditingController();
   late DateTime _selectedDate;
   String? _fileName;
+  final StudentAssignmentController assignmentController =
+      Get.put(StudentAssignmentController());
 
   @override
   void initState() {
@@ -34,7 +42,7 @@ class _AssignmentSubmissionPageState extends State<AssignmentSubmissionPage> {
     }
   }
 
-  void _submitAssignment() {
+  void _submitAssignment() async {
     if (_sectionController.text.isEmpty ||
         _rollNumberController.text.isEmpty ||
         _fileName == null) {
@@ -42,6 +50,16 @@ class _AssignmentSubmissionPageState extends State<AssignmentSubmissionPage> {
         const SnackBar(
             content: Text("Please fill all fields and select a file")),
       );
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+
+      // final success = await assignmentController.submitAssignment(
+      //   studentId: prefs.getString("id")!,
+      //   studentName: prefs.getString("name")!,
+      //   branch: prefs.getString("branch")!,
+      //   subjectName: prefs.getString("subject")!,
+      //   assignmentTitle: _titleController.text,
+      //   pdfPath: _fileName!,
+      // );
       return;
     }
 

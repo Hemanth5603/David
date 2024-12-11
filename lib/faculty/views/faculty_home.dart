@@ -6,7 +6,7 @@ import 'package:prototype/faculty/views/tabs/faculty_profile.dart';
 import 'package:prototype/faculty/views/tabs/home_page.dart';
 import 'package:prototype/faculty/views/tabs/faculty_home_page.dart';
 import 'package:prototype/faculty/views/tabs/student_metrix_page.dart';
-import 'package:prototype/student/views/tabs/assignment_submission.dart';
+import 'package:prototype/student/views/components/assignment_submission.dart';
 
 import 'package:prototype/student/views/tabs/home_page.dart';
 import 'package:prototype/student/views/tabs/student_profile.dart';

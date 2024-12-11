@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:http/http.dart' as http;
 import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 
 class PDFViewerScreen extends StatefulWidget {
   final String pdfUrl;
@@ -16,6 +17,7 @@ class PDFViewerScreen extends StatefulWidget {
 class _PDFViewerScreenState extends State<PDFViewerScreen> {
   bool _isLoading = true;
   String? _localPath;
+  final FirebaseStorage _storage = FirebaseStorage.instance;
 
   @override
   void initState() {
@@ -25,22 +27,37 @@ class _PDFViewerScreenState extends State<PDFViewerScreen> {
 
   Future<void> _downloadAndSavePdf() async {
     try {
-      final response = await http.get(Uri.parse(widget.pdfUrl));
-      final bytes = response.bodyBytes;
-      final dir = await getApplicationDocumentsDirectory();
-      final file = File('${dir.path}/assignment.pdf');
-      await file.writeAsBytes(bytes);
-      setState(() {
-        _localPath = file.path;
-        _isLoading = false;
-      });
+      // Get Firebase Storage reference from the URL
+      final ref = _storage.refFromURL(widget.pdfUrl);
+      
+      // Get the download URL
+      final downloadUrl = await ref.getDownloadURL();
+      
+      // Download the file using the download URL
+      final response = await http.get(Uri.parse(downloadUrl));
+      
+      if (response.statusCode == 200) {
+        final dir = await getApplicationDocumentsDirectory();
+        final file = File('${dir.path}/assignment.pdf');
+        await file.writeAsBytes(response.bodyBytes);
+        
+        setState(() {
+          _localPath = file.path;
+          _isLoading = false;
+        });
+      } else {
+        throw Exception('Failed to download PDF');
+      }
     } catch (e) {
+      print('Error downloading PDF: $e');
       setState(() {
         _isLoading = false;
       });
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Error loading PDF: ${e.toString()}')),
-      );
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Error loading PDF: ${e.toString()}')),
+        );
+      }
     }
   }
 

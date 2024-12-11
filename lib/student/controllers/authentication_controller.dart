@@ -38,6 +38,7 @@ class AuthenticationController extends GetxController {
         student.value = StudentModel.fromJson(responseData);
         prefs.setString("branch", student.value!.student.branch);
         prefs.setString("roll", student.value!.student.rollNo);
+        prefs.setString("id", student.value!.student.studentId.toString());
 
         await AuthService.to.loginAsStudent();
         Get.offAllNamed('/student/home');

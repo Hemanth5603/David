@@ -21,7 +21,39 @@ class FacultyProfilePage extends StatelessWidget {
 
             Column(
               children: [
-                const SizedBox(height: 50), // Space for balance
+                SizedBox(
+                  height: 20,
+                ),
+                Container(
+                  width: MediaQuery.of(context).size.width,
+                  height: 80,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Container(),
+                      GestureDetector(
+                        onTap: () {},
+                        child: Container(
+                          margin: EdgeInsets.all(15),
+                          width: 150,
+                          height: 40,
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(20),
+                              border: Border.all(color: Colors.white)),
+                          child: const Center(
+                            child: Text(
+                              "Take Attendance",
+                              style: TextStyle(
+                                  fontFamily: 'man-r',
+                                  fontSize: 14,
+                                  color: Colors.white),
+                            ),
+                          ),
+                        ),
+                      )
+                    ],
+                  ),
+                ),
 
                 // Profile circular image
                 CircleAvatar(
