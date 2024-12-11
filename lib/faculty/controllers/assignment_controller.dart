@@ -11,6 +11,10 @@ class AssignmentController extends GetxController {
   final Rx<AssignmentSubmissionModel?> submissions =
       Rx<AssignmentSubmissionModel?>(null);
 
+  get assignments => null;
+
+  get error => null;
+
   Future<void> createAssignment({
     required String title,
     required String description,
