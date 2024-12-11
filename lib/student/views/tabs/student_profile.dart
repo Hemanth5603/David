@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:prototype/student/controllers/authentication_controller.dart';
 import 'package:prototype/student/models/student_model.dart';
+import 'package:prototype/student/views/leave_request.dart';
 
 class StudentProfile extends StatefulWidget {
   const StudentProfile({super.key});
@@ -25,6 +26,35 @@ class _StudentProfileState extends State<StudentProfile> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+       appBar: AppBar(
+        backgroundColor: const Color(0xFF1F2A45), // Matches the profile page's theme
+        elevation: 0,
+        title: const Text(
+          "Profile",
+          style: TextStyle(
+            fontFamily: "man-b",
+            fontSize: 20,
+            color: Colors.white,
+          ),
+        ),
+        actions: [
+          IconButton(
+            icon: const Icon(
+              Icons.mail_outline,
+              color: Color.fromARGB(255, 192, 186, 186),
+            ),
+            onPressed: () {
+              // Navigate to the Leave Request Page
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => LeaveRequestPage(),
+                ),
+              );
+            },
+          ),
+        ],
+      ),
       backgroundColor: Colors.white,
       body: SingleChildScrollView(
         child: Stack(

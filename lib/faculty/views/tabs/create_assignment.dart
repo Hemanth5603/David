@@ -9,17 +9,17 @@ class CreateAssignmentPage extends StatefulWidget {
   const CreateAssignmentPage({Key? key}) : super(key: key);
 
   @override
-  _CreateAssignmentPageState createState() => _CreateAssignmentPageState();
+  CreateAssignmentPageState createState() => CreateAssignmentPageState();
 }
 
-class _CreateAssignmentPageState extends State<CreateAssignmentPage> {
-  final _titleController = TextEditingController();
-  final _descriptionController = TextEditingController();
-  final _subjectController = TextEditingController();
+class CreateAssignmentPageState extends State<CreateAssignmentPage> {
+  final titleController = TextEditingController();
+  final descriptionController = TextEditingController();
+  final subjectController = TextEditingController();
   DateTime? _dueDate;
   final AssignmentController assignmentController =
       Get.put(AssignmentController());
-  void _pickDueDate() async {
+  void pickDueDate() async {
     DateTime? pickedDate = await showDatePicker(
       context: context,
       initialDate: DateTime.now(),
@@ -42,10 +42,10 @@ class _CreateAssignmentPageState extends State<CreateAssignmentPage> {
     }
   }
 
-  void _createAssignment() {
-    if (_titleController.text.isEmpty ||
-        _descriptionController.text.isEmpty ||
-        _subjectController.text.isEmpty ||
+  void createAssignment() {
+    if (titleController.text.isEmpty ||
+        descriptionController.text.isEmpty ||
+        subjectController.text.isEmpty ||
         _dueDate == null) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
@@ -66,9 +66,9 @@ class _CreateAssignmentPageState extends State<CreateAssignmentPage> {
           style: TextStyle(color: Colors.white, fontFamily: 'man-b'),
         ),
         content: Text(
-          "Title: ${_titleController.text}\n"
-          "Description: ${_descriptionController.text}\n"
-          "Subject: ${_subjectController.text}\n"
+          "Title: ${titleController.text}\n"
+          "Description: ${descriptionController.text}\n"
+          "Subject: ${subjectController.text}\n"
           "Due Date: ${DateFormat('yyyy-MM-dd').format(_dueDate!)}",
           style: const TextStyle(color: Colors.white70, fontFamily: 'man-r'),
         ),
@@ -87,9 +87,9 @@ class _CreateAssignmentPageState extends State<CreateAssignmentPage> {
 
   @override
   void dispose() {
-    _titleController.dispose();
-    _descriptionController.dispose();
-    _subjectController.dispose();
+    titleController.dispose();
+    descriptionController.dispose();
+    subjectController.dispose();
     super.dispose();
   }
 
@@ -120,7 +120,7 @@ class _CreateAssignmentPageState extends State<CreateAssignmentPage> {
 
             // Title Field
             TextField(
-              controller: _titleController,
+              controller: titleController,
               style: const TextStyle(color: Colors.white, fontFamily: 'man-r'),
               decoration: InputDecoration(
                 labelText: 'Title',
@@ -137,7 +137,7 @@ class _CreateAssignmentPageState extends State<CreateAssignmentPage> {
 
             // Description Field
             TextField(
-              controller: _descriptionController,
+              controller: descriptionController,
               style: const TextStyle(color: Colors.white, fontFamily: 'man-r'),
               maxLines: 3,
               decoration: InputDecoration(
@@ -155,7 +155,7 @@ class _CreateAssignmentPageState extends State<CreateAssignmentPage> {
 
             // Subject Field
             TextField(
-              controller: _subjectController,
+              controller: subjectController,
               style: const TextStyle(color: Colors.white, fontFamily: 'man-r'),
               decoration: InputDecoration(
                 labelText: 'Subject',
@@ -187,7 +187,7 @@ class _CreateAssignmentPageState extends State<CreateAssignmentPage> {
                       color: Colors.white70, fontSize: 16, fontFamily: 'man-r'),
                 ),
                 TextButton(
-                  onPressed: _pickDueDate,
+                  onPressed: pickDueDate,
                   style: TextButton.styleFrom(
                     foregroundColor: Colors.white,
                   ),
@@ -208,13 +208,13 @@ class _CreateAssignmentPageState extends State<CreateAssignmentPage> {
                   String branch = prefs.getString("fbranch") ?? 'CSE';
                   String facultyName = prefs.getString("fname") ?? 'John Doe';
                   String facultyId = prefs.getString('fid') ?? "1";
-                  String subject = _subjectController.text;
+                  String subject = subjectController.text;
                   print(facultyId);
                   print(facultyName);
                   print(subject);
                   assignmentController.createAssignment(
-                      title: _titleController.text,
-                      description: _descriptionController.text,
+                      title: titleController.text,
+                      description: descriptionController.text,
                       facultyId: int.parse(facultyId),
                       facultyName: facultyName,
                       subject: subject,

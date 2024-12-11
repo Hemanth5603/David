@@ -148,7 +148,7 @@ class InitialRouter extends StatelessWidget {
       if (AuthService.to.userType.value == 'student') {
         return const StudentHome();
       } else if (AuthService.to.userType.value == 'faculty') {
-        return const FacultyHome();
+        return const StudentHome();
       }
 
       return OnBoardingPage();

@@ -30,9 +30,9 @@ class _FacultyLeaderboardState extends State<FacultyLeaderboard> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: Color(0xFF1F2A45),
       appBar: AppBar(
-        backgroundColor: Colors.white,
+        backgroundColor: Color(0xFF1F2A45),
         elevation: 0,
         centerTitle: true,
         title: const Text(
@@ -41,7 +41,7 @@ class _FacultyLeaderboardState extends State<FacultyLeaderboard> {
             fontSize: 24,
             fontWeight: FontWeight.w500,
             fontFamily: 'man-b', // Bold Manrope font for title
-            color: Colors.black,
+            color: Color.fromARGB(255, 255, 255, 255),
           ),
         ),
       ),
@@ -73,7 +73,7 @@ class _FacultyLeaderboardState extends State<FacultyLeaderboard> {
             child: Container(
               padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 16),
               decoration: BoxDecoration(
-                color: Colors.blue,
+                color: const Color.fromARGB(255, 36, 77, 110),
                 borderRadius: BorderRadius.circular(12),
               ),
               child: const Row(
@@ -137,17 +137,17 @@ class _FacultyLeaderboardState extends State<FacultyLeaderboard> {
                       padding: const EdgeInsets.symmetric(
                           vertical: 8, horizontal: 12),
                       decoration: BoxDecoration(
-                        color: const Color.fromARGB(255, 253, 253, 253),
+                        color: const Color.fromARGB(255, 96, 112, 130),
                         borderRadius: BorderRadius.circular(4),
                         border: Border.all(
-                            color: const Color.fromARGB(255, 234, 228, 228)),
+                            color: const Color.fromARGB(255, 168, 165, 165)),
                       ),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           // Rank Images for top 3 ranks and regular rank numbers for others
                           CircleAvatar(
-                            backgroundColor: Colors.transparent,
+                            backgroundColor: const Color.fromARGB(0, 95, 88, 88),
                             child: index == 0
                                 ? Image.asset('images/first.png',
                                     width: 30, height: 30)
@@ -160,7 +160,7 @@ class _FacultyLeaderboardState extends State<FacultyLeaderboard> {
                                         : Text(
                                             '${index + 1}',
                                             style: const TextStyle(
-                                              color: Colors.black,
+                                              color: Color.fromARGB(255, 241, 239, 239),
                                               fontSize: 18,
                                               fontFamily: 'man-r',
                                             ),
@@ -183,7 +183,7 @@ class _FacultyLeaderboardState extends State<FacultyLeaderboard> {
                                   Text(
                                     faculty.department,
                                     style: TextStyle(
-                                      color: Colors.grey[600],
+                                      color: const Color.fromARGB(255, 209, 203, 203),
                                       fontSize: 12,
                                     ),
                                   ),
@@ -194,7 +194,7 @@ class _FacultyLeaderboardState extends State<FacultyLeaderboard> {
                           CircleAvatar(
                             radius: 16,
                             backgroundColor:
-                                const Color.fromARGB(255, 209, 232, 249),
+                                const Color.fromARGB(255, 155, 170, 182),
                             child: Text(
                               faculty.overallScore.toStringAsFixed(0),
                               style: const TextStyle(

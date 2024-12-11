@@ -7,7 +7,7 @@ class FacultyProfilePage extends StatelessWidget {
     final double screenWidth = MediaQuery.of(context).size.width;
 
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: Color.fromARGB(255, 30, 40, 66),
       body: SingleChildScrollView(
         child: Stack(
           children: [
@@ -15,7 +15,7 @@ class FacultyProfilePage extends StatelessWidget {
             Container(
               height: screenHeight * 0.48,
               decoration: const BoxDecoration(
-                color: Color(0xFF1F2A45), // Blue shade
+                color: Color.fromARGB(255, 6, 7, 42), // Blue shade
               ),
             ),
 
@@ -143,7 +143,7 @@ class FacultyProfilePage extends StatelessWidget {
                             style: TextStyle(
                               fontFamily: "man-b",
                               fontSize: 18,
-                              color: Color(0xFF1F2A45),
+                              color: Color.fromARGB(255, 241, 242, 244),
                             ),
                           ),
                           Column(
