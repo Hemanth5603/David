@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
+import 'package:prototype/faculty/views/auth/faculty_face_login_camera.dart';
 import 'package:prototype/faculty/views/auth/login.dart';
 import 'package:prototype/student/views/auth/student_login.dart';
 
@@ -72,7 +73,8 @@ class OnBoardingPage extends StatelessWidget {
                         description: "Manage your classes and lectures",
                         icon: Icons.person,
                         onTap: () {
-                          Get.to(FacultyLogin());
+                          Get.to(const FacultyLogin());
+                          //Get.to(FacultyFaceLoginAICamera());
                         },
                       ),
                     ),

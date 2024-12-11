@@ -107,7 +107,7 @@ final class _StudentHomePageState extends State<StudentHomePage> {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Row(
+                            /*Row(
                               children: [
                                 Container(
                                   width: 35,
@@ -144,12 +144,12 @@ final class _StudentHomePageState extends State<StudentHomePage> {
                                   fontSize: 25,
                                   color:
                                       const Color.fromARGB(255, 244, 193, 54)),
-                            ),
+                            ),*/
                           ],
                         ),
                       ),
                       const Padding(
-                        padding: EdgeInsets.only(left: 25.0, top: 10),
+                        padding: EdgeInsets.only(left: 25.0, top: 0),
                         child: Text(
                           "Your Schedule",
                           style: TextStyle(
@@ -190,7 +190,7 @@ final class _StudentHomePageState extends State<StudentHomePage> {
                   ),
                 ),
                 Positioned(
-                  top: 330,
+                  top: 300,
                   left: 15,
                   child: Row(
                     children: [

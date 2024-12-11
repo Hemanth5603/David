@@ -35,7 +35,7 @@ class AuthService extends GetxController {
 
   Future<void> logout() async {
     final prefs = await SharedPreferences.getInstance();
-    await prefs.clear();
+    //await prefs.clear();
     isLoggedIn.value = false;
     userType.value = '';
     Get.offAllNamed('/onboarding');

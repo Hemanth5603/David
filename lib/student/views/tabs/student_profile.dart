@@ -26,8 +26,9 @@ class _StudentProfileState extends State<StudentProfile> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-       appBar: AppBar(
-        backgroundColor: const Color(0xFF1F2A45), // Matches the profile page's theme
+      appBar: AppBar(
+        backgroundColor:
+            const Color(0xFF1F2A45), // Matches the profile page's theme
         elevation: 0,
         title: const Text(
           "Profile",
@@ -38,20 +39,23 @@ class _StudentProfileState extends State<StudentProfile> {
           ),
         ),
         actions: [
-          IconButton(
-            icon: const Icon(
-              Icons.mail_outline,
-              color: Color.fromARGB(255, 192, 186, 186),
+          Container(
+            margin: EdgeInsets.all(15),
+            child: IconButton(
+              icon: const Icon(
+                Icons.mail_outline,
+                color: Color.fromARGB(255, 192, 186, 186),
+              ),
+              onPressed: () {
+                // Navigate to the Leave Request Page
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => LeaveRequestPage(),
+                  ),
+                );
+              },
             ),
-            onPressed: () {
-              // Navigate to the Leave Request Page
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => LeaveRequestPage(),
-                ),
-              );
-            },
           ),
         ],
       ),
@@ -172,18 +176,11 @@ class _StudentProfileState extends State<StudentProfile> {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: [
+                              _infoCard("CGPA", "8.5", const Color(0xFF4FB853)),
                               _infoCard(
-                                  "CGPA",
-                                  "8.5",
-                                  const Color(0xFF4FB853)),
+                                  "Backlogs", "N/A", const Color(0xFFF44336)),
                               _infoCard(
-                                  "Backlogs",                               
-                                     "N/A",
-                                  const Color(0xFFF44336)),
-                              _infoCard(
-                                  "Attendance",
-                                  "80%",
-                                  const Color(0xFF2196F3)),
+                                  "Attendance", "80%", const Color(0xFF2196F3)),
                             ],
                           ),
                         ],

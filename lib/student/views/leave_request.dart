@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
+import 'package:prototype/student/controllers/leave_request_controller.dart';
 
 class LeaveRequestPage extends StatefulWidget {
   @override
@@ -11,7 +14,8 @@ class _LeaveRequestPageState extends State<LeaveRequestPage> {
   final String studentName = "John Doe";
   final String branch = "ECE";
   final String rollNumber = "18ECE101";
-
+  final LeaveRequestController leaveRequestController =
+      Get.put(LeaveRequestController());
   // Controllers for user input
   final TextEditingController classInchargeController = TextEditingController();
   final TextEditingController adminNameController = TextEditingController();
@@ -23,11 +27,11 @@ class _LeaveRequestPageState extends State<LeaveRequestPage> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          'Leave Request',
-          style: TextStyle(fontFamily: 'man-sb'),
+          'Request Letter',
+          style: TextStyle(fontFamily: 'man-sb', color: Colors.white),
         ),
         centerTitle: true,
-        backgroundColor: Colors.blueGrey,
+        backgroundColor: Color.fromARGB(255, 35, 37, 49),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -35,16 +39,33 @@ class _LeaveRequestPageState extends State<LeaveRequestPage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // Display student details
-              Text(
-                'Student Details',
-                style: TextStyle(fontFamily: 'man-b', fontSize: 18, color: Colors.blueGrey),
-              ),
+              // // Display student details
+              // Text(
+              //   'Apply Leave Request',
+              //   style: TextStyle(
+              //       fontFamily: 'man-b', fontSize: 18, color: Colors.blueGrey),
+              // ),
               SizedBox(height: 10),
-              Text('ID: $studentId', style: TextStyle(fontFamily: 'man-r', fontSize: 16, color: Colors.black54)),
-              Text('Name: $studentName', style: TextStyle(fontFamily: 'man-r', fontSize: 16, color: Colors.black54)),
-              Text('Branch: $branch', style: TextStyle(fontFamily: 'man-r', fontSize: 16, color: Colors.black54)),
-              Text('Roll Number: $rollNumber', style: TextStyle(fontFamily: 'man-r', fontSize: 16, color: Colors.black54)),
+              // Text('ID: $studentId',
+              //     style: TextStyle(
+              //         fontFamily: 'man-r',
+              //         fontSize: 16,
+              //         color: Colors.black54)),
+              // Text('Name: $studentName',
+              //     style: TextStyle(
+              //         fontFamily: 'man-r',
+              //         fontSize: 16,
+              //         color: Colors.black54)),
+              // Text('Branch: $branch',
+              //     style: TextStyle(
+              //         fontFamily: 'man-r',
+              //         fontSize: 16,
+              //         color: Colors.black54)),
+              // Text('Roll Number: $rollNumber',
+              //     style: TextStyle(
+              //         fontFamily: 'man-r',
+              //         fontSize: 16,
+              //         color: Colors.black54)),
               SizedBox(height: 20),
 
               // Class Incharge Input
@@ -52,7 +73,8 @@ class _LeaveRequestPageState extends State<LeaveRequestPage> {
                 controller: classInchargeController,
                 decoration: InputDecoration(
                   labelText: 'Class Incharge Name',
-                  labelStyle: TextStyle(fontFamily: 'man-l', color: Colors.blueGrey),
+                  labelStyle:
+                      TextStyle(fontFamily: 'man-l', color: Colors.blueGrey),
                   border: OutlineInputBorder(),
                   focusedBorder: OutlineInputBorder(
                     borderSide: BorderSide(color: Colors.blueGrey),
@@ -67,7 +89,8 @@ class _LeaveRequestPageState extends State<LeaveRequestPage> {
                 controller: adminNameController,
                 decoration: InputDecoration(
                   labelText: 'Admin Name',
-                  labelStyle: TextStyle(fontFamily: 'man-l', color: Colors.blueGrey),
+                  labelStyle:
+                      TextStyle(fontFamily: 'man-l', color: Colors.blueGrey),
                   border: OutlineInputBorder(),
                   focusedBorder: OutlineInputBorder(
                     borderSide: BorderSide(color: Colors.blueGrey),
@@ -82,7 +105,8 @@ class _LeaveRequestPageState extends State<LeaveRequestPage> {
                 controller: subjectController,
                 decoration: InputDecoration(
                   labelText: 'Subject',
-                  labelStyle: TextStyle(fontFamily: 'man-l', color: Colors.blueGrey),
+                  labelStyle:
+                      TextStyle(fontFamily: 'man-l', color: Colors.blueGrey),
                   border: OutlineInputBorder(),
                   focusedBorder: OutlineInputBorder(
                     borderSide: BorderSide(color: Colors.blueGrey),
@@ -98,7 +122,8 @@ class _LeaveRequestPageState extends State<LeaveRequestPage> {
                 maxLines: 4,
                 decoration: InputDecoration(
                   labelText: 'Reason',
-                  labelStyle: TextStyle(fontFamily: 'man-l', color: Colors.blueGrey),
+                  labelStyle:
+                      TextStyle(fontFamily: 'man-l', color: Colors.blueGrey),
                   border: OutlineInputBorder(),
                   focusedBorder: OutlineInputBorder(
                     borderSide: BorderSide(color: Colors.blueGrey),
@@ -111,14 +136,18 @@ class _LeaveRequestPageState extends State<LeaveRequestPage> {
               // Send Request Button
               Center(
                 child: ElevatedButton.icon(
-                  onPressed: () {
+                  onPressed: () async {
                     // Handle send request logic
                     String classIncharge = classInchargeController.text;
                     String adminName = adminNameController.text;
                     String subject = subjectController.text;
                     String reason = reasonController.text;
-
-                    if (classIncharge.isEmpty || adminName.isEmpty || subject.isEmpty || reason.isEmpty) {
+                    await leaveRequestController.sendLeaveRequest(
+                        adminName, classIncharge, subject, reason);
+                    if (classIncharge.isEmpty ||
+                        adminName.isEmpty ||
+                        subject.isEmpty ||
+                        reason.isEmpty) {
                       ScaffoldMessenger.of(context).showSnackBar(
                         SnackBar(
                           content: Text(
@@ -128,6 +157,7 @@ class _LeaveRequestPageState extends State<LeaveRequestPage> {
                           backgroundColor: Colors.red,
                         ),
                       );
+
                       return;
                     }
 
@@ -143,7 +173,7 @@ class _LeaveRequestPageState extends State<LeaveRequestPage> {
                     );
                   },
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.blueGrey,
+                    backgroundColor: Color.fromARGB(255, 35, 37, 49),
                     padding: EdgeInsets.symmetric(horizontal: 90, vertical: 15),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10),
@@ -152,7 +182,10 @@ class _LeaveRequestPageState extends State<LeaveRequestPage> {
                   icon: Icon(Icons.send, color: Colors.white),
                   label: Text(
                     'Send Request',
-                    style: TextStyle(fontFamily: 'man-sb', fontSize: 16, color: Colors.white),
+                    style: TextStyle(
+                        fontFamily: 'man-sb',
+                        fontSize: 16,
+                        color: Colors.white),
                   ),
                 ),
               ),

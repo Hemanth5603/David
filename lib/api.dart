@@ -14,4 +14,5 @@ class API {
   static const getTimetable = "/timetable/";
   static const getStudentLeaderboard = "/students/rankings";
   static const takeFacultyAttendane = "/faculty/attendance";
+  static const sendLeaveRequest = "/student/leave-request";
 }
