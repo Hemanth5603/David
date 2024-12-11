@@ -1,8 +1,8 @@
-import 'package:flutter/gestures.dart';
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:prototype/faculty/controllers/user_controller.dart';
-import 'package:speech_to_text/speech_to_text.dart';
 import 'package:speech_to_text/speech_to_text.dart';
 import 'package:speech_to_text/speech_recognition_result.dart';
 
@@ -15,66 +15,119 @@ class Speech extends StatefulWidget {
 
 class _SpeechState extends State<Speech> {
   UserController userController = Get.put(UserController());
-
   SpeechToText _speechToText = SpeechToText();
   bool _speechEnabled = false;
-  String words = "";
-
   bool isListening = false;
+  bool _shouldContinueListening = false;
+  Timer? _restartTimer;
 
-  void _initSpeech() async {
-    _speechEnabled = await _speechToText.initialize();
+  Future<void> _initSpeech() async {
+    try {
+      _speechEnabled = await _speechToText
+          .initialize(onError: (error) => _handleError(error), options: [
+        SpeechConfigOption("android", "continuous", "true"),
+      ]);
+      setState(() {});
+    } catch (e) {
+      print('Error initializing speech: $e');
+    }
+  }
 
-    setState(() {});
+  void _handleError(dynamic error) {
+    print('Speech recognition error: $error');
+    if (_shouldContinueListening && mounted) {
+      _restartTimer?.cancel();
+      _restartTimer = Timer(Duration(seconds: 1), () {
+        if (_shouldContinueListening && mounted) {
+          _startListening();
+        }
+      });
+    }
   }
 
   void _startListening() async {
-    await _speechToText.listen(
-        onResult: _onSpeechResult,
-        listenFor: Duration(hours: 1),
-        pauseFor: Duration(minutes: 5),
-        listenOptions: SpeechListenOptions(
-            partialResults: true,
-            cancelOnError: false,
-            listenMode: ListenMode.dictation));
+    if (!_speechEnabled) {
+      await _initSpeech();
+    }
 
-    setState(() {
-      isListening = true;
-      userController.userInput.text =
-          ""; // Clear text when starting new recording
-    });
+    _shouldContinueListening = true;
+    try {
+      await _speechToText.listen(
+        onResult: _onSpeechResult,
+        listenFor: const Duration(hours: 1),
+        pauseFor: Duration(minutes: 5),
+        partialResults: true,
+        listenMode: ListenMode.dictation,
+        cancelOnError: false,
+        onSoundLevelChange: (level) {
+          // Can be used to show visual feedback
+        },
+      );
+
+      setState(() {
+        isListening = true;
+      });
+    } catch (e) {
+      print('Error starting listening: $e');
+      _handleError(e);
+    }
   }
 
   void _stopListening() async {
-    await _speechToText.stop();
-    setState(() {
-      isListening = false;
-    });
-    print(userController.userInput.text);
+    _shouldContinueListening = false;
+    _restartTimer?.cancel();
+    try {
+      await _speechToText.stop();
+      setState(() {
+        isListening = false;
+      });
+      print('Final text: ${userController.userInput.text}');
+    } catch (e) {
+      print('Error stopping listening: $e');
+    }
   }
 
   void _onSpeechResult(SpeechRecognitionResult result) {
-    setState(() {
-      // Append new text instead of replacing
-      if (result.finalResult) {
-        userController.userInput.text += " ${result.recognizedWords}";
-      }
-    });
+    if (mounted) {
+      setState(() {
+        if (result.finalResult) {
+          String currentText = userController.userInput.text;
+          String separator = currentText.isEmpty ? '' : ' ';
+          userController.userInput.text =
+              currentText + separator + result.recognizedWords;
+
+          if (_shouldContinueListening && !_speechToText.isListening) {
+            _restartTimer?.cancel();
+            _restartTimer = Timer(Duration(milliseconds: 50), () {
+              if (_shouldContinueListening && mounted) {
+                _startListening();
+              }
+            });
+          }
+        }
+      });
+    }
   }
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     _initSpeech();
     userController.userInput.text = "";
   }
 
   @override
+  void dispose() {
+    _stopListening();
+    _restartTimer?.cancel();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     double h = MediaQuery.of(context).size.height;
     double w = MediaQuery.of(context).size.width;
-    String message = "Enter you Text here";
+
     return Scaffold(
       backgroundColor: Color.fromARGB(255, 35, 37, 49),
       bottomNavigationBar: Padding(
@@ -128,28 +181,24 @@ class _SpeechState extends State<Speech> {
                       size: 50,
                     ),
                     onPressed: () {
-                      setState(() {
-                        print("Called");
-                        message = "Listening your voice...";
-                        _speechToText.isNotListening
-                            ? _startListening()
-                            : _stopListening();
+                      if (_speechToText.isNotListening) {
                         userController.userInput.text = "";
-                      });
+                        _startListening();
+                      } else {
+                        _stopListening();
+                      }
                     },
                   ),
                 ),
               ),
             ),
-            SizedBox(
-              height: 100,
-            ),
+            SizedBox(height: 100),
             Container(
               width: w,
               height: 200,
               padding: EdgeInsets.all(20),
               child: Text(
-                userController.userInput.text.toString(),
+                userController.userInput.text,
                 style: TextStyle(color: Colors.white, fontFamily: 'man-r'),
               ),
             )

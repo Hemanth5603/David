@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
+import 'package:prototype/api.dart';
 import 'package:prototype/constants.dart';
 import 'package:prototype/faculty/models/roll_no.dart';
 import 'package:prototype/faculty/models/student_model.dart';
@@ -22,16 +23,16 @@ class AttendanceController extends GetxController {
     isLoading(true);
     await Future.delayed(Duration(seconds: 5));
     SharedPreferences prefs = await SharedPreferences.getInstance();
+    String branch = prefs.getString("fbranch") ?? 'CSE';
 
-    String url =
-        "https://d49c-2409-40c2-1046-dd86-d0fc-594b-8c47-40c4.ngrok-free.app/upload-video/";
+    String url = "${API.mlurl}${API.attendance}";
     print(
         "url -------------------------------------------------------- -- $url");
     var request = http.MultipartRequest('POST', Uri.parse(url));
     print(videoPath);
     request.files.add(await http.MultipartFile.fromPath('video', videoPath));
-    request.fields['branch'] = "CSM";
-    request.fields['section'] = "C";
+    request.fields['branch'] = branch;
+    //request.fields['section'] = "C";
 
     //request.files.add(http.MultipartFile.fromBytes('video', File(file.path).readAsBytesSync(),filename: file.path));
     //http.StreamedResponse response = await request.send();
@@ -64,7 +65,7 @@ class AttendanceController extends GetxController {
     try {
       SharedPreferences prefs = await SharedPreferences.getInstance();
       //String url = "${prefs.getString("url")}/david/findface";
-      String url = "http://13.60.93.136:8080/david/findface";
+      String url = "${API.mlurl}${API.mlfindface}";
 
       var request = http.MultipartRequest('POST', Uri.parse(url));
       request.files.add(await http.MultipartFile.fromPath('image', path));

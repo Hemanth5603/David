@@ -7,8 +7,8 @@ class AttendanceResponseModel {
   late final List<String> rolls;
   late final List<String> presents;
   late final List<String> absents;
-  
-  AttendanceResponseModel.fromJson(Map<String, dynamic> json){
+
+  AttendanceResponseModel.fromJson(Map<String, dynamic> json) {
     rolls = List.castFrom<dynamic, String>(json['Rolls']);
     presents = List.castFrom<dynamic, String>(json['Presenties']);
     absents = List.castFrom<dynamic, String>(json['Absenties']);

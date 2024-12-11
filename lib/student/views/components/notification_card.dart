@@ -5,7 +5,7 @@ Widget notificationCard(
   return Container(
     margin: EdgeInsets.symmetric(horizontal: 15),
     width: w,
-    height: 100,
+    height: 120,
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [

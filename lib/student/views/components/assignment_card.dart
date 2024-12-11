@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:prototype/constants.dart';
 
-import 'package:prototype/student/views/tabs/assignment_submission.dart';
+import 'package:prototype/student/views/components/assignment_submission.dart';
 
 Widget assignmentCard(w, prof, title, description, subject, due) {
   return Container(
