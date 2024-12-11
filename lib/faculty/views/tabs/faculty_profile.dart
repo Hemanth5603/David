@@ -27,9 +27,10 @@ class FacultyProfilePage extends StatelessWidget {
                 CircleAvatar(
                   radius: 60,
                   backgroundColor: Colors.white,
+                  
                   child: CircleAvatar(
                     radius: 55,
-                    backgroundImage: AssetImage('assets/faculty.png'),
+                    backgroundImage: AssetImage('images/faculty_profile.jpeg'),
                   ),
                 ),
                 const SizedBox(height: 10),
