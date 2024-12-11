@@ -174,21 +174,15 @@ class _StudentProfileState extends State<StudentProfile> {
                             children: [
                               _infoCard(
                                   "CGPA",
-                                  authenticationController
-                                          .student.value?.student.branch
-                                          .toString() ??
-                                      'N/A',
-                                  const Color(0xFF4CAF50)),
+                                  "8.5",
+                                  const Color(0xFF4FB853)),
                               _infoCard(
-                                  "Backlogs",
-                                  authenticationController
-                                          .student.value?.student.branch
-                                          .toString() ??
-                                      'N/A',
+                                  "Backlogs",                               
+                                     "N/A",
                                   const Color(0xFFF44336)),
                               _infoCard(
                                   "Attendance",
-                                  "${authenticationController.student.value?.student.lastName.toString() ?? 'N/A'}%",
+                                  "80%",
                                   const Color(0xFF2196F3)),
                             ],
                           ),
