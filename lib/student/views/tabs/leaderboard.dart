@@ -11,20 +11,11 @@ class StudentLeaderboard extends StatefulWidget {
 }
 
 class _StudentLeaderboardState extends State<StudentLeaderboard> {
-  final List<Map<String, dynamic>> students = [
-    {"rank": 1, "name": "Arun Sharma", "score": 98},
-    {"rank": 2, "name": "Neha Gupta", "score": 95},
-    {"rank": 3, "name": "Kiran Varma", "score": 90},
-    {"rank": 4, "name": "Pooja Rao", "score": 88},
-    {"rank": 5, "name": "Madhusudan", "score": 85},
-    {"rank": 6, "name": "Sanya Varma", "score": 82},
-  ];
   final LeaderboardController leaderboardController =
       Get.put(LeaderboardController());
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     leaderboardController.getStudentLeaderBoard();
   }
@@ -123,11 +114,6 @@ class _StudentLeaderboardState extends State<StudentLeaderboard> {
               final metrics =
                   leaderboardController.studentLeaderboard.value?.data ?? [];
 
-              // if (metrics.isEmpty) {
-              //   return const Center(
-              //       child: Text('No faculty metrics available'));
-              // }
-
               return Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 16),
                 child: ListView.builder(
@@ -175,21 +161,24 @@ class _StudentLeaderboardState extends State<StudentLeaderboard> {
                               padding:
                                   const EdgeInsets.symmetric(horizontal: 12),
                               child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
+                                crossAxisAlignment: CrossAxisAlignment.center, // Center alignment
                                 children: [
                                   Text(
                                     "${faculty!.firstName} ${faculty.lastName}",
                                     style: const TextStyle(
-                                      fontWeight: FontWeight.w500,
+                                      fontWeight: FontWeight.w800,
                                       fontFamily: 'man-r',
                                     ),
+                                    textAlign: TextAlign.center, // Corrected to use textAlign directly on Text widget
                                   ),
                                   Text(
                                     faculty.branch,
                                     style: TextStyle(
+                                      //fontWeight: FontWeight.bold,
                                       color: Colors.grey[600],
                                       fontSize: 12,
                                     ),
+                                    textAlign: TextAlign.center, // Corrected to use textAlign directly on Text widget
                                   ),
                                 ],
                               ),
