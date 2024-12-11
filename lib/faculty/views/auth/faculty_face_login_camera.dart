@@ -1,105 +1,177 @@
-import 'dart:io';
-import 'package:camera/camera.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
-import 'package:prototype/faculty/controllers/register_face_controller.dart';
-import 'package:prototype/faculty/views/utils/image_viewer.dart';
 
-class FacultyFaceLoginAICamera extends StatefulWidget {
+import 'package:camera/camera.dart';
+import 'package:path/path.dart';
+import 'package:prototype/faculty/controllers/attendance_controller.dart';
+import 'package:prototype/faculty/controllers/camera_controller.dart';
+import 'package:prototype/faculty/views/attendance/response_page.dart';
+import 'package:prototype/faculty/views/utils/error_bottom_sheet.dart';
+import 'package:prototype/faculty/views/utils/find_face_image_viewer.dart';
+import 'package:prototype/faculty/views/utils/success_bottom_sheet.dart';
+
+class FacultyFaceLoginCamera extends StatefulWidget {
   @override
-  _FacultyFaceLoginAICameraState createState() =>
-      _FacultyFaceLoginAICameraState();
+  State<FacultyFaceLoginCamera> createState() => _FacultyFaceLoginCameraState();
 }
 
-class _FacultyFaceLoginAICameraState extends State<FacultyFaceLoginAICamera> {
-  late CameraController controller;
-  late CameraDescription cameraDescription;
+class _FacultyFaceLoginCameraState extends State<FacultyFaceLoginCamera> {
   String capturedImage = "";
-  bool show = false;
-  RegisterFaceController registerFaceController =
-      Get.put(RegisterFaceController());
+  bool isZoomed = false;
+  bool show = true;
 
-  @override
-  void initState() {
-    super.initState();
-    _initializeCamera();
-    Future.delayed(Duration(seconds: 1), () {
-      setState(() {
-        show = true;
-      });
-    });
-  }
-
-  @override
-  void dispose() {
-    controller.dispose();
-    super.dispose();
-  }
-
-  Future<void> _initializeCamera() async {
-    try {
-      cameraDescription = await availableCameras().then((value) =>
-          value.firstWhere(
-              (element) => element.lensDirection == CameraLensDirection.front));
-      if (cameraDescription != null) {
-        controller = CameraController(cameraDescription, ResolutionPreset.high);
-        controller.initialize().then((value) {
-          if (!mounted) {
-            return;
-          }
-          setState(() {});
-        });
-      }
-    } on CameraException catch (e) {
-      print(e.code);
-      print(e.description);
-    }
-  }
+  final Camera camera = Get.put(Camera());
+  AttendanceController attendanceController = Get.put(AttendanceController());
 
   @override
   Widget build(BuildContext context) {
-    double w = MediaQuery.of(context).size.width;
     double h = MediaQuery.of(context).size.height;
+
     return Scaffold(
-      body: Column(
+      body: Stack(
         children: [
-          show == false
-              ? Container(
-                  width: w,
-                  height: h * 0.8,
-                  color: Colors.black,
-                )
-              : Container(
-                  width: w,
-                  height: h * 0.8,
-                  child: CameraPreview(controller),
-                ),
-          GestureDetector(
-            onTap: () {
-              _takePicture(registerFaceController);
-            },
-            child: Container(
-              width: w,
-              height: h * 0.2,
-              color: Color.fromARGB(255, 0, 0, 0),
-              child: Center(
-                  child: Container(
-                width: 70,
-                height: 70,
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(50),
-                    border: Border.all(color: Colors.white, width: 5)),
+          Container(
+            width: MediaQuery.of(context).size.width,
+            height: h,
+            color: Colors.black,
+          ),
+          Obx(
+            () => attendanceController.isLoading.value
+                ? Center(
+                    child: CircularProgressIndicator(),
+                  )
+                : Positioned(
+                    child: SizedBox(
+                      height: h * 0.8,
+                      width: 1000,
+                      child: GestureDetector(
+                          // onScaleUpdate: (details) {
+                          //   double newZoomLevel = camera.zoomLevel.value *
+                          //       (1 + (details.scale - 1) * 0.07);
+                          //   newZoomLevel = newZoomLevel.clamp(
+                          //     camera.minZoomLevel.value,
+                          //     camera.maxZoomLevel.value,
+                          //   );
+                          //   camera.setZoom(newZoomLevel);
+                          // },
+                          child: CameraPreview(camera.cameraController)),
+                    ),
+                  ),
+          ),
+          Positioned(
+            top: h * 0.8,
+            child: GestureDetector(
+              onTap: () {
+                _takePicture(camera, context);
+              },
+              child: Container(
+                width: MediaQuery.of(context).size.width,
+                height: h * 0.2,
+                color: const Color.fromARGB(255, 0, 0, 0),
                 child: Center(
                   child: Container(
-                    width: 50,
-                    height: 50,
+                    width: 70,
+                    height: 70,
                     decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(50),
-                        color: Colors.white),
+                      shape: BoxShape.circle,
+                      border: Border.all(color: Colors.white, width: 5),
+                    ),
+                    child: Center(
+                      child: Container(
+                        width: 50,
+                        height: 50,
+                        decoration: const BoxDecoration(
+                          shape: BoxShape.circle,
+                          color: Colors.white,
+                        ),
+                      ),
+                    ),
                   ),
                 ),
-              )),
+              ),
+            ),
+          ),
+          Positioned(
+            bottom: h * 0.22,
+            left: MediaQuery.of(context).size.width / 2 - 40,
+            child: Container(
+              width: 80,
+              height: 30,
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(15),
+                  color: const Color.fromARGB(34, 0, 0, 0)),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  GestureDetector(
+                    onTap: () {
+                      double newZoomLevel = camera.minZoomLevel.value;
+                      newZoomLevel = newZoomLevel.clamp(
+                        camera.minZoomLevel.value,
+                        camera.maxZoomLevel.value,
+                      );
+                      camera.setZoom(newZoomLevel);
+                      setState(() {
+                        isZoomed = false;
+                      });
+                    },
+                    child: Container(
+                      width: 30,
+                      height: 30,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(15),
+                        color: !isZoomed
+                            ? Colors.white
+                            : const Color.fromARGB(68, 255, 255, 255),
+                      ),
+                      child: const Center(
+                        child: Text(
+                          "1x",
+                          style: TextStyle(
+                              fontFamily: 'man-r',
+                              fontSize: 12,
+                              color: Colors.black),
+                        ),
+                      ),
+                    ),
+                  ),
+                  GestureDetector(
+                    onTap: () {
+                      if (!isZoomed) {
+                        double newZoomLevel = camera.zoomLevel.value * 2;
+                        newZoomLevel = newZoomLevel.clamp(
+                          camera.minZoomLevel.value,
+                          camera.maxZoomLevel.value,
+                        );
+                        camera.setZoom(newZoomLevel);
+                        setState(() {
+                          isZoomed = true;
+                        });
+                      }
+                    },
+                    child: Container(
+                      width: 30,
+                      height: 30,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(15),
+                        color: isZoomed
+                            ? Colors.white
+                            : const Color.fromARGB(68, 255, 255, 255),
+                      ),
+                      child: const Center(
+                        child: Text(
+                          "2x",
+                          style: TextStyle(
+                              fontFamily: 'man-r',
+                              fontSize: 12,
+                              color: Colors.black),
+                        ),
+                      ),
+                    ),
+                  )
+                ],
+              ),
             ),
           )
         ],
@@ -107,23 +179,33 @@ class _FacultyFaceLoginAICameraState extends State<FacultyFaceLoginAICamera> {
     );
   }
 
-  void _takePicture(registerController) async {
+  void _takePicture(Camera camera, context) async {
     try {
-      //final path = '${Directory.systemTemp.path}/image.png';
-      XFile file = await controller.takePicture();
+      XFile file = await camera.cameraController.takePicture();
       capturedImage = file.path;
-      registerFaceController.filePath = file.path;
-      print(registerFaceController.filePath);
-      /*showDialog(
-        context: context,
-        builder: (BuildContext context) => AlertDialog(
-          content: Image.file(File(capturedImage)),
-        ),
-      );*/
-      Get.to(ImageViewer(path: capturedImage));
+      attendanceController.filePath = file.path;
+
+      // Save the image to the gallery
+      final Uint8List imageData = await file.readAsBytes();
+      print(capturedImage);
+      String err = await attendanceController.AIloginFaculty(capturedImage);
+      if (err != "") {
+        showModalBottomSheet(
+            context: context,
+            builder: (context) {
+              return ErrorBottomSheet(
+                error: err,
+              );
+            });
+      } else {}
+      // Get.to(
+      //   FindFaceImageViewer(path: capturedImage),
+      //   transition: Transition.rightToLeft,
+      //   duration: 300.milliseconds,
+      // );
     } on CameraException catch (e) {
-      print(e.code);
-      print(e.description);
+      if (kDebugMode) print(e.code);
+      if (kDebugMode) print(e.description);
     }
   }
 }

@@ -33,11 +33,7 @@ class SuccessBottomSheet extends StatelessWidget {
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(10),
                     color: const Color.fromARGB(255, 238, 238, 238)),
-                child: Center(
-                    child: Image.asset(
-                  "assets/icons/accept.png",
-                  width: 25,
-                )),
+                child: Center(child: Icon(Icons.check_rounded)),
               ),
               Container(
                 width: MediaQuery.of(context).size.width * 0.8,

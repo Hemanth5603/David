@@ -1,10 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
+import 'package:prototype/faculty/controllers/faculty_attendance_controller.dart';
+import 'package:prototype/faculty/views/tabs/faculty_home_page.dart';
+import 'package:prototype/faculty/views/utils/error_bottom_sheet.dart';
+import 'package:prototype/faculty/views/utils/success_bottom_sheet.dart';
+import 'package:prototype/services/auth_service.dart';
 
 class FacultyProfilePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final double screenHeight = MediaQuery.of(context).size.height;
-
+    final FacultyAttendanceController facultyAttendanceController =
+        Get.put(FacultyAttendanceController());
     return Scaffold(
       backgroundColor: Color.fromARGB(255, 30, 40, 66),
       body: SingleChildScrollView(
@@ -29,7 +37,32 @@ class FacultyProfilePage extends StatelessWidget {
                     children: [
                       Container(),
                       GestureDetector(
-                        onTap: () {},
+                        onTap: () async {
+                          String err = await facultyAttendanceController
+                              .takeFacultyAttendance();
+                          if (err != "") {
+                            showModalBottomSheet(
+                                context: context,
+                                builder: (context) {
+                                  return ErrorBottomSheet(
+                                    error: err,
+                                  );
+                                });
+                          } else {
+                            showModalBottomSheet(
+                                context: context,
+                                builder: (context) {
+                                  return SuccessBottomSheet(
+                                      successMessage: "Attendance Taken",
+                                      buttonText: "Go Back",
+                                      textColor: Colors.green,
+                                      onPressed: () => Get.offAll(
+                                          const FacultyHomePage(),
+                                          transition: Transition.leftToRight,
+                                          duration: 300.milliseconds));
+                                });
+                          }
+                        },
                         child: Container(
                           margin: EdgeInsets.all(15),
                           width: 150,
@@ -182,12 +215,12 @@ class FacultyProfilePage extends StatelessWidget {
                       const SizedBox(height: 10),
                       _detailCard(context, "Qualification",
                           "Ph.D. in Computer Science", Icons.school),
-                      _detailCard(context, "Subjects Dealing", "AI, ML, and IoT",
-                          Icons.subject),
+                      _detailCard(context, "Subjects Dealing",
+                          "AI, ML, and IoT", Icons.subject),
                       _detailCard(context, "Email",
                           "sarah.williams@university.com", Icons.email),
-                      _detailCard(context, "Phone", "+91 9876543210",
-                          Icons.phone),
+                      _detailCard(
+                          context, "Phone", "+91 9876543210", Icons.phone),
                       _detailCard(context, "Department",
                           "Computer Science Engineering", Icons.business),
                       _detailCard(context, "Office Location",
@@ -201,32 +234,7 @@ class FacultyProfilePage extends StatelessWidget {
                   padding: const EdgeInsets.symmetric(horizontal: 16.0),
                   child: GestureDetector(
                     onTap: () {
-                      // Logout action here
-                      showDialog(
-                        context: context,
-                        builder: (BuildContext context) {
-                          return AlertDialog(
-                            title: const Text("Logout"),
-                            content:
-                                const Text("Are you sure you want to log out?"),
-                            actions: [
-                              TextButton(
-                                onPressed: () {
-                                  Navigator.of(context).pop();
-                                },
-                                child: const Text("Cancel"),
-                              ),
-                              TextButton(
-                                onPressed: () {
-                                  Navigator.of(context).pop();
-                                  // Perform logout logic here
-                                },
-                                child: const Text("Logout"),
-                              ),
-                            ],
-                          );
-                        },
-                      );
+                      AuthService().logout();
                     },
                     child: Container(
                       padding: const EdgeInsets.symmetric(

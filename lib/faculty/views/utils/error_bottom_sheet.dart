@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 
-
 class ErrorBottomSheet extends StatelessWidget {
   ErrorBottomSheet({super.key, required this.error});
 
@@ -31,7 +30,7 @@ class ErrorBottomSheet extends StatelessWidget {
                 child: Center(
                   child: Icon(
                     Icons.error_rounded,
-                    color:Color.fromARGB(255, 247, 29, 29) ,
+                    color: Color.fromARGB(255, 253, 45, 22),
                   ),
                 ),
               ),
@@ -47,7 +46,7 @@ class ErrorBottomSheet extends StatelessWidget {
                   style: const TextStyle(
                       fontSize: 16.0,
                       fontFamily: 'man-b',
-                      color: Color.fromARGB(255, 247, 29, 29),
+                      color: Color.fromARGB(255, 255, 67, 67),
                       fontWeight: FontWeight.bold),
                 ),
               ),

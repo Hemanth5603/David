@@ -60,6 +60,7 @@ dependencies:
   speech_to_text: ^6.6.2
   syncfusion_flutter_pdfviewer: ^24.1.41
   firebase_storage: ^11.6.0
+  vibration: ^2.0.1
 
 
 dev_dependencies:

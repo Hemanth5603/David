@@ -9,6 +9,7 @@ import 'package:prototype/faculty/views/auth/register_face_form.dart';
 import 'package:prototype/faculty/views/speech.dart';
 import 'package:prototype/faculty/views/tabs/faculty_profile.dart';
 import 'package:prototype/faculty/views/attendance/video_record_page.dart';
+import 'package:prototype/faculty/views/tabs/resource_allocation.dart';
 import 'package:prototype/student/controllers/notification_controller.dart';
 import 'package:prototype/student/views/components/notification_card.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -87,7 +88,7 @@ class _FacultyHomePageState extends State<FacultyHomePage> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      mainAxisAlignment: MainAxisAlignment.start,
                       children: [
                         Text(
                           "Hello 👋",
@@ -97,10 +98,57 @@ class _FacultyHomePageState extends State<FacultyHomePage> {
                               color: Colors.white,
                               letterSpacing: 1),
                         ),
+                        SizedBox(
+                          width: 30,
+                        ),
                         Container(
                           margin: EdgeInsets.only(right: 15),
-                          width: 60,
-                          height: 60,
+                          width: 50,
+                          height: 50,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(50),
+                            border: Border.all(color: Colors.white, width: 1),
+                            color: Colors.transparent,
+                          ),
+                          child: Center(
+                              child: GestureDetector(
+                                  onTap: () {
+                                    Get.to(ResourceAllocationPage(),
+                                        transition: Transition.rightToLeft,
+                                        duration: 200.milliseconds);
+                                  },
+                                  child: Icon(
+                                    Icons.notifications,
+                                    size: 20,
+                                    color: Colors.white,
+                                  ))),
+                        ),
+                        Container(
+                          margin: EdgeInsets.only(right: 15),
+                          width: 50,
+                          height: 50,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(50),
+                            border: Border.all(color: Colors.white, width: 1),
+                            color: Colors.transparent,
+                          ),
+                          child: Center(
+                              child: GestureDetector(
+                                  onTap: () {
+                                    Get.to(ResourceAllocationPage(),
+                                        transition: Transition.rightToLeft,
+                                        duration: 200.milliseconds);
+                                  },
+                                  child: Icon(
+                                    Icons.storage_outlined,
+                                    size: 20,
+                                    color: Colors.white,
+                                  ))),
+                        ),
+                        Container(
+                          margin: EdgeInsets.only(right: 15),
+                          width: 50,
+                          height: 50,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(50),
                             border: Border.all(color: Colors.white, width: 1),

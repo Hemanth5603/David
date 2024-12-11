@@ -5,11 +5,13 @@ import 'package:flutter/services.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:get/get.dart';
 import 'package:prototype/auth/on_boarding.dart';
+import 'package:vibration/vibration.dart';
 import 'package:prototype/faculty/views/auth/login.dart';
 import 'package:prototype/faculty/views/faculty_home.dart';
 import 'package:prototype/faculty/views/find_face_student_details.dart';
 import 'package:prototype/faculty/views/tabs/faculty_home_page.dart';
 import 'package:prototype/services/auth_service.dart';
+import 'package:prototype/student/controllers/notification_controller.dart';
 import 'package:prototype/student/models/student_model.dart';
 import 'package:prototype/student/views/home.dart';
 import 'package:prototype/student/views/tabs/home_page.dart';
@@ -80,7 +82,7 @@ void main() async {
     importance: Importance.max,
     playSound: true,
     sound: RawResourceAndroidNotificationSound(
-        'alert_sound'), // Make sure to add this sound file
+        'audio'), // Make sure to add this sound file
     enableVibration: true,
     enableLights: true,
   );
@@ -94,6 +96,7 @@ void main() async {
       .resolvePlatformSpecificImplementation<
           AndroidFlutterLocalNotificationsPlugin>()
       ?.createNotificationChannel(alertChannel);
+  print('Alert channel created with sound: alert_sound');
 
   // Get FCM token
   String? token = await FirebaseMessaging.instance.getToken();
@@ -116,6 +119,8 @@ class _MyAppState extends State<MyApp> {
     _setupForegroundNotificationHandling();
   }
 
+  // Add this import
+
   void _setupForegroundNotificationHandling() {
     FirebaseMessaging.onMessage.listen((RemoteMessage message) {
       RemoteNotification? notification = message.notification;
@@ -125,28 +130,41 @@ class _MyAppState extends State<MyApp> {
         // Check if it's an alert notification
         if (message.data['type'] == 'alert' ||
             message.data['topic'] == 'alert') {
+          // Trigger continuous vibration
+          Vibration.vibrate(
+              duration: 1000, amplitude: 128); // Vibrate for 1 second
+
+          // Show the notification
           flutterLocalNotificationsPlugin.show(
             notification.hashCode,
             notification.title,
             notification.body,
             NotificationDetails(
               android: AndroidNotificationDetails(
-                'alert_channel',
-                'Alert Notifications',
+                'high_importance_channel',
+                'High Importance Notifications',
                 icon: android.smallIcon,
                 importance: Importance.max,
                 priority: Priority.high,
-                sound: const RawResourceAndroidNotificationSound('alert_sound'),
-                playSound: true,
-                enableVibration: true,
-                enableLights: true,
-                color: Colors.red,
-                fullScreenIntent: true,
               ),
             ),
           );
         } else {
-          // Regular notification handling...
+          // Handle regular notifications
+          print("Alerted --------------/-/-/-/-///////////////////");
+          Vibration.vibrate(duration: 5000, amplitude: 128);
+          flutterLocalNotificationsPlugin.show(
+            notification.hashCode,
+            notification.title,
+            notification.body,
+            NotificationDetails(
+              android: AndroidNotificationDetails(
+                'high_importance_channel',
+                'High Importance Notifications',
+                icon: android.smallIcon,
+              ),
+            ),
+          );
         }
       }
     });
@@ -184,7 +202,7 @@ class InitialRouter extends StatelessWidget {
       if (AuthService.to.userType.value == 'student') {
         return const StudentHome();
       } else if (AuthService.to.userType.value == 'faculty') {
-        return StudentHome();
+        return OnBoardingPage();
       }
 
 //StudentHome()

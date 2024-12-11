@@ -3,8 +3,8 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:prototype/faculty/controllers/notification_controller.dart';
 
-class CreateNofication extends StatelessWidget {
-  CreateNofication({super.key});
+class CreateNotification extends StatelessWidget {
+  CreateNotification({super.key});
 
   TextEditingController titleController = TextEditingController();
   TextEditingController descriptionController = TextEditingController();

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
+import 'package:prototype/services/auth_service.dart';
 import 'package:prototype/student/controllers/authentication_controller.dart';
 import 'package:prototype/student/models/student_model.dart';
 import 'package:prototype/student/views/leave_request.dart';
@@ -282,7 +283,7 @@ class _StudentProfileState extends State<StudentProfile> {
                   padding: const EdgeInsets.symmetric(horizontal: 10.0),
                   child: GestureDetector(
                     onTap: () {
-                      // Logout action here
+                      AuthService().logout();
                       showDialog(
                         context: context,
                         builder: (BuildContext context) {
@@ -309,34 +310,39 @@ class _StudentProfileState extends State<StudentProfile> {
                         },
                       );
                     },
-                    child: Container(
-                      padding: const EdgeInsets.symmetric(
-                          vertical: 14.0, horizontal: 20.0),
-                      decoration: BoxDecoration(
-                        color: const Color(0xFFE8F0F8),
-                        borderRadius: BorderRadius.circular(12),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.grey.withOpacity(0.1),
-                            blurRadius: 10,
-                            offset: const Offset(0, 5),
-                          ),
-                        ],
-                      ),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: const [
-                          Icon(Icons.logout, color: Color(0xFF1F2A45)),
-                          SizedBox(width: 10),
-                          Text(
-                            "Logout",
-                            style: TextStyle(
-                              fontFamily: "man-sb",
-                              fontSize: 16,
-                              color: Color(0xFF1F2A45),
+                    child: GestureDetector(
+                      onTap: () {
+                        AuthService().logout();
+                      },
+                      child: Container(
+                        padding: const EdgeInsets.symmetric(
+                            vertical: 14.0, horizontal: 20.0),
+                        decoration: BoxDecoration(
+                          color: const Color(0xFFE8F0F8),
+                          borderRadius: BorderRadius.circular(12),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.grey.withOpacity(0.1),
+                              blurRadius: 10,
+                              offset: const Offset(0, 5),
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: const [
+                            Icon(Icons.logout, color: Color(0xFF1F2A45)),
+                            SizedBox(width: 10),
+                            Text(
+                              "Logout",
+                              style: TextStyle(
+                                fontFamily: "man-sb",
+                                fontSize: 16,
+                                color: Color(0xFF1F2A45),
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                   ),

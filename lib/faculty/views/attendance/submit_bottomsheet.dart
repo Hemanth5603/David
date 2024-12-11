@@ -26,7 +26,7 @@ class bottomSheetContent extends StatelessWidget {
             textAlign: TextAlign.center,
             style: TextStyle(fontSize: 20.0, fontFamily: 'man-l'),
           ),
-          
+
           const Text(
             '',
             textAlign: TextAlign.center,

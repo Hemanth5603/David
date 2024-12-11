@@ -12,9 +12,9 @@ class FacultyAttendanceController extends GetxController {
   var isLoading = false.obs;
   var filePath = ''.obs;
 
-  void takeFacultyAttendance() async {
+  Future<String> takeFacultyAttendance() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    String branch = prefs.getString("fbranch") ?? 'CSE';
+    String branch = prefs.getString("fid") ?? '1';
     try {
       final response = await http.post(
         Uri.parse('${API.baseUrl}${API.takeFacultyAttendane}'),
@@ -22,19 +22,19 @@ class FacultyAttendanceController extends GetxController {
           'Content-Type': 'application/json',
         },
         body: jsonEncode({
-          'latitude': "",
-          'longitude': "",
-          'faculty_id': branch,
+          'latitude': 28.4629043,
+          'longitude': 77.4881184,
+          'faculty_id': 1,
         }),
       );
 
       if (response.statusCode == 200) {
-        print('Push notification sent successfully');
+        return "";
       } else {
-        print('Failed to send push notification: ${response.body}');
+        return 'Cant approve Attendance : ${response.body}';
       }
     } catch (e) {
-      print('Error sending push notification: $e');
+      return 'Cant approve attendance: $e';
     }
   }
 }
