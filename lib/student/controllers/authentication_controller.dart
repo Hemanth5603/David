@@ -74,4 +74,6 @@ class AuthenticationController extends GetxController {
       print(e);
     }
   }
+
+  void logout() {}
 }

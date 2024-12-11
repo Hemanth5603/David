@@ -4,7 +4,6 @@ class FacultyProfilePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final double screenHeight = MediaQuery.of(context).size.height;
-    final double screenWidth = MediaQuery.of(context).size.width;
 
     return Scaffold(
       backgroundColor: Color.fromARGB(255, 30, 40, 66),
@@ -18,12 +17,10 @@ class FacultyProfilePage extends StatelessWidget {
                 color: Color.fromARGB(255, 6, 7, 42), // Blue shade
               ),
             ),
-
             Column(
               children: [
-                SizedBox(
-                  height: 20,
-                ),
+                const SizedBox(height: 20),
+                // Header section
                 Container(
                   width: MediaQuery.of(context).size.width,
                   height: 80,
@@ -54,19 +51,16 @@ class FacultyProfilePage extends StatelessWidget {
                     ],
                   ),
                 ),
-
                 // Profile circular image
                 CircleAvatar(
                   radius: 60,
                   backgroundColor: Colors.white,
-                  
                   child: CircleAvatar(
                     radius: 55,
                     backgroundImage: AssetImage('images/faculty_profile.jpeg'),
                   ),
                 ),
                 const SizedBox(height: 10),
-
                 // Faculty name and ID
                 const Text(
                   "Shankar Rao",
@@ -85,7 +79,6 @@ class FacultyProfilePage extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(height: 30),
-
                 // White card for experience and additional info
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 16.0),
@@ -142,7 +135,6 @@ class FacultyProfilePage extends StatelessWidget {
                             ),
                           ),
                           const SizedBox(height: 60),
-
                           // Info cards for Qualification, Subjects, and Office Hours
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -151,7 +143,6 @@ class FacultyProfilePage extends StatelessWidget {
                                   const Color(0xFF4CAF50)),
                               _infoCard(
                                   "Subjects", "3", const Color(0xFF2196F3)),
-                              //_infoCard("Office Hours", "10AM-4PM", const Color(0xFFF44336)),
                             ],
                           ),
                         ],
@@ -160,14 +151,12 @@ class FacultyProfilePage extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(height: 20),
-
                 // Personal Information Section
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 16.0),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      // Header with Edit button
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
@@ -179,49 +168,26 @@ class FacultyProfilePage extends StatelessWidget {
                               color: Color.fromARGB(255, 241, 242, 244),
                             ),
                           ),
-                          Column(
-                            mainAxisSize:
-                                MainAxisSize.min, // Keeps the column compact
-                            children: [
-                              IconButton(
-                                onPressed: () {
-                                  // Add edit action here
-                                },
-                                icon: const Icon(
-                                  Icons.edit, // Edit icon
-                                  color: Color(0xFF2196F3), // Light blue color
-                                  size: 20, // Adjust size if needed
-                                ),
-                              ),
-                              Transform.translate(
-                                offset: const Offset(
-                                    0, -6), // Move the text upward by 6 pixels
-                                child: const Text(
-                                  "Edit",
-                                  style: TextStyle(
-                                    fontFamily: "man-l",
-                                    fontSize: 12,
-                                    color:
-                                        Color(0xFF2196F3), // Light blue color
-                                  ),
-                                ),
-                              ),
-                            ],
+                          IconButton(
+                            onPressed: () {
+                              // Add edit action here
+                            },
+                            icon: const Icon(
+                              Icons.edit,
+                              color: Color(0xFF2196F3),
+                            ),
                           ),
                         ],
                       ),
-
                       const SizedBox(height: 10),
-
-                      // Detail cards
                       _detailCard(context, "Qualification",
                           "Ph.D. in Computer Science", Icons.school),
-                      _detailCard(context, "Subjects Dealing",
-                          "AI, ML, and IoT", Icons.subject),
+                      _detailCard(context, "Subjects Dealing", "AI, ML, and IoT",
+                          Icons.subject),
                       _detailCard(context, "Email",
                           "sarah.williams@university.com", Icons.email),
-                      _detailCard(
-                          context, "Phone", "+91 9876543210", Icons.phone),
+                      _detailCard(context, "Phone", "+91 9876543210",
+                          Icons.phone),
                       _detailCard(context, "Department",
                           "Computer Science Engineering", Icons.business),
                       _detailCard(context, "Office Location",
@@ -230,6 +196,70 @@ class FacultyProfilePage extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(height: 20),
+                // Logout card at the bottom
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                  child: GestureDetector(
+                    onTap: () {
+                      // Logout action here
+                      showDialog(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return AlertDialog(
+                            title: const Text("Logout"),
+                            content:
+                                const Text("Are you sure you want to log out?"),
+                            actions: [
+                              TextButton(
+                                onPressed: () {
+                                  Navigator.of(context).pop();
+                                },
+                                child: const Text("Cancel"),
+                              ),
+                              TextButton(
+                                onPressed: () {
+                                  Navigator.of(context).pop();
+                                  // Perform logout logic here
+                                },
+                                child: const Text("Logout"),
+                              ),
+                            ],
+                          );
+                        },
+                      );
+                    },
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 14.0, horizontal: 20.0),
+                      decoration: BoxDecoration(
+                        color: const Color(0xFFE8F0F8),
+                        borderRadius: BorderRadius.circular(12),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.grey.withOpacity(0.1),
+                            blurRadius: 10,
+                            offset: const Offset(0, 5),
+                          ),
+                        ],
+                      ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: const [
+                          Icon(Icons.logout, color: Color(0xFF1F2A45)),
+                          SizedBox(width: 10),
+                          Text(
+                            "Logout",
+                            style: TextStyle(
+                              fontFamily: "man-sb",
+                              fontSize: 16,
+                              color: Color(0xFF1F2A45),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
               ],
             ),
           ],
@@ -306,16 +336,16 @@ class FacultyProfilePage extends StatelessWidget {
                     style: const TextStyle(
                       fontFamily: "man-sb",
                       fontSize: 14,
-                      color: Color(0xFF1F2A45),
+                      color: Colors.black54,
                     ),
                   ),
                   const SizedBox(height: 4),
                   Text(
                     value,
                     style: const TextStyle(
-                      fontFamily: "man-l",
-                      fontSize: 12,
-                      color: Colors.black54,
+                      fontFamily: "man-b",
+                      fontSize: 16,
+                      color: Colors.black,
                     ),
                   ),
                 ],

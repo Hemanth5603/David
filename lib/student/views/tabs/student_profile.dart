@@ -18,7 +18,6 @@ class _StudentProfileState extends State<StudentProfile> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     authenticationController.getUserByRoll();
   }
@@ -26,8 +25,8 @@ class _StudentProfileState extends State<StudentProfile> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-       appBar: AppBar(
-        backgroundColor: const Color(0xFF1F2A45), // Matches the profile page's theme
+      appBar: AppBar(
+        backgroundColor: const Color(0xFF1F2A45),
         elevation: 0,
         title: const Text(
           "Profile",
@@ -44,7 +43,6 @@ class _StudentProfileState extends State<StudentProfile> {
               color: Color.fromARGB(255, 192, 186, 186),
             ),
             onPressed: () {
-              // Navigate to the Leave Request Page
               Navigator.push(
                 context,
                 MaterialPageRoute(
@@ -59,19 +57,15 @@ class _StudentProfileState extends State<StudentProfile> {
       body: SingleChildScrollView(
         child: Stack(
           children: [
-            // Blue background for the top portion
             Container(
               height: MediaQuery.of(context).size.height * 0.48,
               decoration: const BoxDecoration(
-                color: Color(0xFF1F2A45), // Blue shade
+                color: Color(0xFF1F2A45),
               ),
             ),
-
             Column(
               children: [
-                const SizedBox(height: 50), // Space for balance
-
-                // Profile circular image
+                const SizedBox(height: 50),
                 const CircleAvatar(
                   radius: 60,
                   backgroundColor: Colors.white,
@@ -81,8 +75,6 @@ class _StudentProfileState extends State<StudentProfile> {
                   ),
                 ),
                 const SizedBox(height: 10),
-
-                // Name and roll number
                 Obx(() => authenticationController.isLoading.value
                     ? const Center(
                         child: CircularProgressIndicator(
@@ -109,9 +101,7 @@ class _StudentProfileState extends State<StudentProfile> {
                           ),
                         ],
                       )),
-                const SizedBox(height: 30),
-
-                // White card for attendance and additional info
+                const SizedBox(height: 20),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 16.0),
                   child: Container(
@@ -148,7 +138,7 @@ class _StudentProfileState extends State<StudentProfile> {
                               fit: StackFit.expand,
                               children: [
                                 CircularProgressIndicator(
-                                  value: 0.85, // Example: 85% attendance
+                                  value: 0.85,
                                   strokeWidth: 8,
                                   color: const Color(0xFF4CAF50),
                                   backgroundColor: Colors.grey[300],
@@ -156,7 +146,7 @@ class _StudentProfileState extends State<StudentProfile> {
                                 const Center(
                                   child: Text(
                                     "85%",
-                                    style: const TextStyle(
+                                    style: TextStyle(
                                       fontFamily: "man-b",
                                       fontSize: 20,
                                       color: Color(0xFF1F2A45),
@@ -167,8 +157,6 @@ class _StudentProfileState extends State<StudentProfile> {
                             ),
                           ),
                           const SizedBox(height: 20),
-
-                          // CGPA, Attendance, and Backlogs cards
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: [
@@ -177,8 +165,8 @@ class _StudentProfileState extends State<StudentProfile> {
                                   "8.5",
                                   const Color(0xFF4FB853)),
                               _infoCard(
-                                  "Backlogs",                               
-                                     "N/A",
+                                  "Backlogs", 
+                                  "N/A",
                                   const Color(0xFFF44336)),
                               _infoCard(
                                   "Attendance",
@@ -191,15 +179,12 @@ class _StudentProfileState extends State<StudentProfile> {
                     ),
                   ),
                 ),
-                const SizedBox(height: 20),
-
-                // Personal Information Section
+                const SizedBox(height: 0),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 16.0),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      // Header with Edit button
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
@@ -212,29 +197,26 @@ class _StudentProfileState extends State<StudentProfile> {
                             ),
                           ),
                           Column(
-                            mainAxisSize:
-                                MainAxisSize.min, // Keeps the column compact
+                            mainAxisSize: MainAxisSize.min,
                             children: [
                               IconButton(
                                 onPressed: () {
                                   // Add edit action here
                                 },
                                 icon: const Icon(
-                                  Icons.edit, // Edit icon
-                                  color: Color(0xFF2196F3), // Light blue color
-                                  size: 20, // Adjust size if needed
+                                  Icons.edit,
+                                  color: Color(0xFF2196F3),
+                                  size: 20,
                                 ),
                               ),
                               Transform.translate(
-                                offset: const Offset(
-                                    0, -6), // Move the text upward by 6 pixels
+                                offset: const Offset(0, -6),
                                 child: const Text(
                                   "Edit",
                                   style: TextStyle(
                                     fontFamily: "man-l",
                                     fontSize: 12,
-                                    color:
-                                        Color(0xFF2196F3), // Light blue color
+                                    color: Color(0xFF2196F3),
                                   ),
                                 ),
                               ),
@@ -242,10 +224,7 @@ class _StudentProfileState extends State<StudentProfile> {
                           ),
                         ],
                       ),
-
                       const SizedBox(height: 10),
-
-                      // Detail cards
                       Obx(() => Column(
                             children: [
                               _detailCard(
@@ -297,6 +276,71 @@ class _StudentProfileState extends State<StudentProfile> {
                   ),
                 ),
                 const SizedBox(height: 20),
+ const SizedBox(height: 0),
+                // Logout Button at the end
+                 Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                  child: GestureDetector(
+                    onTap: () {
+                      // Logout action here
+                      showDialog(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return AlertDialog(
+                            title: const Text("Logout"),
+                            content:
+                                const Text("Are you sure you want to log out?"),
+                            actions: [
+                              TextButton(
+                                onPressed: () {
+                                  Navigator.of(context).pop();
+                                },
+                                child: const Text("Cancel"),
+                              ),
+                              TextButton(
+                                onPressed: () {
+                                  Navigator.of(context).pop();
+                                  // Perform logout logic here
+                                },
+                                child: const Text("Logout"),
+                              ),
+                            ],
+                          );
+                        },
+                      );
+                    },
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 14.0, horizontal: 20.0),
+                      decoration: BoxDecoration(
+                        color: const Color(0xFFE8F0F8),
+                        borderRadius: BorderRadius.circular(12),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.grey.withOpacity(0.1),
+                            blurRadius: 10,
+                            offset: const Offset(0, 5),
+                          ),
+                        ],
+                      ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: const [
+                          Icon(Icons.logout, color: Color(0xFF1F2A45)),
+                          SizedBox(width: 10),
+                          Text(
+                            "Logout",
+                            style: TextStyle(
+                              fontFamily: "man-sb",
+                              fontSize: 16,
+                              color: Color(0xFF1F2A45),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
               ],
             ),
           ],
@@ -373,16 +417,16 @@ class _StudentProfileState extends State<StudentProfile> {
                     style: const TextStyle(
                       fontFamily: "man-sb",
                       fontSize: 14,
-                      color: Color(0xFF1F2A45),
+                      color: Colors.black54,
                     ),
                   ),
                   const SizedBox(height: 4),
                   Text(
                     value,
                     style: const TextStyle(
-                      fontFamily: "man-l",
-                      fontSize: 12,
-                      color: Colors.black54,
+                      fontFamily: "man-b",
+                      fontSize: 16,
+                      color: Colors.black,
                     ),
                   ),
                 ],
