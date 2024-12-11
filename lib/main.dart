@@ -8,12 +8,10 @@ import 'package:prototype/auth/on_boarding.dart';
 import 'package:prototype/faculty/views/auth/login.dart';
 import 'package:prototype/faculty/views/faculty_home.dart';
 import 'package:prototype/faculty/views/tabs/faculty_home_page.dart';
-import 'package:prototype/faculty/views/tabs/faculty_profile.dart';
 import 'package:prototype/services/auth_service.dart';
 import 'package:prototype/student/views/home.dart';
 import 'package:prototype/student/views/tabs/home_page.dart';
 import 'package:prototype/firebase_options.dart';
-import 'package:prototype/student/views/tabs/student_profile.dart';
 
 // Initialize FlutterLocalNotificationsPlugin
 final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
@@ -184,7 +182,7 @@ class InitialRouter extends StatelessWidget {
       if (AuthService.to.userType.value == 'student') {
         return const FacultyHome();
       } else if (AuthService.to.userType.value == 'faculty') {
-        return StudentProfile();
+        return StudentHome();
       }
 
 //StudentHome()
