@@ -9,6 +9,8 @@ class NotificationController extends GetxController {
   var isLoading = false.obs;
   final FirebaseMessaging _firebaseMessaging = FirebaseMessaging.instance;
 
+  get notifications => null;
+
   @override
   void onInit() {
     super.onInit();

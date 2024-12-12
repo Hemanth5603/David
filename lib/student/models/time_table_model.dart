@@ -62,6 +62,8 @@ class Classes {
     teacherName = json['teacher_name'];
   }
 
+  String? get date => null;
+
   Map<String, dynamic> toJson() {
     final _data = <String, dynamic>{};
     _data['room'] = room;

@@ -16,6 +16,7 @@ import 'package:prototype/student/models/student_model.dart';
 import 'package:prototype/student/views/home.dart';
 import 'package:prototype/student/views/tabs/home_page.dart';
 import 'package:prototype/firebase_options.dart';
+import 'package:prototype/student/views/tabs/leaderboard.dart';
 
 // Initialize FlutterLocalNotificationsPlugin
 final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
