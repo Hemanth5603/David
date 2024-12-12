@@ -119,4 +119,37 @@ class NotificationController extends GetxController {
       isLoading(false);
     }
   }
+
+  Future<void> sendAlert() async {
+    final String url =
+        'https://david-backend-production.up.railway.app/send-notification'; // Replace with your API endpoint
+
+    // Create the JSON data
+    final Map<String, dynamic> data = {
+      "title": "Fire Breakout 🔥",
+      "description": "Fire Breakout, Get out Fast",
+      "topic": "alert"
+    };
+
+    // Send the HTTP POST request
+    try {
+      final response = await http.post(
+        Uri.parse(url),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: json.encode(data),
+      );
+
+      if (response.statusCode == 200) {
+        // Handle success
+        print('Alert sent successfully: ${response.body}');
+      } else {
+        // Handle error
+        print('Failed to send alert: ${response.statusCode}');
+      }
+    } catch (e) {
+      print('Error occurred: $e');
+    }
+  }
 }

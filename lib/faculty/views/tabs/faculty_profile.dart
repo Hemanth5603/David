@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:prototype/faculty/controllers/faculty_attendance_controller.dart';
+import 'package:prototype/faculty/controllers/notification_controller.dart';
 import 'package:prototype/faculty/views/tabs/faculty_home_page.dart';
 import 'package:prototype/faculty/views/utils/error_bottom_sheet.dart';
 import 'package:prototype/faculty/views/utils/success_bottom_sheet.dart';
@@ -13,6 +14,8 @@ class FacultyProfilePage extends StatelessWidget {
     final double screenHeight = MediaQuery.of(context).size.height;
     final FacultyAttendanceController facultyAttendanceController =
         Get.put(FacultyAttendanceController());
+    final NotificationController notificationController =
+        Get.put(NotificationController());
     return Scaffold(
       backgroundColor: Color.fromARGB(255, 30, 40, 66),
       body: SingleChildScrollView(
@@ -226,6 +229,46 @@ class FacultyProfilePage extends StatelessWidget {
                       _detailCard(context, "Office Location",
                           "Room 204, Block A", Icons.location_on),
                     ],
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                  child: GestureDetector(
+                    onTap: () async {
+                      print("Sent ALert");
+                      await notificationController.sendAlert();
+                    },
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 14.0, horizontal: 20.0),
+                      decoration: BoxDecoration(
+                        color: Color.fromARGB(255, 255, 74, 74),
+                        borderRadius: BorderRadius.circular(12),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.grey.withOpacity(0.1),
+                            blurRadius: 10,
+                            offset: const Offset(0, 5),
+                          ),
+                        ],
+                      ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: const [
+                          Icon(Icons.notification_important,
+                              color: Colors.white),
+                          SizedBox(width: 10),
+                          Text(
+                            "Alert !!",
+                            style: TextStyle(
+                              fontFamily: "man-sb",
+                              fontSize: 16,
+                              color: Colors.white,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
                   ),
                 ),
                 const SizedBox(height: 20),

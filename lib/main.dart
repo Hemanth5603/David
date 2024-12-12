@@ -296,7 +296,6 @@ class InitialRouter extends StatelessWidget {
         return FacultyHome();
       }
 
-//StudentHome()
       return OnBoardingPage();
     });
   }

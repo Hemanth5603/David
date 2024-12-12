@@ -258,24 +258,19 @@ class _ResponsePageState extends State<ResponsePage> {
                                     //   :
                                     ListView.builder(
                                   itemCount: attendanceController
-                                          .attendanceResponseModel
-                                          ?.presents
-                                          .length ??
-                                      presents.length,
+                                      .attendanceResponseModel?.presents.length,
                                   itemBuilder: (context, index) {
                                     return RollNumberCard(
                                       w,
                                       h,
                                       attendanceController
-                                              .attendanceResponseModel
-                                              ?.presents[index]
-                                              .toString() ??
-                                          presents[index],
+                                          .attendanceResponseModel!
+                                          .presents[index]
+                                          .toString(),
                                       attendanceController
-                                              .attendanceResponseModel
-                                              ?.presents[index]
-                                              .toString() ??
-                                          presents[index],
+                                          .attendanceResponseModel!
+                                          .presents[index]
+                                          .toString(),
                                       true,
                                     );
                                   },
@@ -286,24 +281,19 @@ class _ResponsePageState extends State<ResponsePage> {
                                 height: h * 0.5,
                                 child: ListView.builder(
                                   itemCount: attendanceController
-                                          .attendanceResponseModel
-                                          ?.absents
-                                          .length ??
-                                      absents.length,
+                                      .attendanceResponseModel?.absents.length,
                                   itemBuilder: (context, index) {
                                     return RollNumberCard(
                                       w,
                                       h,
                                       attendanceController
-                                              .attendanceResponseModel
-                                              ?.absents[index]
-                                              .toString() ??
-                                          absents[index],
+                                          .attendanceResponseModel!
+                                          .absents[index]
+                                          .toString(),
                                       attendanceController
-                                              .attendanceResponseModel
-                                              ?.absents[index]
-                                              .toString() ??
-                                          absents[index],
+                                          .attendanceResponseModel!
+                                          .absents[index]
+                                          .toString(),
                                       false,
                                     );
                                   },

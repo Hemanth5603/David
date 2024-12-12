@@ -123,25 +123,19 @@ class AttendanceController extends GetxController {
       print(
           "------------------------------------------------------------------${res.statusCode}");
       if (res.statusCode == 200) {
-        // Read and parse the response from the server
-        var responseBody = await res.stream.bytesToString();
+        // // Read and parse the response from the server
+        // var responseBody = await res.stream.bytesToString();
 
         Get.to(FacultyHome());
 
-        if (kDebugMode) {
-          print("Data Upload Successful...");
-          print("Response: $responseBody");
-        }
-
-        // Parse response body as JSON and create a StudentModel instance
-        Map<String, dynamic> json = jsonDecode(responseBody);
-        findFaceResponse = FindFaceResponse.fromJson(json);
+        // if (kDebugMode) {
+        //   print("Data Upload Successful...");
+        //   print("Response: $responseBody");
+        // }
+        // Map<String, dynamic> json = jsonDecode(responseBody);
+        // findFaceResponse = FindFaceResponse.fromJson(json);
         return "";
-      } else {
-        if (kDebugMode) {
-          print("Upload Unsuccessful");
-          print("Response Code: ${res.statusCode}");
-        }
+      } else if (res.statusCode == 400) {
         return "No Face Found!!";
       }
     } catch (e) {
@@ -149,6 +143,45 @@ class AttendanceController extends GetxController {
     } finally {
       isLoading(false);
     }
-    return "No Face Found !!";
+    return "";
+  }
+
+  Future<String> GlobalSearch(String path) async {
+    isLoading(true);
+    try {
+      print("Called AI login ------------------/////////////");
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      //String url = "${prefs.getString("url")}/david/findface";
+      String url = "${API.mlurl}${API.globalsearch}";
+      print(url);
+
+      var request = http.MultipartRequest('POST', Uri.parse(url));
+      request.files.add(await http.MultipartFile.fromPath('image', path));
+
+      var res = await request.send();
+      print(
+          "------------------------------------------------------------------${res.statusCode}");
+      if (res.statusCode == 200) {
+        // // Read and parse the response from the server
+        // var responseBody = await res.stream.bytesToString();
+
+        // Get.to(FacultyHome());
+
+        // if (kDebugMode) {
+        //   print("Data Upload Successful...");
+        //   print("Response: $responseBody");
+        // }
+        // Map<String, dynamic> json = jsonDecode(responseBody);
+        // findFaceResponse = FindFaceResponse.fromJson(json);
+        return "";
+      } else if (res.statusCode == 400) {
+        return "No Face Found!!";
+      }
+    } catch (e) {
+      if (kDebugMode) print(e);
+    } finally {
+      isLoading(false);
+    }
+    return "No Face Found!!";
   }
 }

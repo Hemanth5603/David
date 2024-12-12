@@ -3,7 +3,6 @@ import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
 import 'package:permission_handler/permission_handler.dart';
 
-
 class Camera extends GetxController {
   late CameraDescription cameraDescription;
   late CameraController cameraController;
@@ -27,6 +26,22 @@ class Camera extends GetxController {
       cameraController.dispose();
     }
     super.onClose();
+  }
+
+  void toggleCameraLens() async {
+    if (cameraDescription.lensDirection == CameraLensDirection.front) {
+      cameraDescription = (await availableCameras()).firstWhere(
+          (camera) => camera.lensDirection == CameraLensDirection.back);
+    } else {
+      cameraDescription = (await availableCameras()).firstWhere(
+          (camera) => camera.lensDirection == CameraLensDirection.front);
+    }
+    await cameraController.dispose(); // Dispose the current controller
+    cameraController =
+        CameraController(cameraDescription, ResolutionPreset.high);
+    await cameraController.initialize(); // Reinitialize with the new camera
+    minZoomLevel.value = await cameraController.getMinZoomLevel();
+    maxZoomLevel.value = await cameraController.getMaxZoomLevel();
   }
 
   Future<void> _initializeCamera() async {

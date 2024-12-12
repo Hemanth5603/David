@@ -207,9 +207,9 @@ class _FacultyHomePageState extends State<FacultyHomePage> {
                     scrollDirection: Axis.horizontal,
                     children: [
                       Card(
-                          w, h, "CSM-C", "Data Structures", "LH-5, Period - 1"),
-                      Card(w, h, "CSM-B", "Robotics", "LH-6, Period - 2"),
-                      Card(w, h, "CSM-A", "Data Analytics", "LH-1, Period - 3")
+                          w, h, "CSE", "Data Structures", "LH-101, Period - 1"),
+                      Card(w, h, "CSM", "Robotics", "LH-101, Period - 2"),
+                      Card(w, h, "CSD", "Data Analytics", "LH-101, Period - 3")
                     ],
                   ),
                 ),

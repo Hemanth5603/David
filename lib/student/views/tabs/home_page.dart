@@ -6,6 +6,7 @@ import 'package:prototype/student/controllers/assignment_controller.dart';
 import 'package:prototype/student/controllers/notification_controller.dart';
 import 'package:prototype/student/controllers/timetable_controller.dart';
 import 'package:prototype/student/views/components/assignment_card.dart';
+import 'package:prototype/student/views/components/lecture_scripts.dart';
 import 'package:prototype/student/views/components/notification_card.dart';
 import 'package:prototype/student/views/components/time_table_card.dart';
 
@@ -29,7 +30,6 @@ class _StudentHomePageState extends State<StudentHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color.fromARGB(255, 246, 245, 242),
       backgroundColor: Color.fromARGB(255, 246, 245, 242),
       body: SingleChildScrollView(
         physics: const BouncingScrollPhysics(),
@@ -297,12 +297,15 @@ class _StudentHomePageState extends State<StudentHomePage> {
       cardsCount: timetables.length,
       cardBuilder: (context, index, percentThresholdX, percentThresholdY) =>
           timeTableCard(
-        timetables[index].teacherName == ""
+        facultyName: timetables[index].teacherName == ""
             ? "TBD"
             : timetables[index].teacherName,
-        timetables[index].time,
-        timetables[index].subjectName,
-        timetables[index].room,
+        time: timetables[index].time,
+        subject: timetables[index].subjectName,
+        room: timetables[index].room,
+        onTap: () {
+          Get.to(LectureScripts());
+        },
       ),
       backCardOffset: const Offset(0, 15),
       numberOfCardsDisplayed: 5,

@@ -1,5 +1,7 @@
+import 'package:prototype/faculty/views/auth/global_search.dart';
+
 class API {
-  static const mlurl = "https://7d73-103-177-203-130.ngrok-free.app";
+  static const mlurl = "https://ebb6-103-177-203-130.ngrok-free.app";
   static const attendance = "/upload-video/";
   static const mlregisterface = "/register-face/";
   static const mlfindface = "/upload-image/";
@@ -16,4 +18,7 @@ class API {
   static const takeFacultyAttendane = "/faculty/attendance";
   static const sendLeaveRequest = "/student/leave-request";
   static const generateNotes = "/generate-notes/";
+  static const fetchscripts = "/student/fetch-scripts";
+  static const fetchResourceRequests = "/admin/get-all-requests";
+  static const globalsearch = "/search-global/";
 }

@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
+import 'package:prototype/faculty/controllers/camera_controller.dart';
 import 'package:prototype/faculty/views/auth/faculty_face_login_camera.dart';
+import 'package:prototype/faculty/views/auth/global_search.dart';
 import 'package:prototype/faculty/views/auth/login.dart';
 import 'package:prototype/student/views/auth/student_login.dart';
 
 class OnBoardingPage extends StatelessWidget {
+  final Camera camera = Get.put(Camera());
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -69,11 +72,37 @@ class OnBoardingPage extends StatelessWidget {
                     // Faculty Login Card
                     GestureDetector(
                       child: _buildLoginCard(
+                        title: "AI - Faculty Login ✨",
+                        description: "Manage your classes and lectures",
+                        icon: Icons.person,
+                        onTap: () {
+                          Get.to(FacultyFaceLoginCamera());
+                          //Get.to(FacultyFaceLoginAICamera());
+                        },
+                      ),
+                    ),
+                    const SizedBox(height: 20),
+                    // Faculty Login Card
+                    GestureDetector(
+                      child: _buildLoginCard(
                         title: "Faculty Login",
                         description: "Manage your classes and lectures",
                         icon: Icons.person,
                         onTap: () {
                           Get.to(const FacultyLogin());
+                          //Get.to(FacultyFaceLoginAICamera());
+                        },
+                      ),
+                    ),
+                    const SizedBox(height: 60),
+                    // Faculty Login Card
+                    GestureDetector(
+                      child: _buildLoginCard(
+                        title: "Global Search",
+                        description: "Detect suspecious person ",
+                        icon: Icons.person,
+                        onTap: () {
+                          Get.to(GlobalSearch());
                           //Get.to(FacultyFaceLoginAICamera());
                         },
                       ),
