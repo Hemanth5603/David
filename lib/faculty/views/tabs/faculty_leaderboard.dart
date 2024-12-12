@@ -22,7 +22,6 @@ class _FacultyLeaderboardState extends State<FacultyLeaderboard> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     userController.getFacultyLeaderBoard();
   }
@@ -166,26 +165,29 @@ class _FacultyLeaderboardState extends State<FacultyLeaderboard> {
                                             ),
                                           ),
                           ),
+                          // Center the name inside the column
                           Expanded(
                             child: Padding(
                               padding:
                                   const EdgeInsets.symmetric(horizontal: 12),
                               child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
+                                crossAxisAlignment: CrossAxisAlignment.center, // Center alignment
                                 children: [
                                   Text(
                                     faculty.facultyName,
                                     style: const TextStyle(
-                                      fontWeight: FontWeight.w500,
+                                      fontWeight: FontWeight.w800,
                                       fontFamily: 'man-r',
                                     ),
+                                    textAlign: TextAlign.center, // Corrected to use textAlign directly on Text widget
                                   ),
                                   Text(
                                     faculty.department,
                                     style: TextStyle(
                                       color: const Color.fromARGB(255, 209, 203, 203),
-                                      fontSize: 12,
+                                      fontSize: 10,
                                     ),
+                                    textAlign: TextAlign.center, // Corrected to use textAlign directly on Text widget
                                   ),
                                 ],
                               ),

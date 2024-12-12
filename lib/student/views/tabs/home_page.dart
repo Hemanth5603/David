@@ -30,6 +30,7 @@ class _StudentHomePageState extends State<StudentHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Color.fromARGB(255, 246, 245, 242),
+      backgroundColor: Color.fromARGB(255, 246, 245, 242),
       body: SingleChildScrollView(
         physics: const BouncingScrollPhysics(),
         child: Column(
