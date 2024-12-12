@@ -35,7 +35,7 @@ class AttendanceController extends GetxController {
     var request = http.MultipartRequest('POST', Uri.parse(url));
     print(videoPath);
     request.files.add(await http.MultipartFile.fromPath('video', videoPath));
-    request.fields['branch'] = branch;
+    request.fields['branch'] = "CSE";
     //request.fields['section'] = "C";
 
     //request.files.add(http.MultipartFile.fromBytes('video', File(file.path).readAsBytesSync(),filename: file.path));
@@ -48,6 +48,9 @@ class AttendanceController extends GetxController {
       print("Upload Succesfully");
       var data = jsonDecode(response.body.toString());
       attendanceResponseModel = AttendanceResponseModel.fromJson(data);
+      for (int i = 0; i < attendanceResponseModel!.presents.length; i++) {
+        print(attendanceResponseModel!.presents[i].toString());
+      }
       print(
           "${data.toString()} ------------------------------------------------------------------------------------------------");
       Fluttertoast.showToast(

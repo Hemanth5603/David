@@ -1,92 +1,86 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
-import 'package:prototype/faculty/controllers/camera_controller.dart';
 import 'package:prototype/faculty/views/auth/faculty_face_login_camera.dart';
 import 'package:prototype/faculty/views/auth/login.dart';
 import 'package:prototype/student/views/auth/student_login.dart';
 
 class OnBoardingPage extends StatelessWidget {
-  final Camera camera = Get.put(Camera());
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor:
-          Color.fromARGB(255, 35, 37, 49), // Dark grayish background
+      backgroundColor: Colors.white,
       body: SafeArea(
         child: Center(
           child: Stack(
             children: [
-              // Background with gradient
+              // Background with gradient and a subtle blur
               Positioned.fill(
                 child: Container(
                   decoration: BoxDecoration(
                     gradient: LinearGradient(
                       colors: [
-                        Color.fromARGB(255, 35, 37, 49), // Dark grayish tone
-                        Color.fromARGB(255, 255, 153, 98), // Light orange
+                        Color(0xFFFFD4A3), // Warm Autumn
+                        Color(0xFFFFE5D0), // Soft Peach
                       ],
                       begin: Alignment.topLeft,
                       end: Alignment.bottomRight,
                     ),
                   ),
+                  child: BackdropFilter(
+                    filter: ImageFilter.blur(sigmaX: 3.0, sigmaY: 3.0),
+                    child: Container(
+                      color: Colors.black.withOpacity(0.2),
+                    ),
+                  ),
                 ),
               ),
-              // Main content with larger containers
+              // Main content: Login cards
               Center(
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    // Header Section
-                    const Padding(
-                      padding: const EdgeInsets.only(bottom: 32.0),
+                    // Header section
+                    Padding(
+                      padding: EdgeInsets.only(bottom: 40.0),
                       child: Text(
                         "Welcome, Please Login",
                         style: TextStyle(
                           fontFamily: 'man-b',
-                          fontSize: 28,
-                          color: Color(0xFF8C4F0A), // Autumn shade
-                          fontWeight: FontWeight.bold,
+                          fontSize: 32,
+                          fontWeight: FontWeight.w600,
+                          color: Color(0xFF8C4F0A),
                         ),
                       ),
                     ),
                     // Student Login Card
-                    GestureDetector(
-                      child: _buildLoginCard(
-                        title: "Student Login",
-                        description: "Access your student dashboard",
-                        icon: Icons.school,
-                        onTap: () {
-                          Get.to(StudentLogin());
-                        },
-                      ),
+                    _buildLoginCard(
+                      title: "Student Login",
+                      description: "Access your student dashboard",
+                      icon: Icons.school,
+                      onTap: () {
+                        Get.to(StudentLogin());
+                      },
                     ),
-                    const SizedBox(height: 20),
+                    const SizedBox(height: 24),
                     // Faculty Login Card
-                    GestureDetector(
-                      child: _buildLoginCard(
-                        title: "Faculty Login -  AI",
-                        description: "Manage your classes and lectures",
-                        icon: Icons.person,
-                        onTap: () {
-                          //Get.to(const FacultyLogin());
-                          Get.to(FacultyFaceLoginCamera());
-                        },
-                      ),
+                    _buildLoginCard(
+                      title: "AI Camera Login ✨",
+                      description: "Manage your classes and lectures",
+                      icon: Icons.person,
+                      onTap: () {
+                        Get.to(FacultyFaceLoginCamera());
+                      },
                     ),
-                    SizedBox(
-                      height: 20,
-                    ),
-                    GestureDetector(
-                      child: _buildLoginCard(
-                        title: "Faculty Login",
-                        description: "Manage your classes and lectures",
-                        icon: Icons.person,
-                        onTap: () {
-                          //Get.to(const FacultyLogin());
-                          Get.to(FacultyLogin());
-                        },
-                      ),
+                    const SizedBox(height: 24),
+                    _buildLoginCard(
+                      title: "Faculty Login",
+                      description: "Manage your classes and lectures",
+                      icon: Icons.person,
+                      onTap: () {
+                        Get.to(FacultyLogin());
+                      },
                     ),
                   ],
                 ),
@@ -98,7 +92,7 @@ class OnBoardingPage extends StatelessWidget {
     );
   }
 
-  // Card widget with larger containers and the new color scheme
+  // Card widget with subtle hover effect and gradient background
   Widget _buildLoginCard({
     required String title,
     required String description,
@@ -109,23 +103,30 @@ class OnBoardingPage extends StatelessWidget {
       onTap: onTap,
       child: AnimatedContainer(
         duration: Duration(milliseconds: 300),
-        margin: EdgeInsets.symmetric(horizontal: 32), // Increased margin
-        padding: EdgeInsets.all(24), // Increased padding
+        margin: EdgeInsets.symmetric(horizontal: 20),
+        padding: EdgeInsets.all(20),
         decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(24), // Larger border radius
+          gradient: LinearGradient(
+            colors: [
+              Color(0xFFFFD4A3),
+              Color(0xFFFFE5D0),
+            ],
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+          ),
+          borderRadius: BorderRadius.circular(16),
           boxShadow: [
             BoxShadow(
-              color: Colors.black.withOpacity(0.1),
-              offset: Offset(0, 20), // Increased shadow offset
-              blurRadius: 20, // Increased blur radius
-              spreadRadius: 10, // Increased spread radius
+              color: Colors.black.withOpacity(0.15),
+              offset: Offset(0, 10),
+              blurRadius: 20,
+              spreadRadius: 3,
             ),
           ],
         ),
         child: Row(
           children: [
-            // Left side: Text section with larger font and spacing
+            // Text section
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -134,49 +135,55 @@ class OnBoardingPage extends StatelessWidget {
                     title,
                     style: TextStyle(
                       fontFamily: 'man-b',
-                      fontSize: 32, // Larger font size for title
-                      fontWeight: FontWeight.w600, // Bold weight
-                      color: Color.fromARGB(255, 255, 153, 98), // Light orange
+                      fontSize: 24,
+                      fontWeight: FontWeight.w600,
+                      color: Color(0xFF8C4F0A),
                     ),
                   ),
-                  const SizedBox(height: 16),
+                  const SizedBox(height: 8),
                   Text(
                     description,
                     style: TextStyle(
                       fontFamily: 'man-l',
-                      fontSize: 20, // Larger font size for description
-                      color: Color.fromARGB(255, 189, 244, 118), // Soft green
+                      fontSize: 16,
+                      color: Color(0xFF6E4E2E),
                     ),
                   ),
                 ],
               ),
             ),
-            // Right side: Icon with rounded background and soft green color
+            // Icon with gradient background
             Container(
-              padding: EdgeInsets.all(24), // Increased padding
+              padding: EdgeInsets.all(16),
               decoration: BoxDecoration(
-                color:
-                    Color.fromARGB(255, 189, 244, 118), // Soft green background
-                borderRadius: BorderRadius.circular(16), // Rounded corners
+                gradient: LinearGradient(
+                  colors: [
+                    Color(0xFFFFD4A3),
+                    Color(0xFFFFE5D0),
+                  ],
+                  begin: Alignment.topLeft,
+                  end: Alignment.bottomRight,
+                ),
+                borderRadius: BorderRadius.circular(12),
                 boxShadow: [
                   BoxShadow(
                     color: Colors.black.withOpacity(0.2),
-                    offset: Offset(6, 6),
-                    blurRadius: 15,
-                    spreadRadius: 4,
+                    offset: Offset(4, 4),
+                    blurRadius: 10,
+                    spreadRadius: 3,
                   ),
                   BoxShadow(
-                    color: Colors.white.withOpacity(0.5),
-                    offset: Offset(-6, -6),
-                    blurRadius: 15,
-                    spreadRadius: 4,
+                    color: Colors.white.withOpacity(0.6),
+                    offset: Offset(-4, -4),
+                    blurRadius: 10,
+                    spreadRadius: 3,
                   ),
                 ],
               ),
               child: Icon(
                 icon,
-                size: 56, // Larger icon size
-                color: Color.fromARGB(255, 35, 37, 49), // Dark grayish color
+                size: 40,
+                color: Color(0xFF8C4F0A),
               ),
             ),
           ],

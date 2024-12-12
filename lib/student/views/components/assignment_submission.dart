@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:get/get.dart';
@@ -31,18 +32,25 @@ class _AssignmentSubmissionPageState extends State<AssignmentSubmissionPage> {
   }
 
   Future<void> _pickFile() async {
-    FilePickerResult? result = await FilePicker.platform.pickFiles(
-      type: FileType.custom,
-      allowedExtensions: ['pdf'], // Allow only PDF files
-    );
+    final result = await FilePicker.platform
+        .pickFiles(type: FileType.custom, allowedExtensions: ['pdf']);
     if (result != null) {
       setState(() {
-        _fileName = result.files.single.name; // Store the file name
+        _fileName = result.files.single.path;
       });
     }
   }
 
   void _submitAssignment() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    final success = await assignmentController.submitAssignment(
+        studentId: prefs.getString("id") ?? "20CSE1001",
+        studentName: prefs.getString("name") ?? "Hemanth",
+        branch: _sectionController.text,
+        subjectName: prefs.getString("subject") ?? "DSA",
+        assignmentTitle: "DSA",
+        pdfPath: _fileName!,
+        fileName: _fileName!);
     if (_sectionController.text.isEmpty ||
         _rollNumberController.text.isEmpty ||
         _fileName == null) {
@@ -50,16 +58,7 @@ class _AssignmentSubmissionPageState extends State<AssignmentSubmissionPage> {
         const SnackBar(
             content: Text("Please fill all fields and select a file")),
       );
-      SharedPreferences prefs = await SharedPreferences.getInstance();
 
-      // final success = await assignmentController.submitAssignment(
-      //   studentId: prefs.getString("id")!,
-      //   studentName: prefs.getString("name")!,
-      //   branch: prefs.getString("branch")!,
-      //   subjectName: prefs.getString("subject")!,
-      //   assignmentTitle: _titleController.text,
-      //   pdfPath: _fileName!,
-      // );
       return;
     }
 
@@ -238,21 +237,28 @@ class _AssignmentSubmissionPageState extends State<AssignmentSubmissionPage> {
               // Submit Button
               Center(
                 child: ElevatedButton(
-                  onPressed: _submitAssignment,
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color.fromARGB(255, 100, 151, 158),
-                    padding: const EdgeInsets.symmetric(
-                        vertical: 14, horizontal: 50),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(20),
+                    onPressed: _submitAssignment,
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: const Color.fromARGB(255, 100, 151, 158),
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 14, horizontal: 50),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(20),
+                      ),
                     ),
-                  ),
-                  child: const Text(
-                    "Submit Assignment",
-                    style: TextStyle(
-                        fontFamily: 'man-b', fontSize: 18, color: Colors.white),
-                  ),
-                ),
+                    child: Obx(
+                      () => assignmentController.isLoading.value
+                          ? const CircularProgressIndicator(
+                              color: Colors.white,
+                            )
+                          : Text(
+                              "Submit Assignment",
+                              style: TextStyle(
+                                  fontFamily: 'man-b',
+                                  fontSize: 18,
+                                  color: Colors.white),
+                            ),
+                    )),
               ),
               const SizedBox(height: 20),
             ],

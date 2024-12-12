@@ -1,6 +1,5 @@
 class API {
-  static const mlurl =
-      "https://96a3-2409-40d0-2c-b2ae-38e6-db65-9c1b-1353.ngrok-free.app";
+  static const mlurl = "https://7d73-103-177-203-130.ngrok-free.app";
   static const attendance = "/upload-video/";
   static const mlregisterface = "/register-face/";
   static const mlfindface = "/upload-image/";
@@ -16,4 +15,5 @@ class API {
   static const getStudentLeaderboard = "/students/rankings";
   static const takeFacultyAttendane = "/faculty/attendance";
   static const sendLeaveRequest = "/student/leave-request";
+  static const generateNotes = "/generate-notes/";
 }

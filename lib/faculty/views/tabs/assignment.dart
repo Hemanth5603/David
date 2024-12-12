@@ -134,7 +134,7 @@ class _AssignmentPageState extends State<AssignmentPage> {
             ),
             Container(
               width: MediaQuery.of(context).size.width,
-              height: 380,
+              height: 480,
               child: Obx(
                 () => assignmentController.isLoading.value
                     ? Center(child: CircularProgressIndicator())

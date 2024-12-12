@@ -1,9 +1,13 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:get/get.dart';
+import 'package:just_audio/just_audio.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:prototype/auth/on_boarding.dart';
 import 'package:vibration/vibration.dart';
 import 'package:prototype/faculty/views/auth/login.dart';
@@ -17,6 +21,7 @@ import 'package:prototype/student/views/home.dart';
 import 'package:prototype/student/views/tabs/home_page.dart';
 import 'package:prototype/firebase_options.dart';
 import 'package:prototype/student/views/tabs/leaderboard.dart';
+import 'package:flutter/services.dart' show rootBundle;
 
 // Initialize FlutterLocalNotificationsPlugin
 final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
@@ -106,6 +111,92 @@ void main() async {
   runApp(const MyApp());
 }
 
+class NotificationSoundPlayer {
+  static final AudioPlayer _audioPlayer = AudioPlayer();
+
+  // Verify and convert audio file if necessary
+  static Future<File?> _prepareAudioFile(String assetPath) async {
+    try {
+      // Get temporary directory
+      final tempDir = await getTemporaryDirectory();
+      final tempFile = File('${tempDir.path}/siren.wav');
+
+      // Check if file exists and can be read
+      if (await tempFile.exists()) {
+        return tempFile;
+      }
+
+      // If file doesn't exist, try to copy from assets
+      try {
+        // Load asset as bytes
+        final byteData = await rootBundle.load(assetPath);
+
+        // Write to temporary file
+        await tempFile.writeAsBytes(byteData.buffer
+            .asUint8List(byteData.offsetInBytes, byteData.lengthInBytes));
+
+        return tempFile;
+      } catch (e) {
+        print('Error preparing audio file: $e');
+        return null;
+      }
+    } catch (e) {
+      print('Unexpected error in audio file preparation: $e');
+      return null;
+    }
+  }
+
+  // Play sound for alert notifications
+  static Future<void> playAlertSound() async {
+    try {
+      // Ensure you have a compatible audio file (WAV is usually most reliable)
+      final audioFile = await _prepareAudioFile('assets/sounds/siren.wav');
+
+      if (audioFile == null) {
+        print('No valid audio file found');
+        return;
+      }
+
+      // Set audio source from file
+      await _audioPlayer.setAudioSource(
+        AudioSource.file(audioFile.path),
+        initialPosition: Duration.zero,
+      );
+
+      // Set volume and play
+      await _audioPlayer.setVolume(1.0);
+      await _audioPlayer.play();
+    } catch (e) {
+      print('Error playing alert sound: $e');
+    }
+  }
+
+  // Play sound for regular notifications
+  static Future<void> playRegularSound() async {
+    try {
+      // Ensure you have a compatible audio file (WAV is usually most reliable)
+      final audioFile = await _prepareAudioFile('assets/sounds/siren.wav');
+
+      if (audioFile == null) {
+        print('No valid audio file found');
+        return;
+      }
+
+      // Set audio source from file
+      await _audioPlayer.setAudioSource(
+        AudioSource.file(audioFile.path),
+        initialPosition: Duration.zero,
+      );
+
+      // Set volume and play
+      await _audioPlayer.setVolume(0.4);
+      await _audioPlayer.play();
+    } catch (e) {
+      print('Error playing regular notification sound: $e');
+    }
+  }
+}
+
 class MyApp extends StatefulWidget {
   const MyApp({super.key});
 
@@ -121,9 +212,8 @@ class _MyAppState extends State<MyApp> {
   }
 
   // Add this import
-
   void _setupForegroundNotificationHandling() {
-    FirebaseMessaging.onMessage.listen((RemoteMessage message) {
+    FirebaseMessaging.onMessage.listen((RemoteMessage message) async {
       RemoteNotification? notification = message.notification;
       AndroidNotification? android = message.notification?.android;
 
@@ -131,19 +221,17 @@ class _MyAppState extends State<MyApp> {
         // Check if it's an alert notification
         if (message.data['type'] == 'alert' ||
             message.data['topic'] == 'alert') {
-          // Trigger continuous vibration
-          Vibration.vibrate(
-              duration: 1000, amplitude: 128); // Vibrate for 1 second
+          // Play alert sound
+          await NotificationSoundPlayer.playAlertSound();
 
-          // Show the notification
           flutterLocalNotificationsPlugin.show(
             notification.hashCode,
             notification.title,
             notification.body,
             NotificationDetails(
               android: AndroidNotificationDetails(
-                'high_importance_channel',
-                'High Importance Notifications',
+                'alert_channel',
+                'Alert Notifications',
                 icon: android.smallIcon,
                 importance: Importance.max,
                 priority: Priority.high,
@@ -151,9 +239,10 @@ class _MyAppState extends State<MyApp> {
             ),
           );
         } else {
-          // Handle regular notifications
-          print("Alerted --------------/-/-/-/-///////////////////");
-          Vibration.vibrate(duration: 5000, amplitude: 128);
+          // Play regular notification sound
+          await NotificationSoundPlayer.playRegularSound();
+
+          // Show regular notification
           flutterLocalNotificationsPlugin.show(
             notification.hashCode,
             notification.title,
@@ -163,6 +252,7 @@ class _MyAppState extends State<MyApp> {
                 'high_importance_channel',
                 'High Importance Notifications',
                 icon: android.smallIcon,
+                importance: Importance.defaultImportance,
               ),
             ),
           );
@@ -203,7 +293,7 @@ class InitialRouter extends StatelessWidget {
       if (AuthService.to.userType.value == 'student') {
         return const StudentHome();
       } else if (AuthService.to.userType.value == 'faculty') {
-        return OnBoardingPage();
+        return FacultyHome();
       }
 
 //StudentHome()

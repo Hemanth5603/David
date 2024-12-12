@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:prototype/faculty/controllers/camera_controller.dart';
 import 'package:prototype/faculty/controllers/notification_controller.dart';
+import 'package:prototype/faculty/views/forms/create_notification.dart';
 import 'package:prototype/faculty/views/image_capture.dart';
 import 'package:prototype/faculty/views/auth/register_face.dart';
 import 'package:prototype/faculty/views/auth/register_face_form.dart';
@@ -113,7 +114,13 @@ class _FacultyHomePageState extends State<FacultyHomePage> {
                           child: Center(
                               child: GestureDetector(
                                   onTap: () {
-                                    Get.to(ResourceAllocationPage(),
+                                    // showModalBottomSheet(
+                                    //   context: context,
+                                    //   builder: (context) {
+                                    //     return CreateNotification();
+                                    //   },
+                                    // );
+                                    Get.to(CreateNotification(),
                                         transition: Transition.rightToLeft,
                                         duration: 200.milliseconds);
                                   },

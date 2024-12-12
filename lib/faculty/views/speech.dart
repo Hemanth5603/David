@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:prototype/faculty/controllers/speech_controller.dart';
 import 'package:prototype/faculty/controllers/user_controller.dart';
 import 'package:speech_to_text/speech_to_text.dart';
 import 'package:speech_to_text/speech_recognition_result.dart';
@@ -20,6 +21,7 @@ class _SpeechState extends State<Speech> {
   bool isListening = false;
   bool _shouldContinueListening = false;
   Timer? _restartTimer;
+  final SpeechController speechController = Get.put(SpeechController());
 
   Future<void> _initSpeech() async {
     try {
@@ -133,7 +135,9 @@ class _SpeechState extends State<Speech> {
       bottomNavigationBar: Padding(
         padding: const EdgeInsets.all(8.0),
         child: GestureDetector(
-          onTap: () {},
+          onTap: () async {
+            await speechController.convertSpeech(userController.userInput.text);
+          },
           child: Container(
             width: w,
             height: h * 0.07,
